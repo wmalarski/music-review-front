@@ -1,0 +1,16 @@
+mutation CreatePerformer(
+  $name: String!
+  $description: String
+  $albums: [AlbumInputType!]
+) {
+  createPerformer(
+    input: { name: $name, description: $description, albums: $albums }
+  ) {
+    performer {
+      id
+      name
+      description
+      created
+    }
+  }
+}

@@ -9,6 +9,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
+import Alert from '@material-ui/lab/Alert'
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -38,6 +39,7 @@ interface Credencials {
 
 interface SignInProps {
   onSignIn: (credencials: Credencials) => void
+  errorMessage: string | null
 }
 
 export default function SignIn(props: SignInProps) {
@@ -93,6 +95,9 @@ export default function SignIn(props: SignInProps) {
             }
             label="Remember me"
           />
+          {props.errorMessage ? (
+            <Alert severity="error">{props.errorMessage}</Alert>
+          ) : null}
           <Button
             type="submit"
             fullWidth

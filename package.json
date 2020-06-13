@@ -27,8 +27,10 @@
   },
   "dependencies": {
     "@apollo/client": "^3.0.0-rc.4",
+    "@apollo/link-context": "^2.0.0-beta.3",
     "@material-ui/core": "latest",
     "@material-ui/icons": "^4.9.1",
+    "@material-ui/lab": "^4.0.0-alpha.56",
     "@material-ui/styles": "latest",
     "acorn": "^6.4.1",
     "deepmerge": "^4.2.2",

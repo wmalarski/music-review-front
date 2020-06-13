@@ -38,6 +38,14 @@ const Header: FC<HeaderProps> = ({ siteTitle = '', onToggleTheme }) => {
         <Button color="inherit" onClick={onToggleTheme}>
           Toggle Theme
         </Button>
+        <Button
+          component={GatsbyLink}
+          to="/sign-in-page/"
+          variant="contained"
+          color="primary"
+        >
+          Go to page 2
+        </Button>
       </Toolbar>
     </AppBar>
   )

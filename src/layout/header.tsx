@@ -44,7 +44,7 @@ const Header: FC<HeaderProps> = ({ siteTitle = '', onToggleTheme }) => {
           variant="contained"
           color="primary"
         >
-          Go to page 2
+          Login
         </Button>
       </Toolbar>
     </AppBar>

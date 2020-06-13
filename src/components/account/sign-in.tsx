@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 interface Credencials {
-  email: string
+  username: string
   password: string
   remember: boolean
 }
@@ -59,7 +59,7 @@ export default function SignIn(props: SignInProps) {
           onSubmit={(e: any) => {
             e.preventDefault()
             props.onSignIn({
-              email: e.target.email.value,
+              username: e.target.username.value,
               remember: e.target.remember.value,
               password: e.target.password.value,
             })
@@ -70,10 +70,10 @@ export default function SignIn(props: SignInProps) {
             margin="normal"
             required
             fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
+            id="username"
+            label="Username"
+            name="username"
+            autoComplete="username"
             autoFocus
           />
           <TextField

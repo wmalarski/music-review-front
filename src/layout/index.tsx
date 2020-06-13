@@ -41,7 +41,7 @@ const Layout: FC<{ container?: boolean }> = ({
         <Header siteTitle={title} onToggleTheme={toggleTheme} theme={theme} />
         {container ? (
           <Container component="main" maxWidth="md" className={classes.main}>
-            {children}
+            <>{children}</>
           </Container>
         ) : (
           <main>{children}</main>

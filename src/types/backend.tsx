@@ -550,6 +550,24 @@ export type TokenAuthMutation = (
   )> }
 );
 
+export type CreatePerformerMutationVariables = Exact<{
+  name: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
+  albums?: Maybe<Array<AlbumInputType>>;
+}>;
+
+
+export type CreatePerformerMutation = (
+  { __typename?: 'Mutation' }
+  & { createPerformer?: Maybe<(
+    { __typename?: 'CreatePerformerPayload' }
+    & { performer?: Maybe<(
+      { __typename?: 'PerformerType' }
+      & Pick<PerformerType, 'id' | 'name' | 'description' | 'created'>
+    )> }
+  )> }
+);
+
 
 export const TokenAuthDocument = gql`
     mutation TokenAuth($username: String!, $password: String!) {
@@ -585,3 +603,42 @@ export function useTokenAuthMutation(baseOptions?: ApolloReactHooks.MutationHook
 export type TokenAuthMutationHookResult = ReturnType<typeof useTokenAuthMutation>;
 export type TokenAuthMutationResult = ApolloReactCommon.MutationResult<TokenAuthMutation>;
 export type TokenAuthMutationOptions = ApolloReactCommon.BaseMutationOptions<TokenAuthMutation, TokenAuthMutationVariables>;
+export const CreatePerformerDocument = gql`
+    mutation CreatePerformer($name: String!, $description: String, $albums: [AlbumInputType!]) {
+  createPerformer(input: {name: $name, description: $description, albums: $albums}) {
+    performer {
+      id
+      name
+      description
+      created
+    }
+  }
+}
+    `;
+export type CreatePerformerMutationFn = ApolloReactCommon.MutationFunction<CreatePerformerMutation, CreatePerformerMutationVariables>;
+
+/**
+ * __useCreatePerformerMutation__
+ *
+ * To run a mutation, you first call `useCreatePerformerMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreatePerformerMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createPerformerMutation, { data, loading, error }] = useCreatePerformerMutation({
+ *   variables: {
+ *      name: // value for 'name'
+ *      description: // value for 'description'
+ *      albums: // value for 'albums'
+ *   },
+ * });
+ */
+export function useCreatePerformerMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<CreatePerformerMutation, CreatePerformerMutationVariables>) {
+        return ApolloReactHooks.useMutation<CreatePerformerMutation, CreatePerformerMutationVariables>(CreatePerformerDocument, baseOptions);
+      }
+export type CreatePerformerMutationHookResult = ReturnType<typeof useCreatePerformerMutation>;
+export type CreatePerformerMutationResult = ApolloReactCommon.MutationResult<CreatePerformerMutation>;
+export type CreatePerformerMutationOptions = ApolloReactCommon.BaseMutationOptions<CreatePerformerMutation, CreatePerformerMutationVariables>;

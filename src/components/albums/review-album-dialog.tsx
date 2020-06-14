@@ -7,8 +7,6 @@ import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import Rating from '@material-ui/lab/Rating'
 import { TextField, Box } from '@material-ui/core'
-import { ApolloError } from '@apollo/client'
-import Alert from '@material-ui/lab/Alert'
 
 interface ReviewAlbumDialogResult {
   review: string
@@ -20,9 +18,9 @@ interface ReviewAlbumDialogProps {
   title: string
   year: number
   open: boolean
-  error: ApolloError | undefined
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
   onSubmit: (result: ReviewAlbumDialogResult) => void
+  children: JSX.Element | JSX.Element[]
 }
 
 export default function ReviewAlbumDialog(props: ReviewAlbumDialogProps) {
@@ -67,9 +65,7 @@ export default function ReviewAlbumDialog(props: ReviewAlbumDialogProps) {
           }}
         />
         {rating !== null && <Box ml={2}>{rating}</Box>}
-        {props.error ? (
-          <Alert severity="error">{props.error.name ?? ''}</Alert>
-        ) : null}
+        {props.children}
       </DialogContent>
       <DialogActions>
         <Button color="inherit" onClick={handleClose}>

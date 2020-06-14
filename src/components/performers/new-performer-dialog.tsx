@@ -14,8 +14,6 @@ import {
   List,
   ListItem,
 } from '@material-ui/core'
-import { ApolloError } from '@apollo/client'
-import Alert from '@material-ui/lab/Alert'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -33,8 +31,8 @@ interface NewPerformerDialogResult {
 }
 
 interface NewPerformerDialogProps {
+  children: JSX.Element | JSX.Element[]
   open: boolean
-  error: ApolloError | undefined
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
   onSubmit: (result: NewPerformerDialogResult) => void
 }
@@ -120,9 +118,7 @@ export default function NewPerformerDialog(props: NewPerformerDialogProps) {
             </ListItem>
           ))}
         </List>
-        {props.error ? (
-          <Alert severity="error">{props.error.name ?? ''}</Alert>
-        ) : null}
+        {props.children}
       </DialogContent>
       <DialogActions>
         <Button color="inherit" onClick={handleClose}>

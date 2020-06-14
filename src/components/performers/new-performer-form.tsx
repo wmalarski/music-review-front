@@ -3,6 +3,7 @@ import Button from '@material-ui/core/Button'
 import { useCreatePerformerMutation } from '../../types/backend'
 import NewPerformerDialog from './new-performer-dialog'
 import FormProgress from '../dialogs/form-progress'
+import Alert from '@material-ui/lab/Alert/Alert'
 
 export default function NewPerformerForm() {
   const [open, setOpen] = useState(false)
@@ -13,12 +14,11 @@ export default function NewPerformerForm() {
   ] = useCreatePerformerMutation()
 
   return (
-    <div>
+    <>
       <Button color="inherit" onClick={() => setOpen(true)}>
         Add Performer
       </Button>
       <NewPerformerDialog
-        error={error}
         open={open}
         setOpen={setOpen}
         onSubmit={result => {
@@ -33,14 +33,18 @@ export default function NewPerformerForm() {
             setSnackbarOpen(true)
           })
         }}
-      />
-      <FormProgress
-        successMessage="Performer succesfuly added"
-        isLoading={loading}
-        error={error ?? null}
-        isSnackBarVisible={snackbarOpen}
-        setIsScankBarVisible={setSnackbarOpen}
-      />
-    </div>
+      >
+        <div>
+          {error ? <Alert severity="error">{error.name ?? ''}</Alert> : null}
+          <FormProgress
+            successMessage="Performer succesfuly added"
+            isLoading={loading}
+            error={error ?? null}
+            isSnackBarVisible={snackbarOpen}
+            setIsScankBarVisible={setSnackbarOpen}
+          />
+        </div>
+      </NewPerformerDialog>
+    </>
   )
 }

@@ -10,7 +10,6 @@ import {
   IconButton,
 } from '@material-ui/core'
 import InfoIcon from '@material-ui/icons/Info'
-import RateReviewIcon from '@material-ui/icons/RateReview'
 import ReviewAlbumForm from '../albums/review-album-form'
 
 const useStyles = makeStyles((theme: Theme) =>

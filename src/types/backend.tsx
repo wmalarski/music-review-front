@@ -568,6 +568,39 @@ export type CreatePerformerMutation = (
   )> }
 );
 
+export type ReadPerformersQueryVariables = Exact<{
+  after?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+}>;
+
+
+export type ReadPerformersQuery = (
+  { __typename?: 'Query' }
+  & { performerSet?: Maybe<(
+    { __typename?: 'PerformerTypeConnection' }
+    & { pageInfo: (
+      { __typename?: 'PageInfo' }
+      & Pick<PageInfo, 'endCursor' | 'hasNextPage'>
+    ), edges: Array<Maybe<(
+      { __typename?: 'PerformerTypeEdge' }
+      & { node?: Maybe<(
+        { __typename?: 'PerformerType' }
+        & Pick<PerformerType, 'id' | 'name' | 'logoUrl' | 'description' | 'created'>
+        & { albumSet: (
+          { __typename?: 'AlbumTypeConnection' }
+          & { edges: Array<Maybe<(
+            { __typename?: 'AlbumTypeEdge' }
+            & { node?: Maybe<(
+              { __typename?: 'AlbumType' }
+              & Pick<AlbumType, 'id' | 'title' | 'year' | 'coverUrl' | 'description' | 'created'>
+            )> }
+          )>> }
+        ) }
+      )> }
+    )>> }
+  )> }
+);
+
 
 export const TokenAuthDocument = gql`
     mutation TokenAuth($username: String!, $password: String!) {
@@ -642,3 +675,61 @@ export function useCreatePerformerMutation(baseOptions?: ApolloReactHooks.Mutati
 export type CreatePerformerMutationHookResult = ReturnType<typeof useCreatePerformerMutation>;
 export type CreatePerformerMutationResult = ApolloReactCommon.MutationResult<CreatePerformerMutation>;
 export type CreatePerformerMutationOptions = ApolloReactCommon.BaseMutationOptions<CreatePerformerMutation, CreatePerformerMutationVariables>;
+export const ReadPerformersDocument = gql`
+    query ReadPerformers($after: String, $first: Int) {
+  performerSet(after: $after, first: $first) {
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+    edges {
+      node {
+        id
+        name
+        logoUrl
+        description
+        created
+        albumSet {
+          edges {
+            node {
+              id
+              title
+              year
+              coverUrl
+              description
+              created
+            }
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useReadPerformersQuery__
+ *
+ * To run a query within a React component, call `useReadPerformersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useReadPerformersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useReadPerformersQuery({
+ *   variables: {
+ *      after: // value for 'after'
+ *      first: // value for 'first'
+ *   },
+ * });
+ */
+export function useReadPerformersQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<ReadPerformersQuery, ReadPerformersQueryVariables>) {
+        return ApolloReactHooks.useQuery<ReadPerformersQuery, ReadPerformersQueryVariables>(ReadPerformersDocument, baseOptions);
+      }
+export function useReadPerformersLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ReadPerformersQuery, ReadPerformersQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<ReadPerformersQuery, ReadPerformersQueryVariables>(ReadPerformersDocument, baseOptions);
+        }
+export type ReadPerformersQueryHookResult = ReturnType<typeof useReadPerformersQuery>;
+export type ReadPerformersLazyQueryHookResult = ReturnType<typeof useReadPerformersLazyQuery>;
+export type ReadPerformersQueryResult = ApolloReactCommon.QueryResult<ReadPerformersQuery, ReadPerformersQueryVariables>;

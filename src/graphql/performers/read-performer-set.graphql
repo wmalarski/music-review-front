@@ -1,0 +1,29 @@
+query ReadPerformers($after: String, $first: Int) {
+  performerSet(after: $after, first: $first) {
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+    edges {
+      node {
+        id
+        name
+        logoUrl
+        description
+        created
+        albumSet {
+          edges {
+            node {
+              id
+              title
+              year
+              coverUrl
+              description
+              created
+            }
+          }
+        }
+      }
+    }
+  }
+}

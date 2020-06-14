@@ -10,8 +10,6 @@ import {
   makeStyles,
   Theme,
   createStyles,
-  Backdrop,
-  CircularProgress,
   TextField,
   List,
   ListItem,
@@ -26,10 +24,6 @@ const useStyles = makeStyles((theme: Theme) =>
       maxWidth: 360,
       backgroundColor: theme.palette.background.paper,
     },
-    backdrop: {
-      zIndex: theme.zIndex.drawer + 1,
-      color: '#fff',
-    },
   }),
 )
 
@@ -39,7 +33,6 @@ interface NewPerformerDialogResult {
 }
 
 interface NewPerformerDialogProps {
-  loading: boolean
   open: boolean
   error: ApolloError | undefined
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
@@ -62,9 +55,6 @@ export default function NewPerformerDialog(props: NewPerformerDialogProps) {
       onClose={handleClose}
       aria-labelledby="form-dialog-add-performer"
     >
-      <Backdrop className={classes.backdrop} open={props.loading}>
-        <CircularProgress color="inherit" />
-      </Backdrop>
       <DialogTitle id="form-dialog-add-performer">Add Performer</DialogTitle>
       <DialogContent>
         <DialogContentText>Add Performer to database.</DialogContentText>

@@ -1,0 +1,22 @@
+query ReadRandomAlbums($after: String, $first: Int) {
+  randomAlbumSet(after: $after, first: $first) {
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    edges {
+      node {
+        id
+        performer {
+          id
+          name
+        }
+        title
+        coverUrl
+        description
+        created
+        year
+      }
+    }
+  }
+}

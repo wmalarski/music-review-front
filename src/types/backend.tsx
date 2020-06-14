@@ -550,6 +550,33 @@ export type TokenAuthMutation = (
   )> }
 );
 
+export type ReadRandomAlbumsQueryVariables = Exact<{
+  after?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+}>;
+
+
+export type ReadRandomAlbumsQuery = (
+  { __typename?: 'Query' }
+  & { randomAlbumSet?: Maybe<(
+    { __typename?: 'AlbumTypeConnection' }
+    & { pageInfo: (
+      { __typename?: 'PageInfo' }
+      & Pick<PageInfo, 'hasNextPage' | 'endCursor'>
+    ), edges: Array<Maybe<(
+      { __typename?: 'AlbumTypeEdge' }
+      & { node?: Maybe<(
+        { __typename?: 'AlbumType' }
+        & Pick<AlbumType, 'id' | 'title' | 'coverUrl' | 'description' | 'created' | 'year'>
+        & { performer: (
+          { __typename?: 'PerformerType' }
+          & Pick<PerformerType, 'id' | 'name'>
+        ) }
+      )> }
+    )>> }
+  )> }
+);
+
 export type CreatePerformerMutationVariables = Exact<{
   name: Scalars['String'];
   description?: Maybe<Scalars['String']>;
@@ -601,6 +628,24 @@ export type ReadPerformersQuery = (
   )> }
 );
 
+export type ReviewAlbumMutationVariables = Exact<{
+  album: Scalars['ID'];
+  review: Scalars['String'];
+  rating: Scalars['Float'];
+}>;
+
+
+export type ReviewAlbumMutation = (
+  { __typename?: 'Mutation' }
+  & { createReview?: Maybe<(
+    { __typename?: 'CreateReviewPayload' }
+    & { review?: Maybe<(
+      { __typename?: 'ReviewType' }
+      & Pick<ReviewType, 'id'>
+    )> }
+  )> }
+);
+
 
 export const TokenAuthDocument = gql`
     mutation TokenAuth($username: String!, $password: String!) {
@@ -636,6 +681,57 @@ export function useTokenAuthMutation(baseOptions?: ApolloReactHooks.MutationHook
 export type TokenAuthMutationHookResult = ReturnType<typeof useTokenAuthMutation>;
 export type TokenAuthMutationResult = ApolloReactCommon.MutationResult<TokenAuthMutation>;
 export type TokenAuthMutationOptions = ApolloReactCommon.BaseMutationOptions<TokenAuthMutation, TokenAuthMutationVariables>;
+export const ReadRandomAlbumsDocument = gql`
+    query ReadRandomAlbums($after: String, $first: Int) {
+  randomAlbumSet(after: $after, first: $first) {
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    edges {
+      node {
+        id
+        performer {
+          id
+          name
+        }
+        title
+        coverUrl
+        description
+        created
+        year
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useReadRandomAlbumsQuery__
+ *
+ * To run a query within a React component, call `useReadRandomAlbumsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useReadRandomAlbumsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useReadRandomAlbumsQuery({
+ *   variables: {
+ *      after: // value for 'after'
+ *      first: // value for 'first'
+ *   },
+ * });
+ */
+export function useReadRandomAlbumsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<ReadRandomAlbumsQuery, ReadRandomAlbumsQueryVariables>) {
+        return ApolloReactHooks.useQuery<ReadRandomAlbumsQuery, ReadRandomAlbumsQueryVariables>(ReadRandomAlbumsDocument, baseOptions);
+      }
+export function useReadRandomAlbumsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ReadRandomAlbumsQuery, ReadRandomAlbumsQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<ReadRandomAlbumsQuery, ReadRandomAlbumsQueryVariables>(ReadRandomAlbumsDocument, baseOptions);
+        }
+export type ReadRandomAlbumsQueryHookResult = ReturnType<typeof useReadRandomAlbumsQuery>;
+export type ReadRandomAlbumsLazyQueryHookResult = ReturnType<typeof useReadRandomAlbumsLazyQuery>;
+export type ReadRandomAlbumsQueryResult = ApolloReactCommon.QueryResult<ReadRandomAlbumsQuery, ReadRandomAlbumsQueryVariables>;
 export const CreatePerformerDocument = gql`
     mutation CreatePerformer($name: String!, $description: String, $albums: [AlbumInputType!]) {
   createPerformer(input: {name: $name, description: $description, albums: $albums}) {
@@ -733,3 +829,39 @@ export function useReadPerformersLazyQuery(baseOptions?: ApolloReactHooks.LazyQu
 export type ReadPerformersQueryHookResult = ReturnType<typeof useReadPerformersQuery>;
 export type ReadPerformersLazyQueryHookResult = ReturnType<typeof useReadPerformersLazyQuery>;
 export type ReadPerformersQueryResult = ApolloReactCommon.QueryResult<ReadPerformersQuery, ReadPerformersQueryVariables>;
+export const ReviewAlbumDocument = gql`
+    mutation ReviewAlbum($album: ID!, $review: String!, $rating: Float!) {
+  createReview(input: {album: $album, review: $review, rating: $rating}) {
+    review {
+      id
+    }
+  }
+}
+    `;
+export type ReviewAlbumMutationFn = ApolloReactCommon.MutationFunction<ReviewAlbumMutation, ReviewAlbumMutationVariables>;
+
+/**
+ * __useReviewAlbumMutation__
+ *
+ * To run a mutation, you first call `useReviewAlbumMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useReviewAlbumMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [reviewAlbumMutation, { data, loading, error }] = useReviewAlbumMutation({
+ *   variables: {
+ *      album: // value for 'album'
+ *      review: // value for 'review'
+ *      rating: // value for 'rating'
+ *   },
+ * });
+ */
+export function useReviewAlbumMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<ReviewAlbumMutation, ReviewAlbumMutationVariables>) {
+        return ApolloReactHooks.useMutation<ReviewAlbumMutation, ReviewAlbumMutationVariables>(ReviewAlbumDocument, baseOptions);
+      }
+export type ReviewAlbumMutationHookResult = ReturnType<typeof useReviewAlbumMutation>;
+export type ReviewAlbumMutationResult = ApolloReactCommon.MutationResult<ReviewAlbumMutation>;
+export type ReviewAlbumMutationOptions = ApolloReactCommon.BaseMutationOptions<ReviewAlbumMutation, ReviewAlbumMutationVariables>;

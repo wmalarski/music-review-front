@@ -1,0 +1,7 @@
+mutation ReviewAlbum($album: ID!, $review: String!, $rating: Float!) {
+  createReview(input: { album: $album, review: $review, rating: $rating }) {
+    review {
+      id
+    }
+  }
+}

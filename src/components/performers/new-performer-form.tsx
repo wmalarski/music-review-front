@@ -1,12 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Button from '@material-ui/core/Button'
 import { useCreatePerformerMutation } from '../../types/backend'
-import NewPerformerDialog from '../dialogs/new-performer-dialog'
-import FormProgress from './form-progress'
+import NewPerformerDialog from './new-performer-dialog'
+import FormProgress from '../dialogs/form-progress'
 
 export default function NewPerformerForm() {
-  const [open, setOpen] = React.useState(false)
-  const [snackbarOpen, setSnackbarOpen] = React.useState(false)
+  const [open, setOpen] = useState(false)
+  const [snackbarOpen, setSnackbarOpen] = useState(false)
   const [
     createPerformerMutation,
     { loading, error },
@@ -35,6 +35,7 @@ export default function NewPerformerForm() {
         }}
       />
       <FormProgress
+        successMessage="Performer succesfuly added"
         isLoading={loading}
         error={error ?? null}
         isSnackBarVisible={snackbarOpen}

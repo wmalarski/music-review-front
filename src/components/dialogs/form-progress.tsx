@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 interface FormProgressProps {
+  successMessage: string
   isSnackBarVisible: boolean
   isLoading: boolean
   error: ApolloError | null
@@ -43,7 +44,7 @@ export default function FormProgress(props: FormProgressProps) {
           onClose={() => props.setIsScankBarVisible(false)}
           severity="success"
         >
-          Performer succesfuly added
+          {props.successMessage}
         </Alert>
       </Snackbar>
     </div>

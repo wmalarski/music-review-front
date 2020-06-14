@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/styles'
 import Layout from '../layout'
 import SEO from '../components/seo'
 import Hero from '../components/hero'
+import RandomAlbumsGrid from '../components/albums/random-albums-grid'
 
 const useStyles = makeStyles((theme: Theme) => ({
   heroButtons: {
@@ -15,6 +16,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const IndexPage: FC = () => {
   const classes = useStyles()
+
   return (
     <Layout>
       <SEO title="Home" />
@@ -38,6 +40,7 @@ const IndexPage: FC = () => {
           </Grid>
         </div>
       </Hero>
+      <RandomAlbumsGrid />
     </Layout>
   )
 }

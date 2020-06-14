@@ -1,0 +1,30 @@
+query AlbumDetails($album: ID!) {
+  album(id: $album) {
+    id
+    performer {
+      id
+      name
+      description
+      created
+    }
+    title
+    year
+    coverUrl
+    description
+    created
+    reviewSet {
+      edges {
+        node {
+          id
+          user {
+            id
+            username
+          }
+          review
+          rating
+          created
+        }
+      }
+    }
+  }
+}

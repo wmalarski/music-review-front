@@ -550,6 +550,36 @@ export type TokenAuthMutation = (
   )> }
 );
 
+export type AlbumDetailsQueryVariables = Exact<{
+  album: Scalars['ID'];
+}>;
+
+
+export type AlbumDetailsQuery = (
+  { __typename?: 'Query' }
+  & { album?: Maybe<(
+    { __typename?: 'AlbumType' }
+    & Pick<AlbumType, 'id' | 'title' | 'year' | 'coverUrl' | 'description' | 'created'>
+    & { performer: (
+      { __typename?: 'PerformerType' }
+      & Pick<PerformerType, 'id' | 'name' | 'description' | 'created'>
+    ), reviewSet: (
+      { __typename?: 'ReviewTypeConnection' }
+      & { edges: Array<Maybe<(
+        { __typename?: 'ReviewTypeEdge' }
+        & { node?: Maybe<(
+          { __typename?: 'ReviewType' }
+          & Pick<ReviewType, 'id' | 'review' | 'rating' | 'created'>
+          & { user: (
+            { __typename?: 'UserType' }
+            & Pick<UserType, 'id' | 'username'>
+          ) }
+        )> }
+      )>> }
+    ) }
+  )> }
+);
+
 export type ReadRandomAlbumsQueryVariables = Exact<{
   after?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
@@ -681,6 +711,64 @@ export function useTokenAuthMutation(baseOptions?: ApolloReactHooks.MutationHook
 export type TokenAuthMutationHookResult = ReturnType<typeof useTokenAuthMutation>;
 export type TokenAuthMutationResult = ApolloReactCommon.MutationResult<TokenAuthMutation>;
 export type TokenAuthMutationOptions = ApolloReactCommon.BaseMutationOptions<TokenAuthMutation, TokenAuthMutationVariables>;
+export const AlbumDetailsDocument = gql`
+    query AlbumDetails($album: ID!) {
+  album(id: $album) {
+    id
+    performer {
+      id
+      name
+      description
+      created
+    }
+    title
+    year
+    coverUrl
+    description
+    created
+    reviewSet {
+      edges {
+        node {
+          id
+          user {
+            id
+            username
+          }
+          review
+          rating
+          created
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useAlbumDetailsQuery__
+ *
+ * To run a query within a React component, call `useAlbumDetailsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAlbumDetailsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAlbumDetailsQuery({
+ *   variables: {
+ *      album: // value for 'album'
+ *   },
+ * });
+ */
+export function useAlbumDetailsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<AlbumDetailsQuery, AlbumDetailsQueryVariables>) {
+        return ApolloReactHooks.useQuery<AlbumDetailsQuery, AlbumDetailsQueryVariables>(AlbumDetailsDocument, baseOptions);
+      }
+export function useAlbumDetailsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<AlbumDetailsQuery, AlbumDetailsQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<AlbumDetailsQuery, AlbumDetailsQueryVariables>(AlbumDetailsDocument, baseOptions);
+        }
+export type AlbumDetailsQueryHookResult = ReturnType<typeof useAlbumDetailsQuery>;
+export type AlbumDetailsLazyQueryHookResult = ReturnType<typeof useAlbumDetailsLazyQuery>;
+export type AlbumDetailsQueryResult = ApolloReactCommon.QueryResult<AlbumDetailsQuery, AlbumDetailsQueryVariables>;
 export const ReadRandomAlbumsDocument = gql`
     query ReadRandomAlbums($after: String, $first: Int) {
   randomAlbumSet(after: $after, first: $first) {

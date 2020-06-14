@@ -7,10 +7,9 @@ import {
   GridListTile,
   ListSubheader,
   GridListTileBar,
-  IconButton,
 } from '@material-ui/core'
-import InfoIcon from '@material-ui/icons/Info'
 import ReviewAlbumForm from '../albums/review-album-form'
+import AlbumDetails from '../albums/album-details'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -25,7 +24,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 )
 
-interface AlbumTileData {
+export interface AlbumTileData {
   id: string
   title: string
   year: number
@@ -75,9 +74,7 @@ export default function AlbumGrid(props: AlbumGridProps) {
                   name={album.performer.name}
                   year={album.year}
                 />
-                <IconButton aria-label={`info about ${album.title}`}>
-                  <InfoIcon />
-                </IconButton>
+                <AlbumDetails album={album} />
               </p>
             }
           />

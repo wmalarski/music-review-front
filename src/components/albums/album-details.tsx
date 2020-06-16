@@ -9,7 +9,7 @@ import {
   Button,
 } from '@material-ui/core'
 import InfoIcon from '@material-ui/icons/Info'
-import { AlbumTileData } from '../common/album-grid'
+import { AlbumTileData } from './album-grid'
 import AlbumCard from './album-card'
 
 interface AlbumDetailsProps {

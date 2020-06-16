@@ -2,7 +2,7 @@ import React from 'react'
 import { useReadRandomAlbumsQuery } from '../../types/backend'
 import { createStyles, makeStyles, Theme } from '@material-ui/core'
 import { notEmpty } from '../../libs/utils'
-import AlbumGrid from '../common/album-grid'
+import AlbumGrid from './album-grid'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

@@ -30,7 +30,7 @@ const IndexPage: FC = () => {
             <Grid item>
               <Button
                 component={GatsbyLink}
-                to="/page-2/"
+                to="/performers/"
                 variant="contained"
                 color="primary"
               >

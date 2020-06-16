@@ -8,8 +8,8 @@ import {
   ListSubheader,
   GridListTileBar,
 } from '@material-ui/core'
-import ReviewAlbumForm from '../albums/review-album-form'
-import AlbumDetails from '../albums/album-details'
+import ReviewAlbumForm from './review-album-form'
+import AlbumDetails from './album-details'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

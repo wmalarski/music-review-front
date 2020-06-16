@@ -9,7 +9,7 @@ import {
   Theme,
   createStyles,
 } from '@material-ui/core'
-import { AlbumTileData } from '../common/album-grid'
+import { AlbumTileData } from './album-grid'
 
 interface AlbumCardProps {
   album: AlbumTileData
@@ -42,6 +42,10 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function AlbumCard(props: AlbumCardProps) {
   const classes = useStyles()
+
+  //   <Link component={GatsbyLink} to="/">
+  //   Go back to the homepage
+  // </Link>
 
   return (
     <Card className={classes.root}>

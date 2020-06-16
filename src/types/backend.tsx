@@ -650,6 +650,10 @@ export type ReadPerformersQuery = (
             & { node?: Maybe<(
               { __typename?: 'AlbumType' }
               & Pick<AlbumType, 'id' | 'title' | 'year' | 'coverUrl' | 'description' | 'created'>
+              & { performer: (
+                { __typename?: 'PerformerType' }
+                & Pick<PerformerType, 'name'>
+              ) }
             )> }
           )>> }
         ) }
@@ -882,6 +886,9 @@ export const ReadPerformersDocument = gql`
               coverUrl
               description
               created
+              performer {
+                name
+              }
             }
           }
         }

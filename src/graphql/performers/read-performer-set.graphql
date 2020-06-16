@@ -20,6 +20,9 @@ query ReadPerformers($after: String, $first: Int) {
               coverUrl
               description
               created
+              performer {
+                name
+              }
             }
           }
         }

@@ -1,8 +1,9 @@
 import React from 'react'
 import { useReadRandomAlbumsQuery } from '../../types/backend'
 import { createStyles, makeStyles, Theme, Container } from '@material-ui/core'
-import { notEmpty } from '../../libs/utils'
-import AlbumGrid from './album-grid'
+import RandomAlbumsFeed from './random-albums-feed'
+import ScrollGridContainer from '../infinite-scroll/scroll-grid-container'
+import AlbumListItem from './album-list-item'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -33,13 +34,19 @@ export default function RandomAlbumsGrid() {
 
   return (
     <Container className={classes.root}>
-      <AlbumGrid
-        data={data.randomAlbumSet.edges
-          .map(edge => edge?.node)
-          .filter(notEmpty)}
-        columns={5}
-        header="Random Albums"
-      />
+      <RandomAlbumsFeed first={20}>
+        {({ albums, loading }) => (
+          <ScrollGridContainer
+            items={albums}
+            loading={loading}
+            renderItem={item => <AlbumListItem album={item} />}
+            maxWidth="lg"
+            cellHeight={180}
+            cols={5}
+            direction="vertical"
+          />
+        )}
+      </RandomAlbumsFeed>
     </Container>
   )
 }

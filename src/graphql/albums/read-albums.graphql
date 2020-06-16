@@ -1,0 +1,22 @@
+query ReadAlbums($after: String, $first: Int, $title: String) {
+  albumSet(after: $after, first: $first, title: $title) {
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    edges {
+      node {
+        id
+        performer {
+          id
+          name
+        }
+        title
+        coverUrl
+        description
+        created
+        year
+      }
+    }
+  }
+}

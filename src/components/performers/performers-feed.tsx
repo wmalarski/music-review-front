@@ -1,8 +1,8 @@
 import React from 'react'
 import { useReadPerformersQuery } from '../../types/backend'
 import { notEmpty } from '../../libs/utils'
-import InfiniteScrollWrapper from '../common/infinite-scroll-wrapper'
-import { AlbumTileData } from '../albums/album-grid'
+import InfiniteScrollWrapper from '../infinite-scroll/infinite-scroll-wrapper'
+import { AlbumTileData } from '../albums/albums-feed'
 
 export interface Performer {
   id: string

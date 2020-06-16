@@ -1,9 +1,15 @@
 import React from 'react'
-import { Container, Typography, List } from '@material-ui/core'
+import {
+  Container,
+  Typography,
+  List,
+  ListItem,
+  Divider,
+} from '@material-ui/core'
 
 interface ScrollListProps<T> {
   items: T[]
-  renderItem: (item: T, index: number) => JSX.Element
+  renderItem: (item: T) => JSX.Element
   loading: boolean
   maxWidth: 'lg'
 }
@@ -15,7 +21,12 @@ export default function ScrollListContainer<T>(props: ScrollListProps<T>) {
         <Typography variant="h6">Nothing Found</Typography>
       ) : (
         <List>
-          {props.items.map((item, index) => props.renderItem(item, index))}
+          {props.items.map((item, index) => (
+            <>
+              <ListItem key={index}>{props.renderItem(item)}</ListItem>
+              <Divider variant="inset" component="li" />
+            </>
+          ))}
         </List>
       )}
     </Container>

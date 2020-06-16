@@ -580,6 +580,34 @@ export type AlbumDetailsQuery = (
   )> }
 );
 
+export type ReadAlbumsQueryVariables = Exact<{
+  after?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  title?: Maybe<Scalars['String']>;
+}>;
+
+
+export type ReadAlbumsQuery = (
+  { __typename?: 'Query' }
+  & { albumSet?: Maybe<(
+    { __typename?: 'AlbumTypeConnection' }
+    & { pageInfo: (
+      { __typename?: 'PageInfo' }
+      & Pick<PageInfo, 'hasNextPage' | 'endCursor'>
+    ), edges: Array<Maybe<(
+      { __typename?: 'AlbumTypeEdge' }
+      & { node?: Maybe<(
+        { __typename?: 'AlbumType' }
+        & Pick<AlbumType, 'id' | 'title' | 'coverUrl' | 'description' | 'created' | 'year'>
+        & { performer: (
+          { __typename?: 'PerformerType' }
+          & Pick<PerformerType, 'id' | 'name'>
+        ) }
+      )> }
+    )>> }
+  )> }
+);
+
 export type ReadRandomAlbumsQueryVariables = Exact<{
   after?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
@@ -773,6 +801,58 @@ export function useAlbumDetailsLazyQuery(baseOptions?: ApolloReactHooks.LazyQuer
 export type AlbumDetailsQueryHookResult = ReturnType<typeof useAlbumDetailsQuery>;
 export type AlbumDetailsLazyQueryHookResult = ReturnType<typeof useAlbumDetailsLazyQuery>;
 export type AlbumDetailsQueryResult = ApolloReactCommon.QueryResult<AlbumDetailsQuery, AlbumDetailsQueryVariables>;
+export const ReadAlbumsDocument = gql`
+    query ReadAlbums($after: String, $first: Int, $title: String) {
+  albumSet(after: $after, first: $first, title: $title) {
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    edges {
+      node {
+        id
+        performer {
+          id
+          name
+        }
+        title
+        coverUrl
+        description
+        created
+        year
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useReadAlbumsQuery__
+ *
+ * To run a query within a React component, call `useReadAlbumsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useReadAlbumsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useReadAlbumsQuery({
+ *   variables: {
+ *      after: // value for 'after'
+ *      first: // value for 'first'
+ *      title: // value for 'title'
+ *   },
+ * });
+ */
+export function useReadAlbumsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<ReadAlbumsQuery, ReadAlbumsQueryVariables>) {
+        return ApolloReactHooks.useQuery<ReadAlbumsQuery, ReadAlbumsQueryVariables>(ReadAlbumsDocument, baseOptions);
+      }
+export function useReadAlbumsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ReadAlbumsQuery, ReadAlbumsQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<ReadAlbumsQuery, ReadAlbumsQueryVariables>(ReadAlbumsDocument, baseOptions);
+        }
+export type ReadAlbumsQueryHookResult = ReturnType<typeof useReadAlbumsQuery>;
+export type ReadAlbumsLazyQueryHookResult = ReturnType<typeof useReadAlbumsLazyQuery>;
+export type ReadAlbumsQueryResult = ApolloReactCommon.QueryResult<ReadAlbumsQuery, ReadAlbumsQueryVariables>;
 export const ReadRandomAlbumsDocument = gql`
     query ReadRandomAlbums($after: String, $first: Int) {
   randomAlbumSet(after: $after, first: $first) {

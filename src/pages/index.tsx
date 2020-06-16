@@ -34,7 +34,15 @@ const IndexPage: FC = () => {
                 variant="contained"
                 color="primary"
               >
-                Go to page 2
+                Performers
+              </Button>
+              <Button
+                component={GatsbyLink}
+                to="/albums/"
+                variant="contained"
+                color="primary"
+              >
+                Albums
               </Button>
             </Grid>
           </Grid>

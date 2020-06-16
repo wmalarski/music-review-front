@@ -8,6 +8,8 @@ import {
   ListSubheader,
   GridListTileBar,
 } from '@material-ui/core'
+import { AlbumTileData } from './albums-feed'
+import AlbumListItem from './album-list-item'
 import ReviewAlbumForm from './review-album-form'
 import AlbumDetails from './album-details'
 
@@ -23,16 +25,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   }),
 )
-
-export interface AlbumTileData {
-  id: string
-  title: string
-  year: number
-  coverUrl?: string | null
-  performer: {
-    name: string
-  }
-}
 
 interface AlbumGridProps {
   data: AlbumTileData[]
@@ -58,26 +50,7 @@ export default function AlbumGrid(props: AlbumGridProps) {
       </GridListTile>
       {props.data.map(album => (
         <GridListTile key={album.id}>
-          <img src={album.coverUrl ?? ''} alt={album.title} />
-          <GridListTileBar
-            title={album.title}
-            subtitle={
-              <span>
-                by: {album.performer.name}, {album.year}
-              </span>
-            }
-            actionIcon={
-              <p>
-                <ReviewAlbumForm
-                  album={album.id}
-                  title={album.title}
-                  name={album.performer.name}
-                  year={album.year}
-                />
-                <AlbumDetails album={album} />
-              </p>
-            }
-          />
+          <AlbumListItem album={album} />
         </GridListTile>
       ))}
     </GridList>

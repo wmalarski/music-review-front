@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC } from 'react'
 import Layout from '../layout'
 import SEO from '../components/seo'
 import Hero from '../components/hero'
@@ -14,7 +14,5 @@ const SecondPage: FC = () => (
     <PerformersGrid />
   </Layout>
 )
-
-// const SecondPage: FC = () => <PerformersGrid />
 
 export default SecondPage

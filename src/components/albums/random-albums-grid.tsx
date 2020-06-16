@@ -1,6 +1,6 @@
 import React from 'react'
 import { useReadRandomAlbumsQuery } from '../../types/backend'
-import { createStyles, makeStyles, Theme } from '@material-ui/core'
+import { createStyles, makeStyles, Theme, Container } from '@material-ui/core'
 import { notEmpty } from '../../libs/utils'
 import AlbumGrid from './album-grid'
 
@@ -23,7 +23,7 @@ export default function RandomAlbumsGrid() {
   const { data, loading } = useReadRandomAlbumsQuery({
     variables: {
       after: '',
-      first: 18,
+      first: 20,
     },
   })
 
@@ -32,14 +32,14 @@ export default function RandomAlbumsGrid() {
   }
 
   return (
-    <div className={classes.root}>
+    <Container className={classes.root}>
       <AlbumGrid
         data={data.randomAlbumSet.edges
           .map(edge => edge?.node)
           .filter(notEmpty)}
-        columns={6}
+        columns={5}
         header="Random Albums"
       />
-    </div>
+    </Container>
   )
 }

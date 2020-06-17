@@ -20,12 +20,14 @@ interface PerformersFeedProps {
     performers: Performer[]
     loading: boolean
   }) => JSX.Element
+  name: string
 }
 
 export default function PerformersFeed(props: PerformersFeedProps) {
   const variables = {
     after: null,
     first: 10,
+    name: props.name,
   }
 
   const { loading, data, fetchMore } = useReadPerformersQuery({

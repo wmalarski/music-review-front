@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { makeStyles, Theme, createStyles, Container } from '@material-ui/core'
 import AlbumsFeed from './albums-feed'
 import AlbumGridItem from './album-grid-item'
 import ScrollGridContainer from '../infinite-scroll/scroll-grid-container'
+import AlbumSearchBar from './album-search-bar'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -21,9 +22,10 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function AlbumsGrid() {
   const classes = useStyles()
+  const [title, setTitle] = useState('')
   return (
     <Container className={classes.root}>
-      <AlbumsFeed>
+      <AlbumsFeed title={title}>
         {({ albums, loading }) => (
           <ScrollGridContainer
             items={albums}
@@ -33,7 +35,13 @@ export default function AlbumsGrid() {
             cellHeight={180}
             cols={5}
             direction="vertical"
-            header={<p>Albums</p>}
+            header={
+              <AlbumSearchBar
+                onClicked={title => {
+                  setTitle(title)
+                }}
+              />
+            }
           />
         )}
       </AlbumsFeed>

@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { navigate } from 'gatsby'
 import Layout from '../layout'
-import SEO from '../components/seo'
+import SEO from '../components/common/seo'
 import { makeStyles, Backdrop, CircularProgress } from '@material-ui/core'
 import SignIn from '../components/account/sign-in'
 import { useTokenAuthMutation } from '../types/backend'

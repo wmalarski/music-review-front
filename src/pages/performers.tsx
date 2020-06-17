@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import Layout from '../layout'
-import SEO from '../components/seo'
-import Hero from '../components/hero'
+import SEO from '../components/common/seo'
+import Hero from '../components/common/hero'
 import PerformersList from '../components/performers/performers-list'
 
 const SecondPage: FC = () => (

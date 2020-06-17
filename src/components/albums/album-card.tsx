@@ -11,7 +11,6 @@ import {
 } from '@material-ui/core'
 import { AlbumTileData } from './albums-feed'
 import ScrollListContainer from '../infinite-scroll/scroll-list-container'
-import ReviewListItem from '../reviews/review-list-item'
 import { notEmpty } from '../../libs/utils'
 import ReviewListShortItem from '../reviews/review-list-short-item'
 

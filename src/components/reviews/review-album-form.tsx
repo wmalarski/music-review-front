@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useReviewAlbumMutation } from '../../types/backend'
-import FormProgress from '../dialogs/form-progress'
+import FormProgress from '../common/form-progress'
 import { IconButton } from '@material-ui/core'
 import RateReviewIcon from '@material-ui/icons/RateReview'
 import ReviewAlbumDialog from './review-album-dialog'

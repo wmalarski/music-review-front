@@ -1,5 +1,5 @@
-query ReadPerformers($after: String, $first: Int) {
-  performerSet(after: $after, first: $first) {
+query ReadPerformers($after: String, $first: Int, $name: String) {
+  performerSet(after: $after, first: $first, name: $name) {
     pageInfo {
       endCursor
       hasNextPage

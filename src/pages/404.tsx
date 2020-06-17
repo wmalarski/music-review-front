@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 
 import Layout from '../layout'
-import SEO from '../components/seo'
+import SEO from '../components/common/seo'
 import { Typography } from '@material-ui/core'
 
 const NotFoundPage: FC = () => (

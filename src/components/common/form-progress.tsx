@@ -1,23 +1,8 @@
 import React from 'react'
-import {
-  Snackbar,
-  Backdrop,
-  makeStyles,
-  Theme,
-  createStyles,
-  CircularProgress,
-} from '@material-ui/core'
+import { Snackbar } from '@material-ui/core'
 import Alert from '@material-ui/lab/Alert'
 import { ApolloError } from '@apollo/client'
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    backdrop: {
-      zIndex: theme.zIndex.drawer + 1,
-      color: '#fff',
-    },
-  }),
-)
+import LoadingBackdrop from './loading-backdrop'
 
 interface FormProgressProps {
   successMessage: string
@@ -28,13 +13,9 @@ interface FormProgressProps {
 }
 
 export default function FormProgress(props: FormProgressProps) {
-  const classes = useStyles()
-
   return (
     <div>
-      <Backdrop className={classes.backdrop} open={props.isLoading}>
-        <CircularProgress color="inherit" />
-      </Backdrop>
+      <LoadingBackdrop isLoading={props.isLoading} />
       <Snackbar
         open={props.isSnackBarVisible}
         autoHideDuration={6000}

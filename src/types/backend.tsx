@@ -656,6 +656,7 @@ export type CreatePerformerMutation = (
 export type ReadPerformersQueryVariables = Exact<{
   after?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
+  name?: Maybe<Scalars['String']>;
 }>;
 
 
@@ -979,8 +980,8 @@ export type CreatePerformerMutationHookResult = ReturnType<typeof useCreatePerfo
 export type CreatePerformerMutationResult = ApolloReactCommon.MutationResult<CreatePerformerMutation>;
 export type CreatePerformerMutationOptions = ApolloReactCommon.BaseMutationOptions<CreatePerformerMutation, CreatePerformerMutationVariables>;
 export const ReadPerformersDocument = gql`
-    query ReadPerformers($after: String, $first: Int) {
-  performerSet(after: $after, first: $first) {
+    query ReadPerformers($after: String, $first: Int, $name: String) {
+  performerSet(after: $after, first: $first, name: $name) {
     pageInfo {
       endCursor
       hasNextPage
@@ -1027,6 +1028,7 @@ export const ReadPerformersDocument = gql`
  *   variables: {
  *      after: // value for 'after'
  *      first: // value for 'first'
+ *      name: // value for 'name'
  *   },
  * });
  */

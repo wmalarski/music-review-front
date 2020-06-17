@@ -36,6 +36,7 @@ export default function ReviewsFeed(props: ReviewsFeedProps) {
   const variables = {
     after: null,
     first: 10,
+    orderBy: '-created',
   }
 
   const { loading, data, fetchMore } = useReadReviewsQuery({

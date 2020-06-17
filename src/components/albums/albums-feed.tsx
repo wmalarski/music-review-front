@@ -18,12 +18,14 @@ interface AlbumsFeedProps {
     albums: AlbumTileData[]
     loading: boolean
   }) => JSX.Element
+  title: string
 }
 
 export default function AlbumsFeed(props: AlbumsFeedProps) {
   const variables = {
     after: null,
     first: 10,
+    title: props.title,
   }
 
   const { loading, data, fetchMore } = useReadAlbumsQuery({

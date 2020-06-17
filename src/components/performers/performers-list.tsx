@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { makeStyles, Theme, createStyles, Container } from '@material-ui/core'
 import PerformersFeed from './performers-feed'
 import ScrollListContainer from '../infinite-scroll/scroll-list-container'
 import PerformerListItem from './performer-list-item'
+import PerformerSearchBar from './performer-search-bar'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -20,16 +21,17 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function PerformersList() {
   const classes = useStyles()
+  const [name, setName] = useState('')
   return (
     <Container className={classes.root}>
-      <PerformersFeed>
+      <PerformersFeed name={name}>
         {({ performers, loading }) => (
           <ScrollListContainer
             items={performers}
             loading={loading}
             renderItem={item => <PerformerListItem item={item} />}
             maxWidth="lg"
-            header={<p>Performers</p>}
+            header={<PerformerSearchBar onClicked={setName} />}
           />
         )}
       </PerformersFeed>

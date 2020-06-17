@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Button from '@material-ui/core/Button'
 import { useCreatePerformerMutation } from '../../types/backend'
 import NewPerformerDialog from './new-performer-dialog'
-import FormProgress from '../dialogs/form-progress'
+import FormProgress from '../common/form-progress'
 import Alert from '@material-ui/lab/Alert/Alert'
 
 export default function NewPerformerForm() {

@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import Button from '@material-ui/core/Button'
 import { useCreatePerformerMutation } from '../../types/backend'
-import NewPerformerDialog from './new-performer-dialog'
+import CreatePerformerDialog from './create-performer-dialog'
 import FormProgress from '../common/form-progress'
 import Alert from '@material-ui/lab/Alert/Alert'
 
-export default function NewPerformerForm() {
+export default function CreatePerformerForm() {
   const [open, setOpen] = useState(false)
   const [snackbarOpen, setSnackbarOpen] = useState(false)
   const [
@@ -18,7 +18,7 @@ export default function NewPerformerForm() {
       <Button color="inherit" onClick={() => setOpen(true)}>
         Add Performer
       </Button>
-      <NewPerformerDialog
+      <CreatePerformerDialog
         open={open}
         setOpen={setOpen}
         onSubmit={result => {
@@ -44,7 +44,7 @@ export default function NewPerformerForm() {
             setIsScankBarVisible={setSnackbarOpen}
           />
         </div>
-      </NewPerformerDialog>
+      </CreatePerformerDialog>
     </>
   )
 }

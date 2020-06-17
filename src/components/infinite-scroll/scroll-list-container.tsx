@@ -27,10 +27,10 @@ export default function ScrollListContainer<T>(props: ScrollListProps<T>) {
             <ListSubheader component="div">{props.header}</ListSubheader>
           </ListItem>
           {props.items.map((item, index) => (
-            <>
-              <ListItem key={index}>{props.renderItem(item)}</ListItem>
+            <div key={index}>
+              <ListItem>{props.renderItem(item)}</ListItem>
               <Divider variant="inset" component="li" />
-            </>
+            </div>
           ))}
         </List>
       )}

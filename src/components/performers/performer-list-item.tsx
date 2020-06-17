@@ -1,19 +1,41 @@
 import React from 'react'
-import { ListItemText, Typography } from '@material-ui/core'
+import {
+  ListItemText,
+  Typography,
+  makeStyles,
+  createStyles,
+} from '@material-ui/core'
 import { notEmpty } from '../../libs/utils'
 import { Performer } from './performers-feed'
 import ScrollGridContainer from '../infinite-scroll/scroll-grid-container'
 import AlbumGridItem from '../albums/album-grid-item'
+import CreateAlbumForm from '../albums/create-album-form'
+
+const useStyles = makeStyles(() =>
+  createStyles({
+    root: {
+      display: 'flex',
+      flexDirection: 'row',
+      width: '100%',
+    },
+    header: {
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+    },
+  }),
+)
 
 interface PerformerListItemProps {
   item: Performer
 }
 
 export default function PerformerListItem(props: PerformerListItemProps) {
+  const classes = useStyles()
   return (
     <>
       {props.item ? (
-        <div style={{ display: 'flex', flexDirection: 'row', width: '100%' }}>
+        <div className={classes.root}>
           <ScrollGridContainer
             items={props.item.albumSet.edges
               .map(edge => edge?.node)
@@ -24,7 +46,15 @@ export default function PerformerListItem(props: PerformerListItemProps) {
             cellHeight={180}
             cols={5}
             direction="vertical"
-            header={<Typography variant="h6">{props.item.name}</Typography>}
+            header={
+              <div className={classes.header}>
+                <Typography variant="h6">{props.item.name}</Typography>
+                <CreateAlbumForm
+                  name={props.item.name}
+                  performer={props.item.id}
+                />
+              </div>
+            }
           />
         </div>
       ) : (

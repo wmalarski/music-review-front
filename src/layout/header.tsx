@@ -2,7 +2,7 @@ import { Link as GatsbyLink } from 'gatsby'
 import React, { FC } from 'react'
 import { AppBar, Toolbar, Typography, Link, Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
-import NewPerformerForm from '../components/performers/new-performer-form'
+import CreatePerformerForm from '../components/performers/create-performer-form'
 
 const useStyles = makeStyles({
   toolbar: {},
@@ -45,7 +45,7 @@ const Header: FC<HeaderProps> = ({ siteTitle = '', onToggleTheme }) => {
         <Button component={GatsbyLink} to="/reviews/" color="inherit">
           Reviews
         </Button>
-        <NewPerformerForm />
+        <CreatePerformerForm />
         <Button color="inherit" onClick={onToggleTheme}>
           Toggle Theme
         </Button>

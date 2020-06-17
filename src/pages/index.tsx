@@ -9,11 +9,7 @@ const IndexPage: FC = () => {
   return (
     <Layout>
       <SEO title="Home" />
-      <Hero
-        title="Hi people"
-        description="Welcome to your new Gatsby site. Now go build something great with
-          Typescript and Material-ui."
-      />
+      <Hero title="Random Albums" />
       <RandomAlbumsGrid />
     </Layout>
   )

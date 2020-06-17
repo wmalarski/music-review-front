@@ -8,28 +8,28 @@ import DialogTitle from '@material-ui/core/DialogTitle'
 import Rating from '@material-ui/lab/Rating'
 import { TextField, Box } from '@material-ui/core'
 
-interface ReviewAlbumDialogResult {
+interface CreateReviewDialogResult {
   review: string
   rating: number
 }
 
-interface ReviewAlbumDialogProps {
+interface CreateReviewDialogProps {
   name: string
   title: string
   year: number
   open: boolean
+  review?: string | null
+  rating?: number | null
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
-  onSubmit: (result: ReviewAlbumDialogResult) => void
+  onSubmit: (result: CreateReviewDialogResult) => void
   children: JSX.Element | JSX.Element[]
 }
 
-export default function ReviewAlbumDialog(props: ReviewAlbumDialogProps) {
-  const [review, setReview] = React.useState('')
-  const [rating, setRating] = React.useState(5)
+export default function CreateReviewDialog(props: CreateReviewDialogProps) {
+  const [review, setReview] = React.useState(props.review ?? '')
+  const [rating, setRating] = React.useState(props.rating ?? 5)
 
-  const handleClose = () => {
-    props.setOpen(false)
-  }
+  const handleClose = () => props.setOpen(false)
 
   return (
     <Dialog
@@ -48,9 +48,7 @@ export default function ReviewAlbumDialog(props: ReviewAlbumDialogProps) {
           label="Review"
           value={review}
           fullWidth
-          onChange={event => {
-            setReview(event.target.value)
-          }}
+          onChange={event => setReview(event.target.value)}
         />
         <Rating
           name="customized-10"

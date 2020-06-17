@@ -44,7 +44,7 @@ export default function RandomAlbumsGrid() {
             cellHeight={180}
             cols={5}
             direction="vertical"
-            header={<p>Random Albums</p>}
+            header={<p></p>}
           />
         )}
       </RandomAlbumsFeed>

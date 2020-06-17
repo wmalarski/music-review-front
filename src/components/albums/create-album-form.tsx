@@ -1,40 +1,39 @@
 import React, { useState } from 'react'
-import { useReviewAlbumMutation } from '../../types/backend'
+import { useCreateAlbumMutation } from '../../types/backend'
 import FormProgress from '../common/form-progress'
 import { IconButton } from '@material-ui/core'
-import RateReviewIcon from '@material-ui/icons/RateReview'
-import ReviewAlbumDialog from './review-album-dialog'
+import AddIcon from '@material-ui/icons/Add'
+import CreateAlbumDialog from './create-album-dialog'
 import Alert from '@material-ui/lab/Alert'
 
-interface ReviewAlbumFormProps {
-  album: string
+interface CreateAlbumFormProps {
+  performer: string
   name: string
-  title: string
-  year: number
 }
 
-export default function ReviewAlbumForm(props: ReviewAlbumFormProps) {
+export default function CreateAlbumForm(props: CreateAlbumFormProps) {
   const [open, setOpen] = useState(false)
   const [snackbarOpen, setSnackbarOpen] = useState(false)
-  const [reviewAlbumMutation, { loading, error }] = useReviewAlbumMutation()
+  const [albumAlbumMutation, { loading, error }] = useCreateAlbumMutation()
 
   return (
     <>
-      <IconButton color="inherit" onClick={() => setOpen(true)}>
-        <RateReviewIcon />
+      <IconButton
+        color="inherit"
+        onClick={() => setOpen(true)}
+        title="Add Album"
+      >
+        <AddIcon />
       </IconButton>
-      <ReviewAlbumDialog
+      <CreateAlbumDialog
         name={props.name}
-        title={props.title}
-        year={props.year}
         open={open}
         setOpen={setOpen}
         onSubmit={result => {
-          reviewAlbumMutation({
+          albumAlbumMutation({
             variables: {
-              album: props.album,
-              rating: result.rating,
-              review: result.review,
+              performer: props.performer,
+              ...result,
             },
           }).then(() => {
             setOpen(false)
@@ -45,14 +44,14 @@ export default function ReviewAlbumForm(props: ReviewAlbumFormProps) {
         <div>
           {error ? <Alert severity="error">{error.name ?? ''}</Alert> : null}
           <FormProgress
-            successMessage="Review Added"
+            successMessage="Album Added"
             isLoading={loading}
             error={error ?? null}
             isSnackBarVisible={snackbarOpen}
             setIsScankBarVisible={setSnackbarOpen}
           />
         </div>
-      </ReviewAlbumDialog>
+      </CreateAlbumDialog>
     </>
   )
 }

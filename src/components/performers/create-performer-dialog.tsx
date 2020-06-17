@@ -25,22 +25,28 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 )
 
-interface NewPerformerDialogResult {
+interface CreatePerformerDialogResult {
   name: string
   albums: AlbumInputType[]
 }
 
-interface NewPerformerDialogProps {
+interface CreatePerformerDialogProps {
   children: JSX.Element | JSX.Element[]
   open: boolean
+  name?: string | null
+  albums?: AlbumInputType[] | null
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
-  onSubmit: (result: NewPerformerDialogResult) => void
+  onSubmit: (result: CreatePerformerDialogResult) => void
 }
 
-export default function NewPerformerDialog(props: NewPerformerDialogProps) {
+export default function CreatePerformerDialog(
+  props: CreatePerformerDialogProps,
+) {
   const classes = useStyles()
-  const [name, setName] = React.useState('')
-  const [albums, setAlbums] = React.useState<AlbumInputType[]>([])
+  const [name, setName] = React.useState(props.name ?? '')
+  const [albums, setAlbums] = React.useState<AlbumInputType[]>(
+    props.albums ?? [],
+  )
   const [lastYear, setLastYear] = React.useState(1980)
 
   const handleClose = () => {

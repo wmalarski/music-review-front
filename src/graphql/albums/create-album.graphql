@@ -1,0 +1,21 @@
+mutation CreateAlbum(
+  $performer: ID!
+  $title: String!
+  $year: Int!
+  $coverUrl: String
+  $description: String
+) {
+  createAlbum(
+    input: {
+      performer: $performer
+      title: $title
+      year: $year
+      coverUrl: $coverUrl
+      description: $description
+    }
+  ) {
+    album {
+      id
+    }
+  }
+}

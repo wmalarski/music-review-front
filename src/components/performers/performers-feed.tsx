@@ -19,6 +19,7 @@ interface PerformersFeedProps {
   children: (props: {
     performers: Performer[]
     loading: boolean
+    refetch: () => void
   }) => JSX.Element
   name: string
 }
@@ -30,7 +31,7 @@ export default function PerformersFeed(props: PerformersFeedProps) {
     name: props.name,
   }
 
-  const { loading, data, fetchMore } = useReadPerformersQuery({
+  const { loading, data, refetch, fetchMore } = useReadPerformersQuery({
     variables,
   })
 
@@ -72,7 +73,7 @@ export default function PerformersFeed(props: PerformersFeedProps) {
       loading={loading}
       onLoadMore={onLoadMore}
     >
-      {props.children({ performers: items, loading })}
+      {props.children({ performers: items, loading, refetch })}
     </InfiniteScrollWrapper>
   )
 }

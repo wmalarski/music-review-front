@@ -26,9 +26,8 @@ export default function PerformerSearchBar(props: PerformerSearchBarProps) {
         label="Search field"
         type="search"
         value={name}
-        onChange={event => {
-          setName(event.target.value)
-        }}
+        fullWidth
+        onChange={event => setName(event.target.value)}
       />
       <Button color="inherit" onClick={() => props.onClicked(name)}>
         Filter

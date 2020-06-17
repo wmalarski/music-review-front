@@ -1,6 +1,6 @@
 import React from 'react'
 import { GridListTileBar } from '@material-ui/core'
-import ReviewAlbumForm from '../reviews/review-album-form'
+import CreateReviewForm from '../reviews/create-review-form'
 import AlbumDetails from './album-details'
 import { AlbumTileData } from './albums-feed'
 
@@ -21,7 +21,7 @@ export default function AlbumGridItem(props: AlbumGridItemProps) {
         }
         actionIcon={
           <p>
-            <ReviewAlbumForm
+            <CreateReviewForm
               album={props.album.id}
               title={props.album.title}
               name={props.album.performer.name}

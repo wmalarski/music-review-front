@@ -550,6 +550,26 @@ export type TokenAuthMutation = (
   )> }
 );
 
+export type CreateAlbumMutationVariables = Exact<{
+  performer: Scalars['ID'];
+  title: Scalars['String'];
+  year: Scalars['Int'];
+  coverUrl?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+}>;
+
+
+export type CreateAlbumMutation = (
+  { __typename?: 'Mutation' }
+  & { createAlbum?: Maybe<(
+    { __typename?: 'CreateAlbumPayload' }
+    & { album?: Maybe<(
+      { __typename?: 'AlbumType' }
+      & Pick<AlbumType, 'id'>
+    )> }
+  )> }
+);
+
 export type AlbumDetailsQueryVariables = Exact<{
   album: Scalars['ID'];
 }>;
@@ -779,6 +799,44 @@ export function useTokenAuthMutation(baseOptions?: ApolloReactHooks.MutationHook
 export type TokenAuthMutationHookResult = ReturnType<typeof useTokenAuthMutation>;
 export type TokenAuthMutationResult = ApolloReactCommon.MutationResult<TokenAuthMutation>;
 export type TokenAuthMutationOptions = ApolloReactCommon.BaseMutationOptions<TokenAuthMutation, TokenAuthMutationVariables>;
+export const CreateAlbumDocument = gql`
+    mutation CreateAlbum($performer: ID!, $title: String!, $year: Int!, $coverUrl: String, $description: String) {
+  createAlbum(input: {performer: $performer, title: $title, year: $year, coverUrl: $coverUrl, description: $description}) {
+    album {
+      id
+    }
+  }
+}
+    `;
+export type CreateAlbumMutationFn = ApolloReactCommon.MutationFunction<CreateAlbumMutation, CreateAlbumMutationVariables>;
+
+/**
+ * __useCreateAlbumMutation__
+ *
+ * To run a mutation, you first call `useCreateAlbumMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateAlbumMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createAlbumMutation, { data, loading, error }] = useCreateAlbumMutation({
+ *   variables: {
+ *      performer: // value for 'performer'
+ *      title: // value for 'title'
+ *      year: // value for 'year'
+ *      coverUrl: // value for 'coverUrl'
+ *      description: // value for 'description'
+ *   },
+ * });
+ */
+export function useCreateAlbumMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<CreateAlbumMutation, CreateAlbumMutationVariables>) {
+        return ApolloReactHooks.useMutation<CreateAlbumMutation, CreateAlbumMutationVariables>(CreateAlbumDocument, baseOptions);
+      }
+export type CreateAlbumMutationHookResult = ReturnType<typeof useCreateAlbumMutation>;
+export type CreateAlbumMutationResult = ApolloReactCommon.MutationResult<CreateAlbumMutation>;
+export type CreateAlbumMutationOptions = ApolloReactCommon.BaseMutationOptions<CreateAlbumMutation, CreateAlbumMutationVariables>;
 export const AlbumDetailsDocument = gql`
     query AlbumDetails($album: ID!) {
   album(id: $album) {

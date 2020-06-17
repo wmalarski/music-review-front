@@ -36,6 +36,7 @@ export default function AlbumSearchBar(props: AlbumSearchBarProps) {
         label="Search field"
         type="search"
         value={title}
+        fullWidth
         onChange={event => setTitle(event.target.value)}
       />
       <Slider

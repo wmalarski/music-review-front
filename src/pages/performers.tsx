@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import Layout from '../layout'
 import SEO from '../components/seo'
 import Hero from '../components/hero'
-import PerformersGrid from '../components/performers/performers-grid'
+import PerformersList from '../components/performers/performers-list'
 
 const SecondPage: FC = () => (
   <Layout>
@@ -11,7 +11,7 @@ const SecondPage: FC = () => (
       title="Performers"
       description="List of all performers and their albums."
     />
-    <PerformersGrid />
+    <PerformersList />
   </Layout>
 )
 

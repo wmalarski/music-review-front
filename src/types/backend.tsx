@@ -708,6 +708,38 @@ export type ReviewAlbumMutation = (
   )> }
 );
 
+export type ReadReviewsQueryVariables = Exact<{
+  after?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<Scalars['String']>;
+}>;
+
+
+export type ReadReviewsQuery = (
+  { __typename?: 'Query' }
+  & { reviewSet?: Maybe<(
+    { __typename?: 'ReviewTypeConnection' }
+    & { pageInfo: (
+      { __typename?: 'PageInfo' }
+      & Pick<PageInfo, 'hasNextPage' | 'endCursor'>
+    ), edges: Array<Maybe<(
+      { __typename?: 'ReviewTypeEdge' }
+      & { node?: Maybe<(
+        { __typename?: 'ReviewType' }
+        & Pick<ReviewType, 'id' | 'review' | 'rating' | 'created' | 'lastUpdated'>
+        & { album: (
+          { __typename?: 'AlbumType' }
+          & Pick<AlbumType, 'id' | 'title' | 'coverUrl'>
+          & { performer: (
+            { __typename?: 'PerformerType' }
+            & Pick<PerformerType, 'id' | 'name' | 'logoUrl' | 'description' | 'created'>
+          ) }
+        ) }
+      )> }
+    )>> }
+  )> }
+);
+
 
 export const TokenAuthDocument = gql`
     mutation TokenAuth($username: String!, $password: String!) {
@@ -1040,3 +1072,62 @@ export function useReviewAlbumMutation(baseOptions?: ApolloReactHooks.MutationHo
 export type ReviewAlbumMutationHookResult = ReturnType<typeof useReviewAlbumMutation>;
 export type ReviewAlbumMutationResult = ApolloReactCommon.MutationResult<ReviewAlbumMutation>;
 export type ReviewAlbumMutationOptions = ApolloReactCommon.BaseMutationOptions<ReviewAlbumMutation, ReviewAlbumMutationVariables>;
+export const ReadReviewsDocument = gql`
+    query ReadReviews($after: String, $first: Int, $orderBy: String) {
+  reviewSet(after: $after, first: $first, orderBy: $orderBy) {
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    edges {
+      node {
+        id
+        album {
+          id
+          title
+          coverUrl
+          performer {
+            id
+            name
+            logoUrl
+            description
+            created
+          }
+        }
+        review
+        rating
+        created
+        lastUpdated
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useReadReviewsQuery__
+ *
+ * To run a query within a React component, call `useReadReviewsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useReadReviewsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useReadReviewsQuery({
+ *   variables: {
+ *      after: // value for 'after'
+ *      first: // value for 'first'
+ *      orderBy: // value for 'orderBy'
+ *   },
+ * });
+ */
+export function useReadReviewsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<ReadReviewsQuery, ReadReviewsQueryVariables>) {
+        return ApolloReactHooks.useQuery<ReadReviewsQuery, ReadReviewsQueryVariables>(ReadReviewsDocument, baseOptions);
+      }
+export function useReadReviewsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ReadReviewsQuery, ReadReviewsQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<ReadReviewsQuery, ReadReviewsQueryVariables>(ReadReviewsDocument, baseOptions);
+        }
+export type ReadReviewsQueryHookResult = ReturnType<typeof useReadReviewsQuery>;
+export type ReadReviewsLazyQueryHookResult = ReturnType<typeof useReadReviewsLazyQuery>;
+export type ReadReviewsQueryResult = ApolloReactCommon.QueryResult<ReadReviewsQuery, ReadReviewsQueryVariables>;

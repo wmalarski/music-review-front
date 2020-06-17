@@ -1,8 +1,8 @@
 import React from 'react'
 import { makeStyles, Theme, createStyles, Container } from '@material-ui/core'
-import PerformersFeed from './performers-feed'
+import ReviewsFeed from './reviews-feed'
+import ReviewListItem from './review-list-item'
 import ScrollListContainer from '../infinite-scroll/scroll-list-container'
-import PerformerListItem from './performer-list-item'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -18,20 +18,21 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 )
 
-export default function PerformersGrid() {
+export default function ReviewsList() {
   const classes = useStyles()
   return (
     <Container className={classes.root}>
-      <PerformersFeed>
-        {({ performers, loading }) => (
+      <ReviewsFeed>
+        {({ reviews, loading }) => (
           <ScrollListContainer
-            items={performers}
+            items={reviews}
             loading={loading}
-            renderItem={item => <PerformerListItem item={item} />}
+            renderItem={item => <ReviewListItem item={item} />}
             maxWidth="lg"
+            header={<p>Reviews</p>}
           />
         )}
-      </PerformersFeed>
+      </ReviewsFeed>
     </Container>
   )
 }

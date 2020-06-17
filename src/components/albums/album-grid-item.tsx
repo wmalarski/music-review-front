@@ -1,14 +1,14 @@
 import React from 'react'
 import { GridListTileBar } from '@material-ui/core'
-import ReviewAlbumForm from './review-album-form'
+import ReviewAlbumForm from '../reviews/review-album-form'
 import AlbumDetails from './album-details'
 import { AlbumTileData } from './albums-feed'
 
-interface AlbumListItemProps {
+interface AlbumGridItemProps {
   album: AlbumTileData
 }
 
-export default function AlbumListItem(props: AlbumListItemProps) {
+export default function AlbumGridItem(props: AlbumGridItemProps) {
   return (
     <>
       <img src={props.album.coverUrl ?? ''} alt={props.album.title} />

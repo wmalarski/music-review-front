@@ -4,12 +4,12 @@ import SEO from '../components/seo'
 import Hero from '../components/hero'
 import AlbumsGrid from '../components/albums/albums-grid'
 
-const SecondPage: FC = () => (
+const Albums: FC = () => (
   <Layout>
     <SEO title="Albums" />
-    <Hero title="Albums" description="List of all albums and their albums." />
+    <Hero title="Albums" description="List of all albums." />
     <AlbumsGrid />
   </Layout>
 )
 
-export default SecondPage
+export default Albums

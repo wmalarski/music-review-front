@@ -1,9 +1,9 @@
 import React from 'react'
-import { ListItemText } from '@material-ui/core'
+import { ListItemText, Typography } from '@material-ui/core'
 import { notEmpty } from '../../libs/utils'
 import { Performer } from './performers-feed'
 import ScrollGridContainer from '../infinite-scroll/scroll-grid-container'
-import AlbumListItem from '../albums/album-list-item'
+import AlbumGridItem from '../albums/album-grid-item'
 
 interface PerformerListItemProps {
   item: Performer
@@ -19,11 +19,12 @@ export default function PerformerListItem(props: PerformerListItemProps) {
               .map(edge => edge?.node)
               .filter(notEmpty)}
             loading={false}
-            renderItem={item => <AlbumListItem album={item} />}
+            renderItem={item => <AlbumGridItem album={item} />}
             maxWidth="lg"
             cellHeight={180}
             cols={5}
             direction="vertical"
+            header={<Typography variant="h6">{props.item.name}</Typography>}
           />
         </div>
       ) : (

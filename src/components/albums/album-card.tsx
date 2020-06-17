@@ -9,7 +9,7 @@ import {
   Theme,
   createStyles,
 } from '@material-ui/core'
-import { AlbumTileData } from './album-grid'
+import { AlbumTileData } from './albums-feed'
 
 interface AlbumCardProps {
   album: AlbumTileData

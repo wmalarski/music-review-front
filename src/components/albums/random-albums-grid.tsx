@@ -3,7 +3,7 @@ import { useReadRandomAlbumsQuery } from '../../types/backend'
 import { createStyles, makeStyles, Theme, Container } from '@material-ui/core'
 import RandomAlbumsFeed from './random-albums-feed'
 import ScrollGridContainer from '../infinite-scroll/scroll-grid-container'
-import AlbumListItem from './album-list-item'
+import AlbumGridItem from './album-grid-item'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -39,11 +39,12 @@ export default function RandomAlbumsGrid() {
           <ScrollGridContainer
             items={albums}
             loading={loading}
-            renderItem={item => <AlbumListItem album={item} />}
+            renderItem={item => <AlbumGridItem album={item} />}
             maxWidth="lg"
             cellHeight={180}
             cols={5}
             direction="vertical"
+            header={<p>Random Albums</p>}
           />
         )}
       </RandomAlbumsFeed>

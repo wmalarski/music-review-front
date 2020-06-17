@@ -1,0 +1,29 @@
+query ReadReviews($after: String, $first: Int, $orderBy: String) {
+  reviewSet(after: $after, first: $first, orderBy: $orderBy) {
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    edges {
+      node {
+        id
+        album {
+          id
+          title
+          coverUrl
+          performer {
+            id
+            name
+            logoUrl
+            description
+            created
+          }
+        }
+        review
+        rating
+        created
+        lastUpdated
+      }
+    }
+  }
+}

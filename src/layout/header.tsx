@@ -36,6 +36,30 @@ const Header: FC<HeaderProps> = ({ siteTitle = '', onToggleTheme }) => {
             {siteTitle}
           </Link>
         </Typography>
+        <Button
+          component={GatsbyLink}
+          to="/performers/"
+          variant="contained"
+          color="primary"
+        >
+          Performers
+        </Button>
+        <Button
+          component={GatsbyLink}
+          to="/albums/"
+          variant="contained"
+          color="primary"
+        >
+          Albums
+        </Button>
+        <Button
+          component={GatsbyLink}
+          to="/reviews/"
+          variant="contained"
+          color="primary"
+        >
+          Reviews
+        </Button>
         <NewPerformerForm />
         <Button color="inherit" onClick={onToggleTheme}>
           Toggle Theme

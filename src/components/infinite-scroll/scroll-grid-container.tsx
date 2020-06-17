@@ -4,6 +4,7 @@ import {
   Typography,
   GridList,
   GridListTile,
+  ListSubheader,
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 
@@ -22,6 +23,7 @@ interface ScrollGridProps<T> {
   cellHeight: number | 'auto' | undefined
   cols: number
   direction: 'horizontal' | 'vertical'
+  header: JSX.Element
 }
 
 export default function ScrollGridContainer<T>(props: ScrollGridProps<T>) {
@@ -30,7 +32,7 @@ export default function ScrollGridContainer<T>(props: ScrollGridProps<T>) {
   return (
     <Container maxWidth={props.maxWidth}>
       {!props.loading && !props.items.length ? (
-        <Typography variant="h6">Nothing Found</Typography>
+        <Typography variant="h6">-</Typography>
       ) : (
         <GridList
           className={isHorizontal ? classes.horizontal : undefined}
@@ -38,6 +40,13 @@ export default function ScrollGridContainer<T>(props: ScrollGridProps<T>) {
           cols={props.cols}
           spacing={2}
         >
+          <GridListTile
+            key="Subheader"
+            cols={props.cols}
+            style={{ height: 'auto' }}
+          >
+            <ListSubheader component="div">{props.header}</ListSubheader>
+          </GridListTile>
           {props.items.map((item, index) => (
             <GridListTile key={index}>{props.renderItem(item)}</GridListTile>
           ))}

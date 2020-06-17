@@ -1,15 +1,14 @@
 import React from 'react'
 import { makeStyles, Theme, createStyles, Container } from '@material-ui/core'
-import AlbumsFeed from './albums-feed'
-import AlbumGridItem from './album-grid-item'
-import ScrollGridContainer from '../infinite-scroll/scroll-grid-container'
+import PerformersFeed from './performers-feed'
+import ScrollListContainer from '../infinite-scroll/scroll-list-container'
+import PerformerListItem from './performer-list-item'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       marginTop: theme.spacing(4),
       marginBottom: theme.spacing(4),
-      width: '100%',
       display: 'flex',
       flexWrap: 'wrap',
       justifyContent: 'space-around',
@@ -19,24 +18,21 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 )
 
-export default function AlbumsGrid() {
+export default function PerformersList() {
   const classes = useStyles()
   return (
     <Container className={classes.root}>
-      <AlbumsFeed>
-        {({ albums, loading }) => (
-          <ScrollGridContainer
-            items={albums}
+      <PerformersFeed>
+        {({ performers, loading }) => (
+          <ScrollListContainer
+            items={performers}
             loading={loading}
-            renderItem={item => <AlbumGridItem album={item} />}
+            renderItem={item => <PerformerListItem item={item} />}
             maxWidth="lg"
-            cellHeight={180}
-            cols={5}
-            direction="vertical"
-            header={<p>Albums</p>}
+            header={<p>Performers</p>}
           />
         )}
-      </AlbumsFeed>
+      </PerformersFeed>
     </Container>
   )
 }

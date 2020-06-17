@@ -569,7 +569,7 @@ export type AlbumDetailsQuery = (
         { __typename?: 'ReviewTypeEdge' }
         & { node?: Maybe<(
           { __typename?: 'ReviewType' }
-          & Pick<ReviewType, 'id' | 'review' | 'rating' | 'created'>
+          & Pick<ReviewType, 'id' | 'review' | 'rating' | 'lastUpdated'>
           & { user: (
             { __typename?: 'UserType' }
             & Pick<UserType, 'id' | 'username'>
@@ -729,11 +729,14 @@ export type ReadReviewsQuery = (
         & Pick<ReviewType, 'id' | 'review' | 'rating' | 'created' | 'lastUpdated'>
         & { album: (
           { __typename?: 'AlbumType' }
-          & Pick<AlbumType, 'id' | 'title' | 'coverUrl'>
+          & Pick<AlbumType, 'id' | 'title' | 'coverUrl' | 'year'>
           & { performer: (
             { __typename?: 'PerformerType' }
             & Pick<PerformerType, 'id' | 'name' | 'logoUrl' | 'description' | 'created'>
           ) }
+        ), user: (
+          { __typename?: 'UserType' }
+          & Pick<UserType, 'username'>
         ) }
       )> }
     )>> }
@@ -800,7 +803,7 @@ export const AlbumDetailsDocument = gql`
           }
           review
           rating
-          created
+          lastUpdated
         }
       }
     }
@@ -1086,6 +1089,7 @@ export const ReadReviewsDocument = gql`
           id
           title
           coverUrl
+          year
           performer {
             id
             name
@@ -1093,6 +1097,9 @@ export const ReadReviewsDocument = gql`
             description
             created
           }
+        }
+        user {
+          username
         }
         review
         rating

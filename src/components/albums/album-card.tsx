@@ -10,6 +10,10 @@ import {
   createStyles,
 } from '@material-ui/core'
 import { AlbumTileData } from './albums-feed'
+import ScrollListContainer from '../infinite-scroll/scroll-list-container'
+import ReviewListItem from '../reviews/review-list-item'
+import { notEmpty } from '../../libs/utils'
+import ReviewListShortItem from '../reviews/review-list-short-item'
 
 interface AlbumCardProps {
   album: AlbumTileData
@@ -20,10 +24,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       display: 'flex',
-    },
-    details: {
-      display: 'flex',
-      flexDirection: 'column',
+      flexDirection: 'row',
     },
     content: {
       flex: '1 0 auto',
@@ -43,34 +44,38 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function AlbumCard(props: AlbumCardProps) {
   const classes = useStyles()
 
-  //   <Link component={GatsbyLink} to="/">
-  //   Go back to the homepage
-  // </Link>
-
   return (
     <Card className={classes.root}>
-      <div className={classes.details}>
-        <CardContent className={classes.content}>
-          <Typography component="h5" variant="h5">
-            {props.album.title}
-          </Typography>
-          <Typography variant="subtitle1" color="textSecondary">
-            {props.album.performer.name}({props.album.year})
-          </Typography>
-        </CardContent>
-        {props.details?.album ? (
-          <div className={classes.controls}>
-            <Typography variant="body2" color="textSecondary" component="p">
-              {props.details?.album?.description}
-            </Typography>
-          </div>
-        ) : null}
-      </div>
       <CardMedia
         className={classes.cover}
         image={props.album.coverUrl ?? ''}
         title={props.album.title}
       />
+
+      <CardContent className={classes.content}>
+        <Typography component="h5" variant="h5">
+          {props.album.title}
+        </Typography>
+        <Typography variant="subtitle1" color="textSecondary">
+          {props.album.performer.name}({props.album.year})
+        </Typography>
+        {props.details?.album ? (
+          <div className={classes.controls}>
+            <Typography variant="body2" color="textSecondary" component="p">
+              {props.details?.album?.description}
+            </Typography>
+            <ScrollListContainer
+              items={props.details.album.reviewSet.edges
+                .map(edge => edge?.node)
+                .filter(notEmpty)}
+              loading={false}
+              renderItem={item => <ReviewListShortItem item={item} />}
+              maxWidth="lg"
+              header={<p></p>}
+            />
+          </div>
+        ) : null}
+      </CardContent>
     </Card>
   )
 }

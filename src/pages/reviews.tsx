@@ -6,8 +6,8 @@ import ReviewsList from '../components/reviews/reviews-list'
 
 const Reviews: FC = () => (
   <Layout>
-    <SEO title="Review" />
-    <Hero title="Review" description="List of all reviews." />
+    <SEO title="Reviews" />
+    <Hero title="Reviews" description="List of all reviews." />
     <ReviewsList />
   </Layout>
 )

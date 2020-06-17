@@ -22,7 +22,7 @@ query AlbumDetails($album: ID!) {
           }
           review
           rating
-          created
+          lastUpdated
         }
       }
     }

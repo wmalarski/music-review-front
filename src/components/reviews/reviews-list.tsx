@@ -29,7 +29,7 @@ export default function ReviewsList() {
             loading={loading}
             renderItem={item => <ReviewListItem item={item} />}
             maxWidth="lg"
-            header={<p>Reviews</p>}
+            header={<p></p>}
           />
         )}
       </ReviewsFeed>

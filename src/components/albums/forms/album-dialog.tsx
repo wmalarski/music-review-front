@@ -24,6 +24,7 @@ interface AlbumDialogProps {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
   onSubmit: (result: CreateAlbumDialogResult) => void
   children: JSX.Element | JSX.Element[]
+  dialogTitle: JSX.Element
 }
 
 export default function AlbumDialog(props: AlbumDialogProps) {
@@ -42,7 +43,7 @@ export default function AlbumDialog(props: AlbumDialogProps) {
       onClose={handleClose}
       aria-labelledby="form-dialog-add-album"
     >
-      <DialogTitle id="form-dialog-add-album">Add Album</DialogTitle>
+      <DialogTitle id="form-dialog-add-album">{props.dialogTitle}</DialogTitle>
       <DialogContent>
         <DialogContentText>{props.name}</DialogContentText>
         <TextField
@@ -83,7 +84,7 @@ export default function AlbumDialog(props: AlbumDialogProps) {
           color="inherit"
           onClick={() => props.onSubmit({ title, coverUrl, description, year })}
         >
-          Add
+          Save
         </Button>
       </DialogActions>
     </Dialog>

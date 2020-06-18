@@ -8,6 +8,7 @@ export interface AlbumTileData {
   title: string
   year: number
   coverUrl?: string | null
+  description?: string | null
   performer: {
     name: string
   }

@@ -26,6 +26,7 @@ export default function CreateAlbumForm(props: CreateAlbumFormProps) {
         <AddIcon />
       </IconButton>
       <AlbumDialog
+        dialogTitle={<p>Add Album</p>}
         name={props.performer.name}
         open={open}
         setOpen={setOpen}

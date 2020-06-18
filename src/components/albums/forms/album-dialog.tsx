@@ -14,7 +14,7 @@ interface CreateAlbumDialogResult {
   description: string
 }
 
-interface CreateAlbumDialogProps {
+interface AlbumDialogProps {
   name: string
   title?: string | null
   year?: number | null
@@ -26,7 +26,7 @@ interface CreateAlbumDialogProps {
   children: JSX.Element | JSX.Element[]
 }
 
-export default function CreateAlbumDialog(props: CreateAlbumDialogProps) {
+export default function AlbumDialog(props: AlbumDialogProps) {
   const [title, setTitle] = React.useState(props.title ?? '')
   const [coverUrl, setCoverUrl] = React.useState(props.coverUrl ?? '')
   const [description, setDescription] = React.useState(props.description ?? '')

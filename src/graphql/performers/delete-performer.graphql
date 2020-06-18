@@ -1,0 +1,5 @@
+mutation DeletePerformer($performer: ID!) {
+  deletePerformer(input: { performer: $performer }) {
+    success
+  }
+}

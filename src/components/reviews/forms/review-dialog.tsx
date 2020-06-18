@@ -8,12 +8,12 @@ import DialogTitle from '@material-ui/core/DialogTitle'
 import Rating from '@material-ui/lab/Rating'
 import { TextField, Box } from '@material-ui/core'
 
-interface CreateReviewDialogResult {
+interface ReviewDialogResult {
   review: string
   rating: number
 }
 
-interface CreateReviewDialogProps {
+interface ReviewDialogProps {
   name: string
   title: string
   year: number
@@ -21,11 +21,11 @@ interface CreateReviewDialogProps {
   review?: string | null
   rating?: number | null
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
-  onSubmit: (result: CreateReviewDialogResult) => void
+  onSubmit: (result: ReviewDialogResult) => void
   children: JSX.Element | JSX.Element[]
 }
 
-export default function CreateReviewDialog(props: CreateReviewDialogProps) {
+export default function ReviewDialog(props: ReviewDialogProps) {
   const [review, setReview] = React.useState(props.review ?? '')
   const [rating, setRating] = React.useState(props.rating ?? 5)
 

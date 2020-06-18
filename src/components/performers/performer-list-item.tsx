@@ -9,7 +9,8 @@ import { notEmpty } from '../../libs/utils'
 import { Performer } from './performers-feed'
 import ScrollGridContainer from '../infinite-scroll/scroll-grid-container'
 import AlbumGridItem from '../albums/album-grid-item'
-import CreateAlbumForm from '../albums/create-album-form'
+import CreateAlbumForm from '../albums/forms/create-album-form'
+import DeletePerformerForm from './forms/delete-performer-form'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -49,10 +50,13 @@ export default function PerformerListItem(props: PerformerListItemProps) {
             header={
               <div className={classes.header}>
                 <Typography variant="h6">{props.item.name}</Typography>
-                <CreateAlbumForm
-                  name={props.item.name}
-                  performer={props.item.id}
-                />
+                <div>
+                  <CreateAlbumForm
+                    name={props.item.name}
+                    performer={props.item.id}
+                  />
+                  <DeletePerformerForm performer={props.item.id} />
+                </div>
               </div>
             }
           />

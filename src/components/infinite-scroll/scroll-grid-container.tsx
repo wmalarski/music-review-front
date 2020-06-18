@@ -32,7 +32,11 @@ export default function ScrollGridContainer<T>(props: ScrollGridProps<T>) {
   return (
     <Container maxWidth={props.maxWidth}>
       {!props.loading && !props.items.length ? (
-        <Typography variant="h6">-</Typography>
+        <GridList cols={1} spacing={2}>
+          <GridListTile key="Subheader" cols={1} style={{ height: 'auto' }}>
+            <ListSubheader component="div">{props.header}</ListSubheader>
+          </GridListTile>
+        </GridList>
       ) : (
         <GridList
           className={isHorizontal ? classes.horizontal : undefined}

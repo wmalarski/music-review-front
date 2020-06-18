@@ -1,6 +1,6 @@
 import React from 'react'
 import { GridListTileBar } from '@material-ui/core'
-import CreateReviewForm from '../reviews/create-review-form'
+import CreateReviewForm from '../reviews/forms/create-review-form'
 import AlbumDetails from './album-details'
 import { AlbumTileData } from './albums-feed'
 

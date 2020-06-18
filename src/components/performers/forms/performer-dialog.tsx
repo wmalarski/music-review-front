@@ -5,7 +5,7 @@ import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogTitle from '@material-ui/core/DialogTitle'
-import { AlbumInputType } from '../../types/backend'
+import { AlbumInputType } from '../../../types/backend'
 import {
   makeStyles,
   Theme,
@@ -25,23 +25,21 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 )
 
-interface CreatePerformerDialogResult {
+interface PerformerDialogResult {
   name: string
   albums: AlbumInputType[]
 }
 
-interface CreatePerformerDialogProps {
+interface PerformerDialogProps {
   children: JSX.Element | JSX.Element[]
   open: boolean
   name?: string | null
   albums?: AlbumInputType[] | null
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
-  onSubmit: (result: CreatePerformerDialogResult) => void
+  onSubmit: (result: PerformerDialogResult) => void
 }
 
-export default function CreatePerformerDialog(
-  props: CreatePerformerDialogProps,
-) {
+export default function PerformerDialog(props: PerformerDialogProps) {
   const classes = useStyles()
   const [name, setName] = React.useState(props.name ?? '')
   const [albums, setAlbums] = React.useState<AlbumInputType[]>(

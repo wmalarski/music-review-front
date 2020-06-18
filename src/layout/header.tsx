@@ -2,7 +2,7 @@ import { Link as GatsbyLink } from 'gatsby'
 import React, { FC } from 'react'
 import { AppBar, Toolbar, Typography, Link, Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
-import CreatePerformerForm from '../components/performers/create-performer-form'
+import CreatePerformerForm from '../components/performers/forms/create-performer-form'
 
 const useStyles = makeStyles({
   toolbar: {},

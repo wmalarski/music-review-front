@@ -673,6 +673,19 @@ export type CreatePerformerMutation = (
   )> }
 );
 
+export type DeletePerformerMutationVariables = Exact<{
+  performer: Scalars['ID'];
+}>;
+
+
+export type DeletePerformerMutation = (
+  { __typename?: 'Mutation' }
+  & { deletePerformer?: Maybe<(
+    { __typename?: 'DeletePerformerPayload' }
+    & Pick<DeletePerformerPayload, 'success'>
+  )> }
+);
+
 export type ReadPerformersQueryVariables = Exact<{
   after?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
@@ -1037,6 +1050,38 @@ export function useCreatePerformerMutation(baseOptions?: ApolloReactHooks.Mutati
 export type CreatePerformerMutationHookResult = ReturnType<typeof useCreatePerformerMutation>;
 export type CreatePerformerMutationResult = ApolloReactCommon.MutationResult<CreatePerformerMutation>;
 export type CreatePerformerMutationOptions = ApolloReactCommon.BaseMutationOptions<CreatePerformerMutation, CreatePerformerMutationVariables>;
+export const DeletePerformerDocument = gql`
+    mutation DeletePerformer($performer: ID!) {
+  deletePerformer(input: {performer: $performer}) {
+    success
+  }
+}
+    `;
+export type DeletePerformerMutationFn = ApolloReactCommon.MutationFunction<DeletePerformerMutation, DeletePerformerMutationVariables>;
+
+/**
+ * __useDeletePerformerMutation__
+ *
+ * To run a mutation, you first call `useDeletePerformerMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeletePerformerMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deletePerformerMutation, { data, loading, error }] = useDeletePerformerMutation({
+ *   variables: {
+ *      performer: // value for 'performer'
+ *   },
+ * });
+ */
+export function useDeletePerformerMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<DeletePerformerMutation, DeletePerformerMutationVariables>) {
+        return ApolloReactHooks.useMutation<DeletePerformerMutation, DeletePerformerMutationVariables>(DeletePerformerDocument, baseOptions);
+      }
+export type DeletePerformerMutationHookResult = ReturnType<typeof useDeletePerformerMutation>;
+export type DeletePerformerMutationResult = ApolloReactCommon.MutationResult<DeletePerformerMutation>;
+export type DeletePerformerMutationOptions = ApolloReactCommon.BaseMutationOptions<DeletePerformerMutation, DeletePerformerMutationVariables>;
 export const ReadPerformersDocument = gql`
     query ReadPerformers($after: String, $first: Int, $name: String) {
   performerSet(after: $after, first: $first, name: $name) {

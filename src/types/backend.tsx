@@ -733,20 +733,34 @@ export type ReadPerformerQuery = (
   { __typename?: 'Query' }
   & { performer?: Maybe<(
     { __typename?: 'PerformerType' }
-    & Pick<PerformerType, 'id' | 'name' | 'logoUrl' | 'description' | 'created' | 'lastUpdated'>
-    & { user?: Maybe<(
-      { __typename?: 'UserType' }
-      & Pick<UserType, 'username'>
-    )>, albumSet: (
+    & Pick<PerformerType, 'id'>
+    & { albumSet: (
       { __typename?: 'AlbumTypeConnection' }
       & { edges: Array<Maybe<(
         { __typename?: 'AlbumTypeEdge' }
         & { node?: Maybe<(
           { __typename?: 'AlbumType' }
-          & Pick<AlbumType, 'id' | 'title' | 'year' | 'coverUrl' | 'description'>
-          & { performer: (
-            { __typename?: 'PerformerType' }
-            & Pick<PerformerType, 'name'>
+          & Pick<AlbumType, 'id'>
+          & { reviewSet: (
+            { __typename?: 'ReviewTypeConnection' }
+            & { edges: Array<Maybe<(
+              { __typename?: 'ReviewTypeEdge' }
+              & { node?: Maybe<(
+                { __typename?: 'ReviewType' }
+                & Pick<ReviewType, 'id' | 'review' | 'rating' | 'lastUpdated' | 'created'>
+                & { user: (
+                  { __typename?: 'UserType' }
+                  & Pick<UserType, 'id' | 'username'>
+                ), album: (
+                  { __typename?: 'AlbumType' }
+                  & Pick<AlbumType, 'id' | 'year' | 'title'>
+                  & { performer: (
+                    { __typename?: 'PerformerType' }
+                    & Pick<PerformerType, 'id' | 'name' | 'description'>
+                  ) }
+                ) }
+              )> }
+            )>> }
           ) }
         )> }
       )>> }
@@ -1197,25 +1211,35 @@ export const ReadPerformerDocument = gql`
     query ReadPerformer($id: ID!) {
   performer(id: $id) {
     id
-    name
-    logoUrl
-    description
-    created
-    lastUpdated
-    user {
-      username
-    }
     albumSet {
       edges {
         node {
           id
-          performer {
-            name
+          reviewSet {
+            edges {
+              node {
+                id
+                user {
+                  id
+                  username
+                }
+                review
+                rating
+                lastUpdated
+                created
+                album {
+                  id
+                  performer {
+                    id
+                    name
+                    description
+                  }
+                  year
+                  title
+                }
+              }
+            }
           }
-          title
-          year
-          coverUrl
-          description
         }
       }
     }

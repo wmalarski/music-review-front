@@ -19,12 +19,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 )
 
-interface PerformersListProps {
-  selectedPerformer: string | null
-  setSelectedPerformer: (name: string | null) => void
-}
-
-export default function PerformersList(props: PerformersListProps) {
+export default function PerformersList() {
   const classes = useStyles()
   const [name, setName] = useState('')
   return (
@@ -34,13 +29,7 @@ export default function PerformersList(props: PerformersListProps) {
           <ScrollListContainer
             items={performers}
             loading={loading}
-            renderItem={item => (
-              <PerformerListItem
-                item={item}
-                selectedPerformer={props.selectedPerformer}
-                setSelectedPerformer={props.setSelectedPerformer}
-              />
-            )}
+            renderItem={item => <PerformerListItem item={item} />}
             maxWidth="lg"
             header={<PerformerSearchBar onClicked={setName} />}
           />

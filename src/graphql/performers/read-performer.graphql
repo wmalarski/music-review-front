@@ -1,25 +1,35 @@
 query ReadPerformer($id: ID!) {
   performer(id: $id) {
     id
-    name
-    logoUrl
-    description
-    created
-    lastUpdated
-    user {
-      username
-    }
     albumSet {
       edges {
         node {
           id
-          performer {
-            name
+          reviewSet {
+            edges {
+              node {
+                id
+                user {
+                  id
+                  username
+                }
+                review
+                rating
+                lastUpdated
+                created
+                album {
+                  id
+                  performer {
+                    id
+                    name
+                    description
+                  }
+                  year
+                  title
+                }
+              }
+            }
           }
-          title
-          year
-          coverUrl
-          description
         }
       }
     }

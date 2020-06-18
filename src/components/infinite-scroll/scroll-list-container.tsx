@@ -20,17 +20,14 @@ export default function ScrollListContainer<T>(props: ScrollListProps<T>) {
   return (
     <Container maxWidth={props.maxWidth}>
       {!props.loading && !props.items.length ? (
-        <Typography variant="h6">-</Typography>
+        <Typography variant="h6">{props.header}</Typography>
       ) : (
         <List>
           <ListItem key="Subheader" style={{ height: 'auto' }}>
             <ListSubheader component="div">{props.header}</ListSubheader>
           </ListItem>
           {props.items.map((item, index) => (
-            <div key={index}>
-              <ListItem>{props.renderItem(item)}</ListItem>
-              <Divider variant="inset" component="li" />
-            </div>
+            <ListItem key={index}>{props.renderItem(item)}</ListItem>
           ))}
         </List>
       )}

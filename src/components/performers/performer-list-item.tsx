@@ -1,95 +1,75 @@
 import React from 'react'
 import {
   ListItemText,
-  Typography,
   makeStyles,
   createStyles,
-  IconButton,
+  ExpansionPanel,
+  ExpansionPanelSummary,
+  ExpansionPanelDetails,
+  Typography,
 } from '@material-ui/core'
-import { notEmpty } from '../../libs/utils'
 import { Performer } from './performers-feed'
-import ScrollGridContainer from '../infinite-scroll/scroll-grid-container'
-import AlbumGridItem from '../albums/album-grid-item'
-import CreateAlbumForm from '../albums/forms/create-album-form'
-import DeletePerformerForm from './forms/delete-performer-form'
-import UpdatePerformerForm from './forms/update-performer-form'
-import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos'
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import PerformerAlbumsGrid from '../albums/performer-albums-grid'
+import {
+  useReadPerformerLazyQuery,
+  ReadPerformerQuery,
+} from '../../types/backend'
+import { notEmpty } from '../../libs/utils'
+import { ReviewTileData } from '../reviews/reviews-feed'
+import ScrollListContainer from '../infinite-scroll/scroll-list-container'
+import ReviewListItem from '../reviews/review-list-item'
 
 const useStyles = makeStyles(() =>
   createStyles({
     root: {
-      display: 'flex',
-      flexDirection: 'row',
       width: '100%',
-    },
-    header: {
-      display: 'flex',
-      flexDirection: 'row',
-      justifyContent: 'space-between',
     },
   }),
 )
 
 interface PerformerListItemProps {
   item: Performer
-  selectedPerformer: string | null
-  setSelectedPerformer: (name: string | null) => void
+}
+
+function getReviews(data: ReadPerformerQuery | undefined): ReviewTileData[] {
+  const albums = data?.performer?.albumSet.edges ?? []
+  const reviews = albums.flatMap(edge => edge?.node?.reviewSet.edges ?? [])
+  return reviews.map(edge => edge?.node).filter(notEmpty)
 }
 
 export default function PerformerListItem(props: PerformerListItemProps) {
   const classes = useStyles()
+  const [loadPerformer, { loading, data }] = useReadPerformerLazyQuery({
+    variables: {
+      id: props.item.id,
+    },
+  })
+
   return (
     <>
       {props.item ? (
-        <div className={classes.root}>
-          <ScrollGridContainer
-            items={props.item.albumSet.edges
-              .map(edge => edge?.node)
-              .filter(notEmpty)}
-            loading={false}
-            renderItem={item => <AlbumGridItem album={item} />}
-            maxWidth="lg"
-            cellHeight={180}
-            cols={5}
-            direction="vertical"
-            header={
-              <div className={classes.header}>
-                <div
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                  }}
-                >
-                  {props.selectedPerformer ? (
-                    <IconButton
-                      color="inherit"
-                      onClick={() => props.setSelectedPerformer(null)}
-                      title="Go back"
-                    >
-                      <ArrowBackIosIcon />
-                    </IconButton>
-                  ) : (
-                    <IconButton
-                      color="inherit"
-                      onClick={() => props.setSelectedPerformer(props.item.id)}
-                      title="Select"
-                    >
-                      <ArrowForwardIosIcon />
-                    </IconButton>
-                  )}
-                  <Typography variant="h6">{props.item.name}</Typography>
-                </div>
-                <div>
-                  <CreateAlbumForm performer={props.item} />
-                  <UpdatePerformerForm performer={props.item} />
-                  <DeletePerformerForm performer={props.item} />
-                </div>
-              </div>
+        <ExpansionPanel
+          className={classes.root}
+          onChange={(_, expanded) => {
+            if (expanded) {
+              loadPerformer()
             }
-          />
-        </div>
+          }}
+        >
+          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+            <PerformerAlbumsGrid item={props.item} />
+          </ExpansionPanelSummary>
+          <ExpansionPanelDetails>
+            <ScrollListContainer
+              items={getReviews(data)}
+              loading={loading}
+              renderItem={item => <ReviewListItem item={item} />}
+              maxWidth="lg"
+              header={<Typography variant="h6">Reviews</Typography>}
+            />
+          </ExpansionPanelDetails>
+        </ExpansionPanel>
       ) : (
         <ListItemText primary="Loading" />
       )}

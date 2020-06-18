@@ -5,10 +5,10 @@ import { IconButton } from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add'
 import AlbumDialog from './album-dialog'
 import Alert from '@material-ui/lab/Alert'
+import { Performer } from '../../performers/performers-feed'
 
 interface CreateAlbumFormProps {
-  performer: string
-  name: string
+  performer: Performer
 }
 
 export default function CreateAlbumForm(props: CreateAlbumFormProps) {
@@ -26,13 +26,13 @@ export default function CreateAlbumForm(props: CreateAlbumFormProps) {
         <AddIcon />
       </IconButton>
       <AlbumDialog
-        name={props.name}
+        name={props.performer.name}
         open={open}
         setOpen={setOpen}
         onSubmit={result => {
           albumAlbumMutation({
             variables: {
-              performer: props.performer,
+              performer: props.performer.id,
               ...result,
             },
           }).then(() => {

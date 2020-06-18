@@ -1,31 +1,38 @@
 import React, { useState } from 'react'
-import Button from '@material-ui/core/Button'
-import { useCreatePerformerMutation } from '../../../types/backend'
-import PerformerDialog from './performer-dialog'
+import { useUpdatePerformerMutation } from '../../../types/backend'
 import FormProgress from '../../common/form-progress'
 import Alert from '@material-ui/lab/Alert/Alert'
+import { Performer } from '../performers-feed'
+import PerformerShortDialog from './performer-short-dialog'
+import EditIcon from '@material-ui/icons/Edit'
+import { IconButton } from '@material-ui/core'
 
-export default function CreatePerformerForm() {
+interface UpdatePerformerFormProps {
+  performer: Performer
+}
+
+export default function UpdatePerformerForm(props: UpdatePerformerFormProps) {
   const [open, setOpen] = useState(false)
   const [snackbarOpen, setSnackbarOpen] = useState(false)
   const [
-    createPerformerMutation,
+    updatePerformerMutation,
     { loading, error },
-  ] = useCreatePerformerMutation()
+  ] = useUpdatePerformerMutation()
 
   return (
     <>
-      <Button color="inherit" onClick={() => setOpen(true)}>
-        Add Performer
-      </Button>
-      <PerformerDialog
+      <IconButton title="Edit" color="inherit" onClick={() => setOpen(true)}>
+        <EditIcon />
+      </IconButton>
+      <PerformerShortDialog
+        name={props.performer.name}
         open={open}
         setOpen={setOpen}
         onSubmit={result => {
-          createPerformerMutation({
+          updatePerformerMutation({
             variables: {
+              performer: props.performer.id,
               name: result.name,
-              albums: result.albums,
               description: '',
             },
           }).then(() => {
@@ -44,7 +51,7 @@ export default function CreatePerformerForm() {
             setIsScankBarVisible={setSnackbarOpen}
           />
         </div>
-      </PerformerDialog>
+      </PerformerShortDialog>
     </>
   )
 }

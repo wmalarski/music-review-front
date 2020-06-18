@@ -724,6 +724,55 @@ export type ReadPerformersQuery = (
   )> }
 );
 
+export type ReadPerformerQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type ReadPerformerQuery = (
+  { __typename?: 'Query' }
+  & { performer?: Maybe<(
+    { __typename?: 'PerformerType' }
+    & Pick<PerformerType, 'id' | 'name' | 'logoUrl' | 'description' | 'created' | 'lastUpdated'>
+    & { user?: Maybe<(
+      { __typename?: 'UserType' }
+      & Pick<UserType, 'username'>
+    )>, albumSet: (
+      { __typename?: 'AlbumTypeConnection' }
+      & { edges: Array<Maybe<(
+        { __typename?: 'AlbumTypeEdge' }
+        & { node?: Maybe<(
+          { __typename?: 'AlbumType' }
+          & Pick<AlbumType, 'id' | 'title' | 'year' | 'coverUrl' | 'description'>
+          & { performer: (
+            { __typename?: 'PerformerType' }
+            & Pick<PerformerType, 'name'>
+          ) }
+        )> }
+      )>> }
+    ) }
+  )> }
+);
+
+export type UpdatePerformerMutationVariables = Exact<{
+  performer: Scalars['ID'];
+  name?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  logoUrl?: Maybe<Scalars['String']>;
+}>;
+
+
+export type UpdatePerformerMutation = (
+  { __typename?: 'Mutation' }
+  & { updatePerformer?: Maybe<(
+    { __typename?: 'UpdatePerformerPayload' }
+    & { performer?: Maybe<(
+      { __typename?: 'PerformerType' }
+      & Pick<PerformerType, 'id' | 'name' | 'logoUrl' | 'description' | 'lastUpdated'>
+    )> }
+  )> }
+);
+
 export type ReviewAlbumMutationVariables = Exact<{
   album: Scalars['ID'];
   review: Scalars['String'];
@@ -1144,6 +1193,102 @@ export function useReadPerformersLazyQuery(baseOptions?: ApolloReactHooks.LazyQu
 export type ReadPerformersQueryHookResult = ReturnType<typeof useReadPerformersQuery>;
 export type ReadPerformersLazyQueryHookResult = ReturnType<typeof useReadPerformersLazyQuery>;
 export type ReadPerformersQueryResult = ApolloReactCommon.QueryResult<ReadPerformersQuery, ReadPerformersQueryVariables>;
+export const ReadPerformerDocument = gql`
+    query ReadPerformer($id: ID!) {
+  performer(id: $id) {
+    id
+    name
+    logoUrl
+    description
+    created
+    lastUpdated
+    user {
+      username
+    }
+    albumSet {
+      edges {
+        node {
+          id
+          performer {
+            name
+          }
+          title
+          year
+          coverUrl
+          description
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useReadPerformerQuery__
+ *
+ * To run a query within a React component, call `useReadPerformerQuery` and pass it any options that fit your needs.
+ * When your component renders, `useReadPerformerQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useReadPerformerQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useReadPerformerQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<ReadPerformerQuery, ReadPerformerQueryVariables>) {
+        return ApolloReactHooks.useQuery<ReadPerformerQuery, ReadPerformerQueryVariables>(ReadPerformerDocument, baseOptions);
+      }
+export function useReadPerformerLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ReadPerformerQuery, ReadPerformerQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<ReadPerformerQuery, ReadPerformerQueryVariables>(ReadPerformerDocument, baseOptions);
+        }
+export type ReadPerformerQueryHookResult = ReturnType<typeof useReadPerformerQuery>;
+export type ReadPerformerLazyQueryHookResult = ReturnType<typeof useReadPerformerLazyQuery>;
+export type ReadPerformerQueryResult = ApolloReactCommon.QueryResult<ReadPerformerQuery, ReadPerformerQueryVariables>;
+export const UpdatePerformerDocument = gql`
+    mutation UpdatePerformer($performer: ID!, $name: String, $description: String, $logoUrl: String) {
+  updatePerformer(input: {performer: $performer, name: $name, description: $description, logoUrl: $logoUrl}) {
+    performer {
+      id
+      name
+      logoUrl
+      description
+      lastUpdated
+    }
+  }
+}
+    `;
+export type UpdatePerformerMutationFn = ApolloReactCommon.MutationFunction<UpdatePerformerMutation, UpdatePerformerMutationVariables>;
+
+/**
+ * __useUpdatePerformerMutation__
+ *
+ * To run a mutation, you first call `useUpdatePerformerMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdatePerformerMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updatePerformerMutation, { data, loading, error }] = useUpdatePerformerMutation({
+ *   variables: {
+ *      performer: // value for 'performer'
+ *      name: // value for 'name'
+ *      description: // value for 'description'
+ *      logoUrl: // value for 'logoUrl'
+ *   },
+ * });
+ */
+export function useUpdatePerformerMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdatePerformerMutation, UpdatePerformerMutationVariables>) {
+        return ApolloReactHooks.useMutation<UpdatePerformerMutation, UpdatePerformerMutationVariables>(UpdatePerformerDocument, baseOptions);
+      }
+export type UpdatePerformerMutationHookResult = ReturnType<typeof useUpdatePerformerMutation>;
+export type UpdatePerformerMutationResult = ApolloReactCommon.MutationResult<UpdatePerformerMutation>;
+export type UpdatePerformerMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdatePerformerMutation, UpdatePerformerMutationVariables>;
 export const ReviewAlbumDocument = gql`
     mutation ReviewAlbum($album: ID!, $review: String!, $rating: Float!) {
   createReview(input: {album: $album, review: $review, rating: $rating}) {

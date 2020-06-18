@@ -3,9 +3,10 @@ import { useDeletePerformerMutation } from '../../../types/backend'
 import FormProgress from '../../common/form-progress'
 import DeleteIcon from '@material-ui/icons/Delete'
 import IconButton from '@material-ui/core/IconButton'
+import { Performer } from '../performers-feed'
 
 interface DeletePerformerFormProps {
-  performer: string
+  performer: Performer
 }
 
 export default function DeletePerformerForm(props: DeletePerformerFormProps) {
@@ -22,7 +23,7 @@ export default function DeletePerformerForm(props: DeletePerformerFormProps) {
         onClick={() => {
           deletePerformerMutation({
             variables: {
-              performer: props.performer,
+              performer: props.performer.id,
             },
           }).then(() => setSnackbarOpen(true))
         }}

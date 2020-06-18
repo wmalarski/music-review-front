@@ -4,6 +4,7 @@ import {
   Typography,
   makeStyles,
   createStyles,
+  IconButton,
 } from '@material-ui/core'
 import { notEmpty } from '../../libs/utils'
 import { Performer } from './performers-feed'
@@ -11,6 +12,9 @@ import ScrollGridContainer from '../infinite-scroll/scroll-grid-container'
 import AlbumGridItem from '../albums/album-grid-item'
 import CreateAlbumForm from '../albums/forms/create-album-form'
 import DeletePerformerForm from './forms/delete-performer-form'
+import UpdatePerformerForm from './forms/update-performer-form'
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos'
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -29,6 +33,8 @@ const useStyles = makeStyles(() =>
 
 interface PerformerListItemProps {
   item: Performer
+  selectedPerformer: string | null
+  setSelectedPerformer: (name: string | null) => void
 }
 
 export default function PerformerListItem(props: PerformerListItemProps) {
@@ -49,13 +55,36 @@ export default function PerformerListItem(props: PerformerListItemProps) {
             direction="vertical"
             header={
               <div className={classes.header}>
-                <Typography variant="h6">{props.item.name}</Typography>
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                  }}
+                >
+                  {props.selectedPerformer ? (
+                    <IconButton
+                      color="inherit"
+                      onClick={() => props.setSelectedPerformer(null)}
+                      title="Go back"
+                    >
+                      <ArrowBackIosIcon />
+                    </IconButton>
+                  ) : (
+                    <IconButton
+                      color="inherit"
+                      onClick={() => props.setSelectedPerformer(props.item.id)}
+                      title="Select"
+                    >
+                      <ArrowForwardIosIcon />
+                    </IconButton>
+                  )}
+                  <Typography variant="h6">{props.item.name}</Typography>
+                </div>
                 <div>
-                  <CreateAlbumForm
-                    name={props.item.name}
-                    performer={props.item.id}
-                  />
-                  <DeletePerformerForm performer={props.item.id} />
+                  <CreateAlbumForm performer={props.item} />
+                  <UpdatePerformerForm performer={props.item} />
+                  <DeletePerformerForm performer={props.item} />
                 </div>
               </div>
             }

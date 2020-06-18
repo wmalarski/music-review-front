@@ -19,17 +19,7 @@ export default function AlbumGridItem(props: AlbumGridItemProps) {
             by: {props.album.performer.name}, {props.album.year}
           </span>
         }
-        actionIcon={
-          <p>
-            <CreateReviewForm
-              album={props.album.id}
-              title={props.album.title}
-              name={props.album.performer.name}
-              year={props.album.year}
-            />
-            <AlbumDetails album={props.album} />
-          </p>
-        }
+        actionIcon={<AlbumDetails album={props.album} />}
       />
     </>
   )

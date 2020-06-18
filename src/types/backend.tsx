@@ -570,6 +570,19 @@ export type CreateAlbumMutation = (
   )> }
 );
 
+export type DeleteAlbumMutationVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type DeleteAlbumMutation = (
+  { __typename?: 'Mutation' }
+  & { deleteAlbum?: Maybe<(
+    { __typename?: 'DeleteAlbumPayload' }
+    & Pick<DeleteAlbumPayload, 'success'>
+  )> }
+);
+
 export type AlbumDetailsQueryVariables = Exact<{
   album: Scalars['ID'];
 }>;
@@ -652,6 +665,26 @@ export type ReadRandomAlbumsQuery = (
         ) }
       )> }
     )>> }
+  )> }
+);
+
+export type UpdateAlbumMutationVariables = Exact<{
+  id: Scalars['ID'];
+  title?: Maybe<Scalars['String']>;
+  year?: Maybe<Scalars['Int']>;
+  coverUrl?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+}>;
+
+
+export type UpdateAlbumMutation = (
+  { __typename?: 'Mutation' }
+  & { updateAlbum?: Maybe<(
+    { __typename?: 'UpdateAlbumPayload' }
+    & { album?: Maybe<(
+      { __typename?: 'AlbumType' }
+      & Pick<AlbumType, 'id' | 'title' | 'year' | 'description' | 'coverUrl'>
+    )> }
   )> }
 );
 
@@ -913,6 +946,38 @@ export function useCreateAlbumMutation(baseOptions?: ApolloReactHooks.MutationHo
 export type CreateAlbumMutationHookResult = ReturnType<typeof useCreateAlbumMutation>;
 export type CreateAlbumMutationResult = ApolloReactCommon.MutationResult<CreateAlbumMutation>;
 export type CreateAlbumMutationOptions = ApolloReactCommon.BaseMutationOptions<CreateAlbumMutation, CreateAlbumMutationVariables>;
+export const DeleteAlbumDocument = gql`
+    mutation DeleteAlbum($id: ID!) {
+  deleteAlbum(input: {album: $id}) {
+    success
+  }
+}
+    `;
+export type DeleteAlbumMutationFn = ApolloReactCommon.MutationFunction<DeleteAlbumMutation, DeleteAlbumMutationVariables>;
+
+/**
+ * __useDeleteAlbumMutation__
+ *
+ * To run a mutation, you first call `useDeleteAlbumMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteAlbumMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteAlbumMutation, { data, loading, error }] = useDeleteAlbumMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeleteAlbumMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<DeleteAlbumMutation, DeleteAlbumMutationVariables>) {
+        return ApolloReactHooks.useMutation<DeleteAlbumMutation, DeleteAlbumMutationVariables>(DeleteAlbumDocument, baseOptions);
+      }
+export type DeleteAlbumMutationHookResult = ReturnType<typeof useDeleteAlbumMutation>;
+export type DeleteAlbumMutationResult = ApolloReactCommon.MutationResult<DeleteAlbumMutation>;
+export type DeleteAlbumMutationOptions = ApolloReactCommon.BaseMutationOptions<DeleteAlbumMutation, DeleteAlbumMutationVariables>;
 export const AlbumDetailsDocument = gql`
     query AlbumDetails($album: ID!) {
   album(id: $album) {
@@ -1074,6 +1139,48 @@ export function useReadRandomAlbumsLazyQuery(baseOptions?: ApolloReactHooks.Lazy
 export type ReadRandomAlbumsQueryHookResult = ReturnType<typeof useReadRandomAlbumsQuery>;
 export type ReadRandomAlbumsLazyQueryHookResult = ReturnType<typeof useReadRandomAlbumsLazyQuery>;
 export type ReadRandomAlbumsQueryResult = ApolloReactCommon.QueryResult<ReadRandomAlbumsQuery, ReadRandomAlbumsQueryVariables>;
+export const UpdateAlbumDocument = gql`
+    mutation UpdateAlbum($id: ID!, $title: String, $year: Int, $coverUrl: String, $description: String) {
+  updateAlbum(input: {album: $id, title: $title, year: $year, coverUrl: $coverUrl, description: $description}) {
+    album {
+      id
+      title
+      year
+      description
+      coverUrl
+    }
+  }
+}
+    `;
+export type UpdateAlbumMutationFn = ApolloReactCommon.MutationFunction<UpdateAlbumMutation, UpdateAlbumMutationVariables>;
+
+/**
+ * __useUpdateAlbumMutation__
+ *
+ * To run a mutation, you first call `useUpdateAlbumMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateAlbumMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateAlbumMutation, { data, loading, error }] = useUpdateAlbumMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      title: // value for 'title'
+ *      year: // value for 'year'
+ *      coverUrl: // value for 'coverUrl'
+ *      description: // value for 'description'
+ *   },
+ * });
+ */
+export function useUpdateAlbumMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateAlbumMutation, UpdateAlbumMutationVariables>) {
+        return ApolloReactHooks.useMutation<UpdateAlbumMutation, UpdateAlbumMutationVariables>(UpdateAlbumDocument, baseOptions);
+      }
+export type UpdateAlbumMutationHookResult = ReturnType<typeof useUpdateAlbumMutation>;
+export type UpdateAlbumMutationResult = ApolloReactCommon.MutationResult<UpdateAlbumMutation>;
+export type UpdateAlbumMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateAlbumMutation, UpdateAlbumMutationVariables>;
 export const CreatePerformerDocument = gql`
     mutation CreatePerformer($name: String!, $description: String, $albums: [AlbumInputType!]) {
   createPerformer(input: {name: $name, description: $description, albums: $albums}) {

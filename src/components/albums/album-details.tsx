@@ -11,6 +11,10 @@ import {
 import InfoIcon from '@material-ui/icons/Info'
 import AlbumCard from './album-card'
 import { AlbumTileData } from './albums-feed'
+import CreateReviewForm from '../reviews/forms/create-review-form'
+import DeleteAlbumForm from './forms/delete-album-form'
+import UpdateAlbumForm from './forms/update-album-form'
+import YtAlbumForm from './forms/yt-album-form'
 
 interface AlbumDetailsProps {
   album: AlbumTileData
@@ -45,6 +49,13 @@ export default function AlbumDetails(props: AlbumDetailsProps) {
           <AlbumCard album={props.album} details={data ?? null} />
         </DialogContent>
         <DialogActions>
+          <YtAlbumForm album={props.album} />
+          <CreateReviewForm album={props.album} />
+          <UpdateAlbumForm album={props.album} />
+          <DeleteAlbumForm
+            album={props.album}
+            onDelete={() => setOpen(false)}
+          />
           <Button color="inherit" onClick={() => setOpen(false)}>
             Cancel
           </Button>

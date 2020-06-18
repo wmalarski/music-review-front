@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   ListItemText,
   makeStyles,
@@ -40,6 +40,7 @@ function getReviews(data: ReadPerformerQuery | undefined): ReviewTileData[] {
 
 export default function PerformerListItem(props: PerformerListItemProps) {
   const classes = useStyles()
+  const [expanded, setExpanded] = useState(false)
   const [loadPerformer, { loading, data }] = useReadPerformerLazyQuery({
     variables: {
       id: props.item.id,
@@ -50,6 +51,7 @@ export default function PerformerListItem(props: PerformerListItemProps) {
     <>
       {props.item ? (
         <ExpansionPanel
+          expanded={expanded}
           className={classes.root}
           onChange={(_, expanded) => {
             if (expanded) {
@@ -57,7 +59,11 @@ export default function PerformerListItem(props: PerformerListItemProps) {
             }
           }}
         >
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+          <ExpansionPanelSummary
+            expandIcon={
+              <ExpandMoreIcon onClick={() => setExpanded(!expanded)} />
+            }
+          >
             <PerformerAlbumsGrid item={props.item} />
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>

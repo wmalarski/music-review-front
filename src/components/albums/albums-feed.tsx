@@ -10,7 +10,6 @@ export interface AlbumTileData {
   mbid: string
   image: {
     url: string
-    size: string
   }[]
   wiki?: {
     summary: string

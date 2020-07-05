@@ -1,23 +1,16 @@
 import React from 'react'
-import {
-  Container,
-  Typography,
-  List,
-  ListItem,
-  ListSubheader,
-} from '@material-ui/core'
+import { Typography, List, ListItem, ListSubheader } from '@material-ui/core'
 
 interface ScrollListProps<T> {
   items: T[]
   renderItem: (item: T) => JSX.Element
   loading: boolean
-  maxWidth: 'lg'
   header: JSX.Element
 }
 
 export default function ScrollListContainer<T>(props: ScrollListProps<T>) {
   return (
-    <Container maxWidth={props.maxWidth}>
+    <div style={{ width: '100%' }}>
       {!props.loading && !props.items.length ? (
         <Typography variant="h6">{props.header}</Typography>
       ) : (
@@ -30,6 +23,6 @@ export default function ScrollListContainer<T>(props: ScrollListProps<T>) {
           ))}
         </List>
       )}
-    </Container>
+    </div>
   )
 }

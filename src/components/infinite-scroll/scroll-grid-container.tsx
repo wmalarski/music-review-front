@@ -1,10 +1,5 @@
 import React from 'react'
-import {
-  Container,
-  GridList,
-  GridListTile,
-  ListSubheader,
-} from '@material-ui/core'
+import { GridList, GridListTile, ListSubheader } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 
 const useStyles = makeStyles(() => ({
@@ -18,7 +13,6 @@ interface ScrollGridProps<T> {
   items: T[]
   renderItem: (item: T) => JSX.Element
   loading: boolean
-  maxWidth: 'lg'
   cellHeight: number | 'auto' | undefined
   cols: number
   direction: 'horizontal' | 'vertical'
@@ -29,7 +23,7 @@ export default function ScrollGridContainer<T>(props: ScrollGridProps<T>) {
   const classes = useStyles()
   const isHorizontal = props.direction === 'horizontal'
   return (
-    <Container maxWidth={props.maxWidth}>
+    <div style={{ width: '100%' }}>
       {!props.loading && !props.items.length ? (
         <GridList cols={1} spacing={2}>
           <GridListTile key="Subheader" cols={1} style={{ height: 'auto' }}>
@@ -55,6 +49,6 @@ export default function ScrollGridContainer<T>(props: ScrollGridProps<T>) {
           ))}
         </GridList>
       )}
-    </Container>
+    </div>
   )
 }

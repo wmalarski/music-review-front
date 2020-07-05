@@ -25,6 +25,10 @@ const useStyles = makeStyles(() =>
     root: {
       width: '100%',
     },
+    details: {
+      display: 'flex',
+      flexDirection: 'column',
+    },
   }),
 )
 
@@ -66,12 +70,14 @@ export default function PerformerListItem(props: PerformerListItemProps) {
           >
             <PerformerAlbumsGrid item={props.item} />
           </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
+          <ExpansionPanelDetails className={classes.details}>
+            <Typography variant="body2" color="textSecondary" component="p">
+              {data?.performer?.bio?.summary ?? ''}
+            </Typography>
             <ScrollListContainer
               items={getReviews(data)}
               loading={loading}
-              renderItem={item => <ReviewListItem item={item} />}
-              maxWidth="lg"
+              renderItem={item => <ReviewListItem item={item} imageSize={2} />}
               header={<Typography variant="h6">Reviews</Typography>}
             />
           </ExpansionPanelDetails>

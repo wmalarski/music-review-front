@@ -28,10 +28,9 @@ export default function PerformerAlbumsGrid(props: PerformerAlbumsGridProps) {
     <ScrollGridContainer
       items={props.item.albumSet.edges.map(edge => edge?.node).filter(notEmpty)}
       loading={false}
-      renderItem={item => <AlbumGridItem album={item} />}
-      maxWidth="lg"
-      cellHeight={180}
-      cols={5}
+      renderItem={item => <AlbumGridItem album={item} imageIndex={3} />}
+      cellHeight={300}
+      cols={6}
       direction="vertical"
       header={
         <div className={classes.header}>

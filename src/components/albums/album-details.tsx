@@ -3,7 +3,6 @@ import { useAlbumDetailsLazyQuery } from '../../types/backend'
 import {
   IconButton,
   Dialog,
-  DialogTitle,
   DialogContent,
   DialogActions,
   Button,
@@ -40,11 +39,11 @@ export default function AlbumDetails(props: AlbumDetailsProps) {
         <InfoIcon />
       </IconButton>
       <Dialog
+        maxWidth="lg"
         open={open}
         onClose={() => setOpen(false)}
         aria-labelledby="form-dialog-album-details"
       >
-        <DialogTitle id="form-dialog-album-details">Album Details</DialogTitle>
         <DialogContent>
           <AlbumCard album={props.album} details={data ?? null} />
         </DialogContent>

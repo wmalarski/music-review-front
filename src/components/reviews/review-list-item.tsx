@@ -19,6 +19,11 @@ const useStyles = makeStyles((theme: Theme) =>
       flexDirection: 'row',
       width: '100%',
     },
+    card: {
+      display: 'flex',
+      flexDirection: 'row',
+      width: '100%',
+    },
     content: {
       flex: '1 0 auto',
     },
@@ -36,6 +41,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface ReviewListItemProps {
   item: ReviewTileData
+  imageSize: number
 }
 
 export default function ReviewListItem(props: ReviewListItemProps) {
@@ -43,11 +49,11 @@ export default function ReviewListItem(props: ReviewListItemProps) {
   return (
     <>
       {props.item ? (
-        <div style={{ display: 'flex', flexDirection: 'row', width: '100%' }}>
-          <Card className={classes.root}>
+        <div className={classes.root}>
+          <Card className={classes.card}>
             <CardMedia
               className={classes.cover}
-              image={props.item.album.coverUrl ?? ''}
+              image={props.item.album.image[props.imageSize].url ?? ''}
               title={props.item.album.name}
             />
             <CardContent className={classes.content}>

@@ -27,12 +27,15 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     content: {
       flex: '1 0 auto',
+      flexShrink: 100,
     },
     cover: {
-      width: 151,
+      width: 350,
+      height: 350,
     },
     controls: {
       display: 'flex',
+      flexDirection: 'column',
       alignItems: 'center',
       paddingLeft: theme.spacing(1),
       paddingBottom: theme.spacing(1),
@@ -47,7 +50,7 @@ export default function AlbumCard(props: AlbumCardProps) {
     <Card className={classes.root}>
       <CardMedia
         className={classes.cover}
-        image={props.album.image[0].url ?? ''}
+        image={props.album.image[4].url ?? ''}
         title={props.album.name}
       />
 
@@ -69,7 +72,6 @@ export default function AlbumCard(props: AlbumCardProps) {
                 .filter(notEmpty)}
               loading={false}
               renderItem={item => <ReviewListShortItem item={item} />}
-              maxWidth="lg"
               header={<p></p>}
             />
           </div>

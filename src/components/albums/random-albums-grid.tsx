@@ -1,26 +1,13 @@
 import React from 'react'
 import { useReadRandomAlbumsQuery } from '../../types/backend'
-import { createStyles, makeStyles, Theme, Container } from '@material-ui/core'
 import RandomAlbumsFeed from './random-albums-feed'
 import ScrollGridContainer from '../infinite-scroll/scroll-grid-container'
 import AlbumGridItem from './album-grid-item'
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      marginTop: theme.spacing(4),
-      marginBottom: theme.spacing(4),
-      display: 'flex',
-      flexWrap: 'wrap',
-      justifyContent: 'space-around',
-      overflow: 'hidden',
-      backgroundColor: theme.palette.background.paper,
-    },
-  }),
-)
+import { useMainListStyles } from '../../hooks/use-styles'
+import Container from '@material-ui/core/Container'
 
 export default function RandomAlbumsGrid() {
-  const classes = useStyles()
+  const classes = useMainListStyles()
   const { data, loading } = useReadRandomAlbumsQuery({
     variables: {
       after: '',
@@ -33,16 +20,15 @@ export default function RandomAlbumsGrid() {
   }
 
   return (
-    <Container className={classes.root}>
-      <RandomAlbumsFeed first={20}>
+    <Container className={classes.root} maxWidth="xl">
+      <RandomAlbumsFeed first={18}>
         {({ albums, loading }) => (
           <ScrollGridContainer
             items={albums}
             loading={loading}
-            renderItem={item => <AlbumGridItem album={item} />}
-            maxWidth="lg"
-            cellHeight={180}
-            cols={5}
+            renderItem={item => <AlbumGridItem album={item} imageIndex={3} />}
+            cellHeight={300}
+            cols={6}
             direction="vertical"
             header={<p></p>}
           />

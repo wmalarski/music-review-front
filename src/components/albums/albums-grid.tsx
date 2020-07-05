@@ -1,39 +1,24 @@
 import React, { useState } from 'react'
-import { makeStyles, Theme, createStyles, Container } from '@material-ui/core'
+import { Container } from '@material-ui/core'
 import AlbumsFeed from './albums-feed'
 import AlbumGridItem from './album-grid-item'
 import ScrollGridContainer from '../infinite-scroll/scroll-grid-container'
 import AlbumSearchBar from './album-search-bar'
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      marginTop: theme.spacing(4),
-      marginBottom: theme.spacing(4),
-      width: '100%',
-      display: 'flex',
-      flexWrap: 'wrap',
-      justifyContent: 'space-around',
-      overflow: 'hidden',
-      backgroundColor: theme.palette.background.paper,
-    },
-  }),
-)
+import { useMainListStyles } from '../../hooks/use-styles'
 
 export default function AlbumsGrid() {
-  const classes = useStyles()
+  const classes = useMainListStyles()
   const [title, setTitle] = useState('')
   return (
-    <Container className={classes.root}>
+    <Container className={classes.root} maxWidth="xl">
       <AlbumsFeed title={title}>
         {({ albums, loading }) => (
           <ScrollGridContainer
             items={albums}
             loading={loading}
-            renderItem={item => <AlbumGridItem album={item} />}
-            maxWidth="lg"
-            cellHeight={180}
-            cols={5}
+            renderItem={item => <AlbumGridItem album={item} imageIndex={3} />}
+            cellHeight={300}
+            cols={6}
             direction="vertical"
             header={
               <AlbumSearchBar

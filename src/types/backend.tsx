@@ -606,7 +606,7 @@ export type AlbumDetailsQuery = (
       & Pick<PerformerType, 'id' | 'name' | 'created'>
     ), image: Array<(
       { __typename?: 'ImageType' }
-      & Pick<ImageType, 'url' | 'size'>
+      & Pick<ImageType, 'url'>
     )>, wiki?: Maybe<(
       { __typename?: 'WikiInfoType' }
       & Pick<WikiInfoType, 'published' | 'summary'>
@@ -651,7 +651,7 @@ export type ReadAlbumsQuery = (
           & Pick<PerformerType, 'id' | 'name'>
         ), image: Array<(
           { __typename?: 'ImageType' }
-          & Pick<ImageType, 'url' | 'size'>
+          & Pick<ImageType, 'url'>
         )> }
       )> }
     )>> }
@@ -681,7 +681,7 @@ export type ReadRandomAlbumsQuery = (
           & Pick<PerformerType, 'id' | 'name'>
         ), image: Array<(
           { __typename?: 'ImageType' }
-          & Pick<ImageType, 'url' | 'size'>
+          & Pick<ImageType, 'url'>
         )> }
       )> }
     )>> }
@@ -769,7 +769,7 @@ export type ReadPerformersQuery = (
               & Pick<AlbumType, 'id' | 'mbid' | 'name' | 'year' | 'created'>
               & { image: Array<(
                 { __typename?: 'ImageType' }
-                & Pick<ImageType, 'url' | 'size'>
+                & Pick<ImageType, 'url'>
               )>, performer: (
                 { __typename?: 'PerformerType' }
                 & Pick<PerformerType, 'name'>
@@ -818,7 +818,10 @@ export type ReadPerformerQuery = (
                 ), album: (
                   { __typename?: 'AlbumType' }
                   & Pick<AlbumType, 'id' | 'year' | 'name'>
-                  & { performer: (
+                  & { image: Array<(
+                    { __typename?: 'ImageType' }
+                    & Pick<ImageType, 'url'>
+                  )>, performer: (
                     { __typename?: 'PerformerType' }
                     & Pick<PerformerType, 'id' | 'name'>
                   ) }
@@ -1023,7 +1026,6 @@ export const AlbumDetailsDocument = gql`
     year
     image {
       url
-      size
     }
     wiki {
       published
@@ -1092,7 +1094,6 @@ export const ReadAlbumsDocument = gql`
         name
         image {
           url
-          size
         }
         created
         year
@@ -1147,7 +1148,6 @@ export const ReadRandomAlbumsDocument = gql`
         name
         image {
           url
-          size
         }
         created
         year
@@ -1320,7 +1320,6 @@ export const ReadPerformersDocument = gql`
               year
               image {
                 url
-                size
               }
               created
               performer {
@@ -1391,6 +1390,9 @@ export const ReadPerformerDocument = gql`
                 created
                 album {
                   id
+                  image {
+                    url
+                  }
                   performer {
                     id
                     name

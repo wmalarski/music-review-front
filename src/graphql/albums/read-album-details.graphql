@@ -10,7 +10,6 @@ query AlbumDetails($album: ID!) {
     year
     image {
       url
-      size
     }
     wiki {
       published

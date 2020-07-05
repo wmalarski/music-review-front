@@ -15,7 +15,6 @@ query ReadAlbums($after: String, $first: Int, $name: String) {
         name
         image {
           url
-          size
         }
         created
         year

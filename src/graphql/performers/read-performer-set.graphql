@@ -22,7 +22,6 @@ query ReadPerformers($after: String, $first: Int, $name: String) {
               year
               image {
                 url
-                size
               }
               created
               performer {

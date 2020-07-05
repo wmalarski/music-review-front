@@ -5,12 +5,16 @@ import { AlbumTileData } from './albums-feed'
 
 interface AlbumGridItemProps {
   album: AlbumTileData
+  imageIndex: number
 }
 
 export default function AlbumGridItem(props: AlbumGridItemProps) {
   return (
     <>
-      <img src={props.album.image[0].url ?? ''} alt={props.album.name} />
+      <img
+        src={props.album.image[props.imageIndex].url ?? ''}
+        alt={props.album.name}
+      />
       <GridListTileBar
         title={props.album.name}
         subtitle={

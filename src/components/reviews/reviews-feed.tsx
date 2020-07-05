@@ -12,7 +12,9 @@ export interface ReviewTileData {
   album: {
     id: string
     name: string
-    coverUrl?: string | undefined | null
+    image: {
+      url: string
+    }[]
     year: number
     performer: {
       id: string

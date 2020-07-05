@@ -26,6 +26,9 @@ query ReadPerformer($id: ID!) {
                 created
                 album {
                   id
+                  image {
+                    url
+                  }
                   performer {
                     id
                     name

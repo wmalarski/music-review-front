@@ -15,7 +15,6 @@ query ReadRandomAlbums($after: String, $first: Int) {
         name
         image {
           url
-          size
         }
         created
         year

@@ -58,6 +58,7 @@ export default function SignIn(props: SignInProps) {
         <form
           className={classes.form}
           noValidate
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           onSubmit={(e: any) => {
             e.preventDefault()
             props.onSignIn({

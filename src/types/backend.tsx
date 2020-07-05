@@ -10,45 +10,39 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  /**
-   * The `DateTime` scalar type represents a DateTime
-   * value as specified by
-   * [iso8601](https://en.wikipedia.org/wiki/ISO_8601).
-   */
   DateTime: any;
-  /**
-   * The `GenericScalar` scalar type represents a generic
-   * GraphQL scalar value that could be:
-   * String, Boolean, Int, Float, List or Object.
-   */
   GenericScalar: any;
 };
 
-export type _Service = {
-  __typename?: '_Service';
-  sdl?: Maybe<Scalars['String']>;
-};
 
 export type AlbumInputType = {
-  title: Scalars['String'];
+  name: Scalars['String'];
   year: Scalars['Int'];
-  coverUrl?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
+  mbid: Scalars['String'];
+};
+
+export type AlbumNodeType = {
+  __typename?: 'AlbumNodeType';
+  name: Scalars['String'];
+  artist: Scalars['String'];
+  mbid: Scalars['String'];
+  image?: Maybe<Array<ImageType>>;
 };
 
 export type AlbumType = Node & {
   __typename?: 'AlbumType';
-  /** The ID of the object. */
   id: Scalars['ID'];
-  performer: PerformerType;
-  title: Scalars['String'];
-  year: Scalars['Int'];
-  coverUrl?: Maybe<Scalars['String']>;
-  description: Scalars['String'];
   created: Scalars['DateTime'];
   lastUpdated: Scalars['DateTime'];
+  mbid: Scalars['String'];
+  performer: PerformerType;
+  name: Scalars['String'];
+  year: Scalars['Int'];
   user?: Maybe<UserType>;
   reviewSet: ReviewTypeConnection;
+  url: Scalars['String'];
+  image: Array<ImageType>;
+  wiki?: Maybe<WikiInfoType>;
 };
 
 
@@ -61,27 +55,21 @@ export type AlbumTypeReviewSetArgs = {
 
 export type AlbumTypeConnection = {
   __typename?: 'AlbumTypeConnection';
-  /** Pagination data for this connection. */
   pageInfo: PageInfo;
-  /** Contains the nodes in this connection. */
   edges: Array<Maybe<AlbumTypeEdge>>;
 };
 
-/** A Relay edge containing a `AlbumType` and its cursor. */
 export type AlbumTypeEdge = {
   __typename?: 'AlbumTypeEdge';
-  /** The item at the end of the edge */
   node?: Maybe<AlbumType>;
-  /** A cursor for use in pagination */
   cursor: Scalars['String'];
 };
 
 export type CreateAlbumInput = {
   performer: Scalars['ID'];
-  title: Scalars['String'];
+  mbid: Scalars['String'];
+  name: Scalars['String'];
   year: Scalars['Int'];
-  coverUrl?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
   clientMutationId?: Maybe<Scalars['String']>;
 };
 
@@ -92,9 +80,8 @@ export type CreateAlbumPayload = {
 };
 
 export type CreatePerformerInput = {
+  mbid: Scalars['String'];
   name: Scalars['String'];
-  logoUrl?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
   albums?: Maybe<Array<AlbumInputType>>;
   clientMutationId?: Maybe<Scalars['String']>;
 };
@@ -153,9 +140,14 @@ export type DeleteReviewPayload = {
 };
 
 
+export type ImageType = {
+  __typename?: 'ImageType';
+  url: Scalars['String'];
+  size: Scalars['String'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
-  /** Obtain JSON Web Token mutation */
   tokenAuth?: Maybe<ObtainJsonWebToken>;
   verifyToken?: Maybe<Verify>;
   refreshToken?: Maybe<Refresh>;
@@ -231,13 +223,10 @@ export type MutationDeleteAlbumArgs = {
   input: DeleteAlbumInput;
 };
 
-/** An object with an ID */
 export type Node = {
-  /** The ID of the object. */
   id: Scalars['ID'];
 };
 
-/** Obtain JSON Web Token mutation */
 export type ObtainJsonWebToken = {
   __typename?: 'ObtainJSONWebToken';
   payload: Scalars['GenericScalar'];
@@ -245,30 +234,33 @@ export type ObtainJsonWebToken = {
   token: Scalars['String'];
 };
 
-/** The Relay compliant `PageInfo` type, containing data necessary to paginate this connection. */
 export type PageInfo = {
   __typename?: 'PageInfo';
-  /** When paginating forwards, are there more items? */
   hasNextPage: Scalars['Boolean'];
-  /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean'];
-  /** When paginating backwards, the cursor to continue. */
   startCursor?: Maybe<Scalars['String']>;
-  /** When paginating forwards, the cursor to continue. */
   endCursor?: Maybe<Scalars['String']>;
+};
+
+export type PerformerNodeType = {
+  __typename?: 'PerformerNodeType';
+  name: Scalars['String'];
+  mbid: Scalars['String'];
+  image?: Maybe<Array<ImageType>>;
 };
 
 export type PerformerType = Node & {
   __typename?: 'PerformerType';
-  /** The ID of the object. */
-  id: Scalars['ID'];
-  name: Scalars['String'];
-  logoUrl?: Maybe<Scalars['String']>;
-  description: Scalars['String'];
   created: Scalars['DateTime'];
   lastUpdated: Scalars['DateTime'];
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  mbid: Scalars['String'];
   user?: Maybe<UserType>;
   albumSet: AlbumTypeConnection;
+  url: Scalars['String'];
+  image?: Maybe<Array<ImageType>>;
+  bio?: Maybe<WikiInfoType>;
 };
 
 
@@ -281,37 +273,31 @@ export type PerformerTypeAlbumSetArgs = {
 
 export type PerformerTypeConnection = {
   __typename?: 'PerformerTypeConnection';
-  /** Pagination data for this connection. */
   pageInfo: PageInfo;
-  /** Contains the nodes in this connection. */
   edges: Array<Maybe<PerformerTypeEdge>>;
 };
 
-/** A Relay edge containing a `PerformerType` and its cursor. */
 export type PerformerTypeEdge = {
   __typename?: 'PerformerTypeEdge';
-  /** The item at the end of the edge */
   node?: Maybe<PerformerType>;
-  /** A cursor for use in pagination */
   cursor: Scalars['String'];
 };
 
 export type Query = {
   __typename?: 'Query';
   userSet?: Maybe<UserTypeConnection>;
-  /** The ID of the object */
   user?: Maybe<UserType>;
   reviewSet?: Maybe<ReviewTypeConnection>;
-  /** The ID of the object */
   review?: Maybe<ReviewType>;
   performerSet?: Maybe<PerformerTypeConnection>;
-  /** The ID of the object */
   performer?: Maybe<PerformerType>;
   albumSet?: Maybe<AlbumTypeConnection>;
   randomAlbumSet?: Maybe<AlbumTypeConnection>;
-  /** The ID of the object */
   album?: Maybe<AlbumType>;
-  _service?: Maybe<_Service>;
+  _empty: Scalars['String'];
+  searchAlbums: SearchAlbumPage;
+  performerCorrection: PerformerNodeType;
+  searchPerformer: SearchPerformerPage;
 };
 
 
@@ -370,7 +356,7 @@ export type QueryAlbumSetArgs = {
   performer?: Maybe<Scalars['ID']>;
   year?: Maybe<Scalars['Int']>;
   performer_Name?: Maybe<Scalars['String']>;
-  title?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
   orderBy?: Maybe<Scalars['String']>;
 };
 
@@ -388,6 +374,25 @@ export type QueryAlbumArgs = {
   id: Scalars['ID'];
 };
 
+
+export type QuerySearchAlbumsArgs = {
+  album: Scalars['String'];
+  limit?: Maybe<Scalars['Int']>;
+  page?: Maybe<Scalars['Int']>;
+};
+
+
+export type QueryPerformerCorrectionArgs = {
+  performer: Scalars['String'];
+};
+
+
+export type QuerySearchPerformerArgs = {
+  performer: Scalars['String'];
+  limit?: Maybe<Scalars['Int']>;
+  page?: Maybe<Scalars['Int']>;
+};
+
 export type Refresh = {
   __typename?: 'Refresh';
   payload: Scalars['GenericScalar'];
@@ -397,40 +402,48 @@ export type Refresh = {
 
 export type ReviewType = Node & {
   __typename?: 'ReviewType';
-  /** The ID of the object. */
+  created: Scalars['DateTime'];
+  lastUpdated: Scalars['DateTime'];
   id: Scalars['ID'];
   album: AlbumType;
   user: UserType;
   review: Scalars['String'];
   rating: Scalars['Float'];
-  created: Scalars['DateTime'];
-  lastUpdated: Scalars['DateTime'];
 };
 
 export type ReviewTypeConnection = {
   __typename?: 'ReviewTypeConnection';
-  /** Pagination data for this connection. */
   pageInfo: PageInfo;
-  /** Contains the nodes in this connection. */
   edges: Array<Maybe<ReviewTypeEdge>>;
 };
 
-/** A Relay edge containing a `ReviewType` and its cursor. */
 export type ReviewTypeEdge = {
   __typename?: 'ReviewTypeEdge';
-  /** The item at the end of the edge */
   node?: Maybe<ReviewType>;
-  /** A cursor for use in pagination */
   cursor: Scalars['String'];
+};
+
+export type SearchAlbumPage = {
+  __typename?: 'SearchAlbumPage';
+  total: Scalars['Int'];
+  start: Scalars['Int'];
+  items: Scalars['Int'];
+  page: Array<AlbumNodeType>;
+};
+
+export type SearchPerformerPage = {
+  __typename?: 'SearchPerformerPage';
+  total: Scalars['Int'];
+  start: Scalars['Int'];
+  items: Scalars['Int'];
+  page: Array<PerformerNodeType>;
 };
 
 export type UpdateAlbumInput = {
   album: Scalars['ID'];
-  performer?: Maybe<Scalars['ID']>;
-  title?: Maybe<Scalars['String']>;
+  mbid?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
   year?: Maybe<Scalars['Int']>;
-  coverUrl?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
   clientMutationId?: Maybe<Scalars['String']>;
 };
 
@@ -442,9 +455,8 @@ export type UpdateAlbumPayload = {
 
 export type UpdatePerformerInput = {
   performer: Scalars['ID'];
+  mbid?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
-  logoUrl?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
   clientMutationId?: Maybe<Scalars['String']>;
 };
 
@@ -470,19 +482,14 @@ export type UpdateReviewPayload = {
 
 export type UserType = Node & {
   __typename?: 'UserType';
-  /** The ID of the object. */
   id: Scalars['ID'];
   lastLogin?: Maybe<Scalars['DateTime']>;
-  /** Designates that this user has all permissions without explicitly assigning them. */
   isSuperuser: Scalars['Boolean'];
-  /** Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only. */
   username: Scalars['String'];
   firstName: Scalars['String'];
   lastName: Scalars['String'];
   email: Scalars['String'];
-  /** Designates whether the user can log into this admin site. */
   isStaff: Scalars['Boolean'];
-  /** Designates whether this user should be treated as active. Unselect this instead of deleting accounts. */
   isActive: Scalars['Boolean'];
   dateJoined: Scalars['DateTime'];
   performerSet: PerformerTypeConnection;
@@ -516,24 +523,26 @@ export type UserTypeReviewSetArgs = {
 
 export type UserTypeConnection = {
   __typename?: 'UserTypeConnection';
-  /** Pagination data for this connection. */
   pageInfo: PageInfo;
-  /** Contains the nodes in this connection. */
   edges: Array<Maybe<UserTypeEdge>>;
 };
 
-/** A Relay edge containing a `UserType` and its cursor. */
 export type UserTypeEdge = {
   __typename?: 'UserTypeEdge';
-  /** The item at the end of the edge */
   node?: Maybe<UserType>;
-  /** A cursor for use in pagination */
   cursor: Scalars['String'];
 };
 
 export type Verify = {
   __typename?: 'Verify';
   payload: Scalars['GenericScalar'];
+};
+
+export type WikiInfoType = {
+  __typename?: 'WikiInfoType';
+  published: Scalars['String'];
+  summary: Scalars['String'];
+  content: Scalars['String'];
 };
 
 export type TokenAuthMutationVariables = Exact<{
@@ -552,10 +561,9 @@ export type TokenAuthMutation = (
 
 export type CreateAlbumMutationVariables = Exact<{
   performer: Scalars['ID'];
-  title: Scalars['String'];
+  name: Scalars['String'];
   year: Scalars['Int'];
-  coverUrl?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
+  mbid: Scalars['String'];
 }>;
 
 
@@ -592,11 +600,17 @@ export type AlbumDetailsQuery = (
   { __typename?: 'Query' }
   & { album?: Maybe<(
     { __typename?: 'AlbumType' }
-    & Pick<AlbumType, 'id' | 'title' | 'year' | 'coverUrl' | 'description' | 'created'>
+    & Pick<AlbumType, 'id' | 'name' | 'year' | 'url' | 'created'>
     & { performer: (
       { __typename?: 'PerformerType' }
-      & Pick<PerformerType, 'id' | 'name' | 'description' | 'created'>
-    ), reviewSet: (
+      & Pick<PerformerType, 'id' | 'name' | 'created'>
+    ), image: Array<(
+      { __typename?: 'ImageType' }
+      & Pick<ImageType, 'url' | 'size'>
+    )>, wiki?: Maybe<(
+      { __typename?: 'WikiInfoType' }
+      & Pick<WikiInfoType, 'published' | 'summary'>
+    )>, reviewSet: (
       { __typename?: 'ReviewTypeConnection' }
       & { edges: Array<Maybe<(
         { __typename?: 'ReviewTypeEdge' }
@@ -616,7 +630,7 @@ export type AlbumDetailsQuery = (
 export type ReadAlbumsQueryVariables = Exact<{
   after?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
-  title?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
 }>;
 
 
@@ -631,11 +645,14 @@ export type ReadAlbumsQuery = (
       { __typename?: 'AlbumTypeEdge' }
       & { node?: Maybe<(
         { __typename?: 'AlbumType' }
-        & Pick<AlbumType, 'id' | 'title' | 'coverUrl' | 'description' | 'created' | 'year'>
+        & Pick<AlbumType, 'id' | 'mbid' | 'name' | 'created' | 'year'>
         & { performer: (
           { __typename?: 'PerformerType' }
           & Pick<PerformerType, 'id' | 'name'>
-        ) }
+        ), image: Array<(
+          { __typename?: 'ImageType' }
+          & Pick<ImageType, 'url' | 'size'>
+        )> }
       )> }
     )>> }
   )> }
@@ -658,11 +675,14 @@ export type ReadRandomAlbumsQuery = (
       { __typename?: 'AlbumTypeEdge' }
       & { node?: Maybe<(
         { __typename?: 'AlbumType' }
-        & Pick<AlbumType, 'id' | 'title' | 'coverUrl' | 'description' | 'created' | 'year'>
+        & Pick<AlbumType, 'id' | 'mbid' | 'name' | 'created' | 'year'>
         & { performer: (
           { __typename?: 'PerformerType' }
           & Pick<PerformerType, 'id' | 'name'>
-        ) }
+        ), image: Array<(
+          { __typename?: 'ImageType' }
+          & Pick<ImageType, 'url' | 'size'>
+        )> }
       )> }
     )>> }
   )> }
@@ -670,10 +690,9 @@ export type ReadRandomAlbumsQuery = (
 
 export type UpdateAlbumMutationVariables = Exact<{
   id: Scalars['ID'];
-  title?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
   year?: Maybe<Scalars['Int']>;
-  coverUrl?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
+  mbid?: Maybe<Scalars['String']>;
 }>;
 
 
@@ -683,15 +702,15 @@ export type UpdateAlbumMutation = (
     { __typename?: 'UpdateAlbumPayload' }
     & { album?: Maybe<(
       { __typename?: 'AlbumType' }
-      & Pick<AlbumType, 'id' | 'title' | 'year' | 'description' | 'coverUrl'>
+      & Pick<AlbumType, 'id' | 'year' | 'mbid' | 'name' | 'lastUpdated'>
     )> }
   )> }
 );
 
 export type CreatePerformerMutationVariables = Exact<{
   name: Scalars['String'];
-  description?: Maybe<Scalars['String']>;
   albums?: Maybe<Array<AlbumInputType>>;
+  mbid: Scalars['String'];
 }>;
 
 
@@ -701,7 +720,7 @@ export type CreatePerformerMutation = (
     { __typename?: 'CreatePerformerPayload' }
     & { performer?: Maybe<(
       { __typename?: 'PerformerType' }
-      & Pick<PerformerType, 'id' | 'name' | 'description' | 'created'>
+      & Pick<PerformerType, 'id' | 'name' | 'created' | 'mbid'>
     )> }
   )> }
 );
@@ -737,15 +756,21 @@ export type ReadPerformersQuery = (
       { __typename?: 'PerformerTypeEdge' }
       & { node?: Maybe<(
         { __typename?: 'PerformerType' }
-        & Pick<PerformerType, 'id' | 'name' | 'logoUrl' | 'description' | 'created'>
-        & { albumSet: (
+        & Pick<PerformerType, 'id' | 'name' | 'created'>
+        & { image?: Maybe<Array<(
+          { __typename?: 'ImageType' }
+          & Pick<ImageType, 'url' | 'size'>
+        )>>, albumSet: (
           { __typename?: 'AlbumTypeConnection' }
           & { edges: Array<Maybe<(
             { __typename?: 'AlbumTypeEdge' }
             & { node?: Maybe<(
               { __typename?: 'AlbumType' }
-              & Pick<AlbumType, 'id' | 'title' | 'year' | 'coverUrl' | 'description' | 'created'>
-              & { performer: (
+              & Pick<AlbumType, 'id' | 'mbid' | 'name' | 'year' | 'created'>
+              & { image: Array<(
+                { __typename?: 'ImageType' }
+                & Pick<ImageType, 'url' | 'size'>
+              )>, performer: (
                 { __typename?: 'PerformerType' }
                 & Pick<PerformerType, 'name'>
               ) }
@@ -767,7 +792,13 @@ export type ReadPerformerQuery = (
   & { performer?: Maybe<(
     { __typename?: 'PerformerType' }
     & Pick<PerformerType, 'id'>
-    & { albumSet: (
+    & { image?: Maybe<Array<(
+      { __typename?: 'ImageType' }
+      & Pick<ImageType, 'url' | 'size'>
+    )>>, bio?: Maybe<(
+      { __typename?: 'WikiInfoType' }
+      & Pick<WikiInfoType, 'summary'>
+    )>, albumSet: (
       { __typename?: 'AlbumTypeConnection' }
       & { edges: Array<Maybe<(
         { __typename?: 'AlbumTypeEdge' }
@@ -786,10 +817,10 @@ export type ReadPerformerQuery = (
                   & Pick<UserType, 'id' | 'username'>
                 ), album: (
                   { __typename?: 'AlbumType' }
-                  & Pick<AlbumType, 'id' | 'year' | 'title'>
+                  & Pick<AlbumType, 'id' | 'year' | 'name'>
                   & { performer: (
                     { __typename?: 'PerformerType' }
-                    & Pick<PerformerType, 'id' | 'name' | 'description'>
+                    & Pick<PerformerType, 'id' | 'name'>
                   ) }
                 ) }
               )> }
@@ -804,8 +835,7 @@ export type ReadPerformerQuery = (
 export type UpdatePerformerMutationVariables = Exact<{
   performer: Scalars['ID'];
   name?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-  logoUrl?: Maybe<Scalars['String']>;
+  mbid?: Maybe<Scalars['String']>;
 }>;
 
 
@@ -815,7 +845,7 @@ export type UpdatePerformerMutation = (
     { __typename?: 'UpdatePerformerPayload' }
     & { performer?: Maybe<(
       { __typename?: 'PerformerType' }
-      & Pick<PerformerType, 'id' | 'name' | 'logoUrl' | 'description' | 'lastUpdated'>
+      & Pick<PerformerType, 'id' | 'name' | 'mbid' | 'lastUpdated'>
     )> }
   )> }
 );
@@ -859,10 +889,13 @@ export type ReadReviewsQuery = (
         & Pick<ReviewType, 'id' | 'review' | 'rating' | 'created' | 'lastUpdated'>
         & { album: (
           { __typename?: 'AlbumType' }
-          & Pick<AlbumType, 'id' | 'title' | 'coverUrl' | 'year'>
-          & { performer: (
+          & Pick<AlbumType, 'id' | 'name' | 'year'>
+          & { image: Array<(
+            { __typename?: 'ImageType' }
+            & Pick<ImageType, 'url' | 'size'>
+          )>, performer: (
             { __typename?: 'PerformerType' }
-            & Pick<PerformerType, 'id' | 'name' | 'logoUrl' | 'description' | 'created'>
+            & Pick<PerformerType, 'id' | 'name' | 'created'>
           ) }
         ), user: (
           { __typename?: 'UserType' }
@@ -909,8 +942,8 @@ export type TokenAuthMutationHookResult = ReturnType<typeof useTokenAuthMutation
 export type TokenAuthMutationResult = ApolloReactCommon.MutationResult<TokenAuthMutation>;
 export type TokenAuthMutationOptions = ApolloReactCommon.BaseMutationOptions<TokenAuthMutation, TokenAuthMutationVariables>;
 export const CreateAlbumDocument = gql`
-    mutation CreateAlbum($performer: ID!, $title: String!, $year: Int!, $coverUrl: String, $description: String) {
-  createAlbum(input: {performer: $performer, title: $title, year: $year, coverUrl: $coverUrl, description: $description}) {
+    mutation CreateAlbum($performer: ID!, $name: String!, $year: Int!, $mbid: String!) {
+  createAlbum(input: {performer: $performer, name: $name, year: $year, mbid: $mbid}) {
     album {
       id
     }
@@ -933,10 +966,9 @@ export type CreateAlbumMutationFn = ApolloReactCommon.MutationFunction<CreateAlb
  * const [createAlbumMutation, { data, loading, error }] = useCreateAlbumMutation({
  *   variables: {
  *      performer: // value for 'performer'
- *      title: // value for 'title'
+ *      name: // value for 'name'
  *      year: // value for 'year'
- *      coverUrl: // value for 'coverUrl'
- *      description: // value for 'description'
+ *      mbid: // value for 'mbid'
  *   },
  * });
  */
@@ -985,13 +1017,19 @@ export const AlbumDetailsDocument = gql`
     performer {
       id
       name
-      description
       created
     }
-    title
+    name
     year
-    coverUrl
-    description
+    image {
+      url
+      size
+    }
+    wiki {
+      published
+      summary
+    }
+    url
     created
     reviewSet {
       edges {
@@ -1037,8 +1075,8 @@ export type AlbumDetailsQueryHookResult = ReturnType<typeof useAlbumDetailsQuery
 export type AlbumDetailsLazyQueryHookResult = ReturnType<typeof useAlbumDetailsLazyQuery>;
 export type AlbumDetailsQueryResult = ApolloReactCommon.QueryResult<AlbumDetailsQuery, AlbumDetailsQueryVariables>;
 export const ReadAlbumsDocument = gql`
-    query ReadAlbums($after: String, $first: Int, $title: String) {
-  albumSet(after: $after, first: $first, title: $title) {
+    query ReadAlbums($after: String, $first: Int, $name: String) {
+  albumSet(after: $after, first: $first, name: $name) {
     pageInfo {
       hasNextPage
       endCursor
@@ -1046,13 +1084,16 @@ export const ReadAlbumsDocument = gql`
     edges {
       node {
         id
+        mbid
         performer {
           id
           name
         }
-        title
-        coverUrl
-        description
+        name
+        image {
+          url
+          size
+        }
         created
         year
       }
@@ -1075,7 +1116,7 @@ export const ReadAlbumsDocument = gql`
  *   variables: {
  *      after: // value for 'after'
  *      first: // value for 'first'
- *      title: // value for 'title'
+ *      name: // value for 'name'
  *   },
  * });
  */
@@ -1098,13 +1139,16 @@ export const ReadRandomAlbumsDocument = gql`
     edges {
       node {
         id
+        mbid
         performer {
           id
           name
         }
-        title
-        coverUrl
-        description
+        name
+        image {
+          url
+          size
+        }
         created
         year
       }
@@ -1140,14 +1184,14 @@ export type ReadRandomAlbumsQueryHookResult = ReturnType<typeof useReadRandomAlb
 export type ReadRandomAlbumsLazyQueryHookResult = ReturnType<typeof useReadRandomAlbumsLazyQuery>;
 export type ReadRandomAlbumsQueryResult = ApolloReactCommon.QueryResult<ReadRandomAlbumsQuery, ReadRandomAlbumsQueryVariables>;
 export const UpdateAlbumDocument = gql`
-    mutation UpdateAlbum($id: ID!, $title: String, $year: Int, $coverUrl: String, $description: String) {
-  updateAlbum(input: {album: $id, title: $title, year: $year, coverUrl: $coverUrl, description: $description}) {
+    mutation UpdateAlbum($id: ID!, $name: String, $year: Int, $mbid: String) {
+  updateAlbum(input: {album: $id, name: $name, year: $year, mbid: $mbid}) {
     album {
       id
-      title
       year
-      description
-      coverUrl
+      mbid
+      name
+      lastUpdated
     }
   }
 }
@@ -1168,10 +1212,9 @@ export type UpdateAlbumMutationFn = ApolloReactCommon.MutationFunction<UpdateAlb
  * const [updateAlbumMutation, { data, loading, error }] = useUpdateAlbumMutation({
  *   variables: {
  *      id: // value for 'id'
- *      title: // value for 'title'
+ *      name: // value for 'name'
  *      year: // value for 'year'
- *      coverUrl: // value for 'coverUrl'
- *      description: // value for 'description'
+ *      mbid: // value for 'mbid'
  *   },
  * });
  */
@@ -1182,13 +1225,13 @@ export type UpdateAlbumMutationHookResult = ReturnType<typeof useUpdateAlbumMuta
 export type UpdateAlbumMutationResult = ApolloReactCommon.MutationResult<UpdateAlbumMutation>;
 export type UpdateAlbumMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateAlbumMutation, UpdateAlbumMutationVariables>;
 export const CreatePerformerDocument = gql`
-    mutation CreatePerformer($name: String!, $description: String, $albums: [AlbumInputType!]) {
-  createPerformer(input: {name: $name, description: $description, albums: $albums}) {
+    mutation CreatePerformer($name: String!, $albums: [AlbumInputType!], $mbid: String!) {
+  createPerformer(input: {name: $name, mbid: $mbid, albums: $albums}) {
     performer {
       id
       name
-      description
       created
+      mbid
     }
   }
 }
@@ -1209,8 +1252,8 @@ export type CreatePerformerMutationFn = ApolloReactCommon.MutationFunction<Creat
  * const [createPerformerMutation, { data, loading, error }] = useCreatePerformerMutation({
  *   variables: {
  *      name: // value for 'name'
- *      description: // value for 'description'
  *      albums: // value for 'albums'
+ *      mbid: // value for 'mbid'
  *   },
  * });
  */
@@ -1263,17 +1306,22 @@ export const ReadPerformersDocument = gql`
       node {
         id
         name
-        logoUrl
-        description
+        image {
+          url
+          size
+        }
         created
         albumSet {
           edges {
             node {
               id
-              title
+              mbid
+              name
               year
-              coverUrl
-              description
+              image {
+                url
+                size
+              }
               created
               performer {
                 name
@@ -1318,6 +1366,13 @@ export const ReadPerformerDocument = gql`
     query ReadPerformer($id: ID!) {
   performer(id: $id) {
     id
+    image {
+      url
+      size
+    }
+    bio {
+      summary
+    }
     albumSet {
       edges {
         node {
@@ -1339,10 +1394,9 @@ export const ReadPerformerDocument = gql`
                   performer {
                     id
                     name
-                    description
                   }
                   year
-                  title
+                  name
                 }
               }
             }
@@ -1380,13 +1434,12 @@ export type ReadPerformerQueryHookResult = ReturnType<typeof useReadPerformerQue
 export type ReadPerformerLazyQueryHookResult = ReturnType<typeof useReadPerformerLazyQuery>;
 export type ReadPerformerQueryResult = ApolloReactCommon.QueryResult<ReadPerformerQuery, ReadPerformerQueryVariables>;
 export const UpdatePerformerDocument = gql`
-    mutation UpdatePerformer($performer: ID!, $name: String, $description: String, $logoUrl: String) {
-  updatePerformer(input: {performer: $performer, name: $name, description: $description, logoUrl: $logoUrl}) {
+    mutation UpdatePerformer($performer: ID!, $name: String, $mbid: String) {
+  updatePerformer(input: {performer: $performer, name: $name, mbid: $mbid}) {
     performer {
       id
       name
-      logoUrl
-      description
+      mbid
       lastUpdated
     }
   }
@@ -1409,8 +1462,7 @@ export type UpdatePerformerMutationFn = ApolloReactCommon.MutationFunction<Updat
  *   variables: {
  *      performer: // value for 'performer'
  *      name: // value for 'name'
- *      description: // value for 'description'
- *      logoUrl: // value for 'logoUrl'
+ *      mbid: // value for 'mbid'
  *   },
  * });
  */
@@ -1468,14 +1520,15 @@ export const ReadReviewsDocument = gql`
         id
         album {
           id
-          title
-          coverUrl
+          name
+          image {
+            url
+            size
+          }
           year
           performer {
             id
             name
-            logoUrl
-            description
             created
           }
         }

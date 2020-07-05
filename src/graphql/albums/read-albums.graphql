@@ -1,5 +1,5 @@
-query ReadAlbums($after: String, $first: Int, $title: String) {
-  albumSet(after: $after, first: $first, title: $title) {
+query ReadAlbums($after: String, $first: Int, $name: String) {
+  albumSet(after: $after, first: $first, name: $name) {
     pageInfo {
       hasNextPage
       endCursor
@@ -7,13 +7,16 @@ query ReadAlbums($after: String, $first: Int, $title: String) {
     edges {
       node {
         id
+        mbid
         performer {
           id
           name
         }
-        title
-        coverUrl
-        description
+        name
+        image {
+          url
+          size
+        }
         created
         year
       }

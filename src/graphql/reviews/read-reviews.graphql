@@ -9,14 +9,15 @@ query ReadReviews($after: String, $first: Int, $orderBy: String) {
         id
         album {
           id
-          title
-          coverUrl
+          name
+          image {
+            url
+            size
+          }
           year
           performer {
             id
             name
-            logoUrl
-            description
             created
           }
         }

@@ -7,7 +7,6 @@ import { AlbumTileData } from '../albums/albums-feed'
 export interface Performer {
   id: string
   name: string
-  description: string
   albumSet: {
     edges: ({
       node?: AlbumTileData | null

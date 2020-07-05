@@ -4,7 +4,6 @@ import {
   Typography,
   List,
   ListItem,
-  Divider,
   ListSubheader,
 } from '@material-ui/core'
 

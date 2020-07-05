@@ -8,18 +8,16 @@ import DialogTitle from '@material-ui/core/DialogTitle'
 import { TextField } from '@material-ui/core'
 
 interface CreateAlbumDialogResult {
-  title: string
+  name: string
   year: number
-  coverUrl: string
-  description: string
+  mbid: string
 }
 
 interface AlbumDialogProps {
   name: string
   title?: string | null
   year?: number | null
-  coverUrl?: string | null
-  description?: string | null
+  mbid?: string | null
   open: boolean
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
   onSubmit: (result: CreateAlbumDialogResult) => void
@@ -29,8 +27,7 @@ interface AlbumDialogProps {
 
 export default function AlbumDialog(props: AlbumDialogProps) {
   const [title, setTitle] = React.useState(props.title ?? '')
-  const [coverUrl, setCoverUrl] = React.useState(props.coverUrl ?? '')
-  const [description, setDescription] = React.useState(props.description ?? '')
+  const [mbid, setMbid] = React.useState(props.mbid ?? '')
   const [year, setYear] = React.useState(props.year ?? 1980)
 
   const handleClose = () => {
@@ -63,16 +60,9 @@ export default function AlbumDialog(props: AlbumDialogProps) {
         <TextField
           margin="dense"
           label="Cover Link"
-          value={coverUrl}
+          value={mbid}
           fullWidth
-          onChange={event => setCoverUrl(event.target.value)}
-        />
-        <TextField
-          margin="dense"
-          label="Description"
-          value={description}
-          fullWidth
-          onChange={event => setDescription(event.target.value)}
+          onChange={event => setMbid(event.target.value)}
         />
         {props.children}
       </DialogContent>
@@ -82,7 +72,7 @@ export default function AlbumDialog(props: AlbumDialogProps) {
         </Button>
         <Button
           color="inherit"
-          onClick={() => props.onSubmit({ title, coverUrl, description, year })}
+          onClick={() => props.onSubmit({ name: title, mbid, year })}
         >
           Save
         </Button>

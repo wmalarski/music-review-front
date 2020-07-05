@@ -47,13 +47,13 @@ export default function AlbumCard(props: AlbumCardProps) {
     <Card className={classes.root}>
       <CardMedia
         className={classes.cover}
-        image={props.album.coverUrl ?? ''}
-        title={props.album.title}
+        image={props.album.image[0].url ?? ''}
+        title={props.album.name}
       />
 
       <CardContent className={classes.content}>
         <Typography component="h5" variant="h5">
-          {props.album.title}
+          {props.album.name}
         </Typography>
         <Typography variant="subtitle1" color="textSecondary">
           {props.album.performer.name}({props.album.year})
@@ -61,7 +61,7 @@ export default function AlbumCard(props: AlbumCardProps) {
         {props.details?.album ? (
           <div className={classes.controls}>
             <Typography variant="body2" color="textSecondary" component="p">
-              {props.details?.album?.description}
+              {props.details?.album?.wiki?.summary ?? ''}
             </Typography>
             <ScrollListContainer
               items={props.details.album.reviewSet.edges

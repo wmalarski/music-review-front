@@ -5,10 +5,16 @@ import InfiniteScrollWrapper from '../infinite-scroll/infinite-scroll-wrapper'
 
 export interface AlbumTileData {
   id: string
-  title: string
+  name: string
   year: number
-  coverUrl?: string | null
-  description?: string | null
+  mbid: string
+  image: {
+    url: string
+    size: string
+  }[]
+  wiki?: {
+    summary: string
+  }
   performer: {
     name: string
   }

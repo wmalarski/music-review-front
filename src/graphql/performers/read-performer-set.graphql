@@ -8,17 +8,22 @@ query ReadPerformers($after: String, $first: Int, $name: String) {
       node {
         id
         name
-        logoUrl
-        description
+        image {
+          url
+          size
+        }
         created
         albumSet {
           edges {
             node {
               id
-              title
+              mbid
+              name
               year
-              coverUrl
-              description
+              image {
+                url
+                size
+              }
               created
               performer {
                 name

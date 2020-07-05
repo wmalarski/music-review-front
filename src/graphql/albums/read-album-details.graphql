@@ -4,13 +4,19 @@ query AlbumDetails($album: ID!) {
     performer {
       id
       name
-      description
       created
     }
-    title
+    name
     year
-    coverUrl
-    description
+    image {
+      url
+      size
+    }
+    wiki {
+      published
+      summary
+    }
+    url
     created
     reviewSet {
       edges {

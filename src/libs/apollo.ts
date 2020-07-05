@@ -4,7 +4,7 @@ import fetch from 'isomorphic-fetch'
 import { getToken } from './auth'
 
 const httpLink = new HttpLink({
-  uri: 'http://review-music.herokuapp.com',
+  uri: 'https://music-reviews-federation.herokuapp.com/graphql',
   fetch,
 })
 const authLink = setContext((_, { headers }) => {

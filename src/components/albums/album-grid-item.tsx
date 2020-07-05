@@ -1,6 +1,5 @@
 import React from 'react'
 import { GridListTileBar } from '@material-ui/core'
-import CreateReviewForm from '../reviews/forms/create-review-form'
 import AlbumDetails from './album-details'
 import { AlbumTileData } from './albums-feed'
 
@@ -11,9 +10,9 @@ interface AlbumGridItemProps {
 export default function AlbumGridItem(props: AlbumGridItemProps) {
   return (
     <>
-      <img src={props.album.coverUrl ?? ''} alt={props.album.title} />
+      <img src={props.album.image[0].url ?? ''} alt={props.album.name} />
       <GridListTileBar
-        title={props.album.title}
+        title={props.album.name}
         subtitle={
           <span>
             by: {props.album.performer.name}, {props.album.year}

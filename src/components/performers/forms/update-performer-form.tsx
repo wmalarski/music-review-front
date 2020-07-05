@@ -33,7 +33,7 @@ export default function UpdatePerformerForm(props: UpdatePerformerFormProps) {
             variables: {
               performer: props.performer.id,
               name: result.name,
-              description: '',
+              mbid: result.mbid,
             },
           }).then(() => {
             setOpen(false)

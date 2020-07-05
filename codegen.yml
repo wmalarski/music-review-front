@@ -1,6 +1,6 @@
 overwrite: true
-schema: "http://review-music.herokuapp.com"
-documents: "./src/graphql/**/*.graphql"
+schema: "./src/graphql/schema.graphql"
+documents: "./src/graphql/*/*.graphql"
 generates:
   ./src/types/backend.tsx:
     plugins:

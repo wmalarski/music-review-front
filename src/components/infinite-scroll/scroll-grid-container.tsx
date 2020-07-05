@@ -1,7 +1,6 @@
 import React from 'react'
 import {
   Container,
-  Typography,
   GridList,
   GridListTile,
   ListSubheader,

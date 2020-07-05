@@ -1,0 +1,373 @@
+directive @specifiedBy(url: String!) on SCALAR
+input AlbumInputType {
+  name: String!
+  year: Int!
+  mbid: String!
+}
+
+type AlbumNodeType {
+  name: String!
+  artist: String!
+  mbid: String!
+  image: [ImageType!]
+}
+
+type AlbumType implements Node {
+  id: ID!
+  created: DateTime!
+  lastUpdated: DateTime!
+  mbid: String!
+  performer: PerformerType!
+  name: String!
+  year: Int!
+  user: UserType
+  reviewSet(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): ReviewTypeConnection!
+  url: String!
+  image: [ImageType!]!
+  wiki: WikiInfoType
+}
+
+type AlbumTypeConnection {
+  pageInfo: PageInfo!
+  edges: [AlbumTypeEdge]!
+}
+
+type AlbumTypeEdge {
+  node: AlbumType
+  cursor: String!
+}
+
+input CreateAlbumInput {
+  performer: ID!
+  mbid: String!
+  name: String!
+  year: Int!
+  clientMutationId: String
+}
+
+type CreateAlbumPayload {
+  album: AlbumType
+  clientMutationId: String
+}
+
+input CreatePerformerInput {
+  mbid: String!
+  name: String!
+  albums: [AlbumInputType!]
+  clientMutationId: String
+}
+
+type CreatePerformerPayload {
+  performer: PerformerType
+  clientMutationId: String
+}
+
+input CreateReviewInput {
+  album: ID!
+  review: String!
+  rating: Float!
+  clientMutationId: String
+}
+
+type CreateReviewPayload {
+  review: ReviewType
+  clientMutationId: String
+}
+
+scalar DateTime
+
+input DeleteAlbumInput {
+  album: ID!
+  clientMutationId: String
+}
+
+type DeleteAlbumPayload {
+  success: Boolean
+  clientMutationId: String
+}
+
+input DeletePerformerInput {
+  performer: ID!
+  clientMutationId: String
+}
+
+type DeletePerformerPayload {
+  success: Boolean
+  clientMutationId: String
+}
+
+input DeleteReviewInput {
+  review: ID!
+  clientMutationId: String
+}
+
+type DeleteReviewPayload {
+  success: Boolean
+  clientMutationId: String
+}
+
+scalar GenericScalar
+
+type ImageType {
+  url: String!
+  size: String!
+}
+
+type Mutation {
+  tokenAuth(username: String!, password: String!): ObtainJSONWebToken
+  verifyToken(token: String): Verify
+  refreshToken(token: String): Refresh
+  createReview(input: CreateReviewInput!): CreateReviewPayload
+  updateReview(input: UpdateReviewInput!): UpdateReviewPayload
+  deleteReview(input: DeleteReviewInput!): DeleteReviewPayload
+  createPerformer(input: CreatePerformerInput!): CreatePerformerPayload
+  updatePerformer(input: UpdatePerformerInput!): UpdatePerformerPayload
+  deletePerformer(input: DeletePerformerInput!): DeletePerformerPayload
+  createAlbum(input: CreateAlbumInput!): CreateAlbumPayload
+  updateAlbum(input: UpdateAlbumInput!): UpdateAlbumPayload
+  deleteAlbum(input: DeleteAlbumInput!): DeleteAlbumPayload
+}
+
+interface Node {
+  id: ID!
+}
+
+type ObtainJSONWebToken {
+  payload: GenericScalar!
+  refreshExpiresIn: Int!
+  token: String!
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+type PerformerNodeType {
+  name: String!
+  mbid: String!
+  image: [ImageType!]
+}
+
+type PerformerType implements Node {
+  created: DateTime!
+  lastUpdated: DateTime!
+  id: ID!
+  name: String!
+  mbid: String!
+  user: UserType
+  albumSet(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): AlbumTypeConnection!
+  url: String!
+  image: [ImageType!]
+  bio: WikiInfoType
+}
+
+type PerformerTypeConnection {
+  pageInfo: PageInfo!
+  edges: [PerformerTypeEdge]!
+}
+
+type PerformerTypeEdge {
+  node: PerformerType
+  cursor: String!
+}
+
+type Query {
+  userSet(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    username: String
+  ): UserTypeConnection
+  user(id: ID!): UserType
+  reviewSet(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    album: ID
+    user: ID
+    rating: Float
+    user_Username: String
+    orderBy: String
+  ): ReviewTypeConnection
+  review(id: ID!): ReviewType
+  performerSet(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    name: String
+    orderBy: String
+  ): PerformerTypeConnection
+  performer(id: ID!): PerformerType
+  albumSet(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    performer: ID
+    year: Int
+    performer_Name: String
+    name: String
+    orderBy: String
+  ): AlbumTypeConnection
+  randomAlbumSet(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    year: Int
+  ): AlbumTypeConnection
+  album(id: ID!): AlbumType
+  _empty: String!
+  searchAlbums(album: String!, limit: Int = 30, page: Int = 1): SearchAlbumPage!
+  performerCorrection(performer: String!): PerformerNodeType!
+  searchPerformer(
+    performer: String!
+    limit: Int = 30
+    page: Int = 1
+  ): SearchPerformerPage!
+}
+
+type Refresh {
+  payload: GenericScalar!
+  refreshExpiresIn: Int!
+  token: String!
+}
+
+type ReviewType implements Node {
+  created: DateTime!
+  lastUpdated: DateTime!
+  id: ID!
+  album: AlbumType!
+  user: UserType!
+  review: String!
+  rating: Float!
+}
+
+type ReviewTypeConnection {
+  pageInfo: PageInfo!
+  edges: [ReviewTypeEdge]!
+}
+
+type ReviewTypeEdge {
+  node: ReviewType
+  cursor: String!
+}
+
+type SearchAlbumPage {
+  total: Int!
+  start: Int!
+  items: Int!
+  page: [AlbumNodeType!]!
+}
+
+type SearchPerformerPage {
+  total: Int!
+  start: Int!
+  items: Int!
+  page: [PerformerNodeType!]!
+}
+
+input UpdateAlbumInput {
+  album: ID!
+  mbid: String
+  name: String
+  year: Int
+  clientMutationId: String
+}
+
+type UpdateAlbumPayload {
+  album: AlbumType
+  clientMutationId: String
+}
+
+input UpdatePerformerInput {
+  performer: ID!
+  mbid: String
+  name: String
+  clientMutationId: String
+}
+
+type UpdatePerformerPayload {
+  performer: PerformerType
+  clientMutationId: String
+}
+
+input UpdateReviewInput {
+  reviewId: ID!
+  album: ID
+  review: String
+  rating: Float
+  clientMutationId: String
+}
+
+type UpdateReviewPayload {
+  review: ReviewType
+  clientMutationId: String
+}
+
+type UserType implements Node {
+  id: ID!
+  lastLogin: DateTime
+  isSuperuser: Boolean!
+  username: String!
+  firstName: String!
+  lastName: String!
+  email: String!
+  isStaff: Boolean!
+  isActive: Boolean!
+  dateJoined: DateTime!
+  performerSet(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): PerformerTypeConnection!
+  albumSet(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): AlbumTypeConnection!
+  reviewSet(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): ReviewTypeConnection!
+}
+
+type UserTypeConnection {
+  pageInfo: PageInfo!
+  edges: [UserTypeEdge]!
+}
+
+type UserTypeEdge {
+  node: UserType
+  cursor: String!
+}
+
+type Verify {
+  payload: GenericScalar!
+}
+
+type WikiInfoType {
+  published: String!
+  summary: String!
+  content: String!
+}

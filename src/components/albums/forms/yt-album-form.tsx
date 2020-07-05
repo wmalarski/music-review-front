@@ -8,7 +8,7 @@ interface YtAlbumFormProps {
 }
 
 function buildLink(album: AlbumTileData): string {
-  const value = `${album.performer.name} ${album.title}`.replace(' ', '+')
+  const value = `${album.performer.name} ${album.name}`.replace(' ', '+')
   return `https://www.youtube.com/results?search_query=${value}`
 }
 

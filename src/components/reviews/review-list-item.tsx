@@ -48,11 +48,11 @@ export default function ReviewListItem(props: ReviewListItemProps) {
             <CardMedia
               className={classes.cover}
               image={props.item.album.coverUrl ?? ''}
-              title={props.item.album.title}
+              title={props.item.album.name}
             />
             <CardContent className={classes.content}>
               <Typography component="h5" variant="h5">
-                {props.item.album.title}
+                {props.item.album.name}
               </Typography>
               <Typography variant="subtitle1" color="textSecondary">
                 {props.item.album.performer.name}({props.item.album.year})

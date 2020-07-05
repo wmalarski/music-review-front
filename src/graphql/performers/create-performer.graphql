@@ -1,16 +1,14 @@
 mutation CreatePerformer(
   $name: String!
-  $description: String
   $albums: [AlbumInputType!]
+  $mbid: String!
 ) {
-  createPerformer(
-    input: { name: $name, description: $description, albums: $albums }
-  ) {
+  createPerformer(input: { name: $name, mbid: $mbid, albums: $albums }) {
     performer {
       id
       name
-      description
       created
+      mbid
     }
   }
 }

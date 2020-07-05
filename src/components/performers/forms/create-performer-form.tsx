@@ -26,7 +26,7 @@ export default function CreatePerformerForm() {
             variables: {
               name: result.name,
               albums: result.albums,
-              description: '',
+              mbid: result.mbid,
             },
           }).then(() => {
             setOpen(false)

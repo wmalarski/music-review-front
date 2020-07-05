@@ -1,22 +1,9 @@
-mutation UpdatePerformer(
-  $performer: ID!
-  $name: String
-  $description: String
-  $logoUrl: String
-) {
-  updatePerformer(
-    input: {
-      performer: $performer
-      name: $name
-      description: $description
-      logoUrl: $logoUrl
-    }
-  ) {
+mutation UpdatePerformer($performer: ID!, $name: String, $mbid: String) {
+  updatePerformer(input: { performer: $performer, name: $name, mbid: $mbid }) {
     performer {
       id
       name
-      logoUrl
-      description
+      mbid
       lastUpdated
     }
   }

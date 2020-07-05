@@ -1,18 +1,11 @@
 mutation CreateAlbum(
   $performer: ID!
-  $title: String!
+  $name: String!
   $year: Int!
-  $coverUrl: String
-  $description: String
+  $mbid: String!
 ) {
   createAlbum(
-    input: {
-      performer: $performer
-      title: $title
-      year: $year
-      coverUrl: $coverUrl
-      description: $description
-    }
+    input: { performer: $performer, name: $name, year: $year, mbid: $mbid }
   ) {
     album {
       id

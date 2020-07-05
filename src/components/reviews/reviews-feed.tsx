@@ -11,13 +11,12 @@ export interface ReviewTileData {
   lastUpdated: string
   album: {
     id: string
-    title: string
+    name: string
     coverUrl?: string | undefined | null
     year: number
     performer: {
       id: string
       name: string
-      description: string
     }
   }
   user: {

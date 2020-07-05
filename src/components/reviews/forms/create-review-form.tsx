@@ -27,7 +27,7 @@ export default function CreateReviewForm(props: CreateReviewFormProps) {
       </IconButton>
       <ReviewDialog
         name={props.album.performer.name}
-        title={props.album.title}
+        title={props.album.name}
         year={props.album.year}
         open={open}
         setOpen={setOpen}

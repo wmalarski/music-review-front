@@ -1,25 +1,11 @@
-mutation UpdateAlbum(
-  $id: ID!
-  $title: String
-  $year: Int
-  $coverUrl: String
-  $description: String
-) {
-  updateAlbum(
-    input: {
-      album: $id
-      title: $title
-      year: $year
-      coverUrl: $coverUrl
-      description: $description
-    }
-  ) {
+mutation UpdateAlbum($id: ID!, $name: String, $year: Int, $mbid: String) {
+  updateAlbum(input: { album: $id, name: $name, year: $year, mbid: $mbid }) {
     album {
       id
-      title
       year
-      description
-      coverUrl
+      mbid
+      name
+      lastUpdated
     }
   }
 }

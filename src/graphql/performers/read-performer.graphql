@@ -1,6 +1,13 @@
 query ReadPerformer($id: ID!) {
   performer(id: $id) {
     id
+    image {
+      url
+      size
+    }
+    bio {
+      summary
+    }
     albumSet {
       edges {
         node {
@@ -22,10 +29,9 @@ query ReadPerformer($id: ID!) {
                   performer {
                     id
                     name
-                    description
                   }
                   year
-                  title
+                  name
                 }
               }
             }

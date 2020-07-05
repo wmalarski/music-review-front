@@ -9,6 +9,7 @@ import { TextField } from '@material-ui/core'
 
 interface PerformerShortDialogResult {
   name: string
+  mbid: string
 }
 
 interface PerformerShortDialogProps {
@@ -54,7 +55,10 @@ export default function PerformerShortDialog(props: PerformerShortDialogProps) {
         <Button color="inherit" onClick={handleClose}>
           Cancel
         </Button>
-        <Button color="inherit" onClick={() => props.onSubmit({ name })}>
+        <Button
+          color="inherit"
+          onClick={() => props.onSubmit({ name, mbid: '' })}
+        >
           Save
         </Button>
       </DialogActions>

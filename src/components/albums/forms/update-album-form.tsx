@@ -27,9 +27,8 @@ export default function UpdateAlbumForm(props: UpdateAlbumFormProps) {
       </IconButton>
       <AlbumDialog
         dialogTitle={<p>Update Album</p>}
-        description={props.album.description}
-        coverUrl={props.album.coverUrl}
-        title={props.album.title}
+        mbid={props.album.mbid}
+        title={props.album.name}
         year={props.album.year}
         name={props.album.performer.name}
         open={open}

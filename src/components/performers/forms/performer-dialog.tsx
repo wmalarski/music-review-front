@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface PerformerDialogResult {
   name: string
+  mbid: string
   albums: AlbumInputType[]
 }
 
@@ -74,10 +75,7 @@ export default function PerformerDialog(props: PerformerDialogProps) {
         <Button
           color="inherit"
           onClick={() => {
-            setAlbums([
-              ...albums,
-              { title: '', year: lastYear, description: '' },
-            ])
+            setAlbums([...albums, { name: '', year: lastYear, mbid: '' }])
           }}
         >
           Add Album
@@ -87,10 +85,10 @@ export default function PerformerDialog(props: PerformerDialogProps) {
             <ListItem key={index} className={classes.root}>
               <TextField
                 label="Title"
-                value={album.title}
+                value={album.name}
                 onChange={event => {
                   const newAlbums = [...albums]
-                  newAlbums[index].title = event.target.value
+                  newAlbums[index].name = event.target.value
                   setAlbums(newAlbums)
                 }}
               />
@@ -130,7 +128,7 @@ export default function PerformerDialog(props: PerformerDialogProps) {
         </Button>
         <Button
           color="inherit"
-          onClick={() => props.onSubmit({ name, albums })}
+          onClick={() => props.onSubmit({ name, albums, mbid: '' })}
         >
           Add
         </Button>

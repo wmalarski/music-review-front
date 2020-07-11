@@ -5,15 +5,20 @@ import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogTitle from '@material-ui/core/DialogTitle'
-import { AlbumInputType } from '../../../types/backend'
+import {
+  AlbumInputType,
+  useReadPerformerMbidLazyQuery,
+} from '../../../types/backend'
 import {
   makeStyles,
   Theme,
   createStyles,
   TextField,
   List,
-  ListItem,
+  Divider,
+  Badge,
 } from '@material-ui/core'
+import PerformerAlbumDialogItem from './performer-album-dialog-item'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -47,10 +52,15 @@ export default function PerformerDialog(props: PerformerDialogProps) {
     props.albums ?? [],
   )
   const [lastYear, setLastYear] = React.useState(1980)
+  const [readPerformerMbid, { data }] = useReadPerformerMbidLazyQuery()
 
   const handleClose = () => {
     props.setOpen(false)
   }
+
+  const isMbidLoaded =
+    data?.performerCorrection.mbid !== undefined &&
+    albums.map(a => a.mbid !== '').reduce((prev, curr) => prev && curr, true)
 
   return (
     <Dialog
@@ -60,7 +70,7 @@ export default function PerformerDialog(props: PerformerDialogProps) {
     >
       <DialogTitle id="form-dialog-add-performer">Add Performer</DialogTitle>
       <DialogContent>
-        <DialogContentText>Add Performer to database.</DialogContentText>
+        <DialogContentText>Performer name and mbid.</DialogContentText>
         <TextField
           autoFocus
           margin="dense"
@@ -72,52 +82,29 @@ export default function PerformerDialog(props: PerformerDialogProps) {
             setName(event.target.value)
           }}
         />
-        <Button
-          color="inherit"
-          onClick={() => {
-            setAlbums([...albums, { name: '', year: lastYear, mbid: '' }])
-          }}
-        >
-          Add Album
-        </Button>
+        <Divider />
         <List className={classes.root}>
           {albums.map((album, index) => (
-            <ListItem key={index} className={classes.root}>
-              <TextField
-                label="Title"
-                value={album.name}
-                onChange={event => {
-                  const newAlbums = [...albums]
-                  newAlbums[index].name = event.target.value
-                  setAlbums(newAlbums)
-                }}
-              />
-              <TextField
-                label="Year"
-                type="number"
-                value={album.year}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                onChange={event => {
-                  const newAlbums = [...albums]
-                  const year = Number(event.target.value)
-                  newAlbums[index].year = year
-                  setAlbums(newAlbums)
-                  setLastYear(year)
-                }}
-              />
-              <Button
-                color="inherit"
-                onClick={() => {
-                  const newAlbums = [...albums]
-                  newAlbums.splice(index, 1)
-                  setAlbums(newAlbums)
-                }}
-              >
-                Remove
-              </Button>
-            </ListItem>
+            <PerformerAlbumDialogItem
+              key={index}
+              name={name}
+              title={album.name}
+              year={album.year}
+              onFailed={() => {
+                console.log('onFailed')
+              }}
+              onRemove={() => {
+                const newAlbums = [...albums]
+                newAlbums.splice(index, 1)
+                setAlbums(newAlbums)
+              }}
+              onSubmit={({ mbid, name, year }) => {
+                const newAlbums = [...albums]
+                newAlbums[index] = { name, mbid, year }
+                setAlbums(newAlbums)
+                setLastYear(year)
+              }}
+            />
           ))}
         </List>
         {props.children}
@@ -126,11 +113,31 @@ export default function PerformerDialog(props: PerformerDialogProps) {
         <Button color="inherit" onClick={handleClose}>
           Cancel
         </Button>
+        <Badge color="error" variant="dot" invisible={isMbidLoaded}>
+          <Button
+            color="inherit"
+            onClick={() => readPerformerMbid({ variables: { name } })}
+          >
+            MBID
+          </Button>
+        </Badge>
         <Button
           color="inherit"
-          onClick={() => props.onSubmit({ name, albums, mbid: '' })}
+          onClick={() => {
+            setAlbums([...albums, { name: '', year: lastYear, mbid: '' }])
+          }}
         >
-          Add
+          ADD ALBUM
+        </Button>
+        <Button
+          disabled={!isMbidLoaded}
+          color="inherit"
+          onClick={() => {
+            if (!data) return
+            props.onSubmit({ albums, ...data?.performerCorrection })
+          }}
+        >
+          SAVE
         </Button>
       </DialogActions>
     </Dialog>

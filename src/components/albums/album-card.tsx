@@ -30,8 +30,8 @@ const useStyles = makeStyles((theme: Theme) =>
       flexShrink: 100,
     },
     cover: {
-      width: 350,
-      height: 350,
+      width: 600,
+      height: 600,
     },
     controls: {
       display: 'flex',
@@ -50,7 +50,7 @@ export default function AlbumCard(props: AlbumCardProps) {
     <Card className={classes.root}>
       <CardMedia
         className={classes.cover}
-        image={props.album.image[4].url ?? ''}
+        image={props.album.image[5].url ?? ''}
         title={props.album.name}
       />
 

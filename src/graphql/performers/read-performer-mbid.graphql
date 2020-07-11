@@ -1,0 +1,6 @@
+query ReadPerformerMbid($name: String!) {
+  performerCorrection(performer: $name) {
+    name
+    mbid
+  }
+}

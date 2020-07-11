@@ -1,0 +1,9 @@
+query ReadAlbumMbid($album: String!, $limit: Int) {
+  searchAlbums(album: $album, limit: $limit) {
+    page {
+      artist
+      name
+      mbid
+    }
+  }
+}

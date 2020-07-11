@@ -627,6 +627,23 @@ export type AlbumDetailsQuery = (
   )> }
 );
 
+export type ReadAlbumMbidQueryVariables = Exact<{
+  album: Scalars['String'];
+  limit?: Maybe<Scalars['Int']>;
+}>;
+
+
+export type ReadAlbumMbidQuery = (
+  { __typename?: 'Query' }
+  & { searchAlbums: (
+    { __typename?: 'SearchAlbumPage' }
+    & { page: Array<(
+      { __typename?: 'AlbumNodeType' }
+      & Pick<AlbumNodeType, 'artist' | 'name' | 'mbid'>
+    )> }
+  ) }
+);
+
 export type ReadAlbumsQueryVariables = Exact<{
   after?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
@@ -736,6 +753,19 @@ export type DeletePerformerMutation = (
     { __typename?: 'DeletePerformerPayload' }
     & Pick<DeletePerformerPayload, 'success'>
   )> }
+);
+
+export type ReadPerformerMbidQueryVariables = Exact<{
+  name: Scalars['String'];
+}>;
+
+
+export type ReadPerformerMbidQuery = (
+  { __typename?: 'Query' }
+  & { performerCorrection: (
+    { __typename?: 'PerformerNodeType' }
+    & Pick<PerformerNodeType, 'name' | 'mbid'>
+  ) }
 );
 
 export type ReadPerformersQueryVariables = Exact<{
@@ -1076,6 +1106,44 @@ export function useAlbumDetailsLazyQuery(baseOptions?: ApolloReactHooks.LazyQuer
 export type AlbumDetailsQueryHookResult = ReturnType<typeof useAlbumDetailsQuery>;
 export type AlbumDetailsLazyQueryHookResult = ReturnType<typeof useAlbumDetailsLazyQuery>;
 export type AlbumDetailsQueryResult = ApolloReactCommon.QueryResult<AlbumDetailsQuery, AlbumDetailsQueryVariables>;
+export const ReadAlbumMbidDocument = gql`
+    query ReadAlbumMbid($album: String!, $limit: Int) {
+  searchAlbums(album: $album, limit: $limit) {
+    page {
+      artist
+      name
+      mbid
+    }
+  }
+}
+    `;
+
+/**
+ * __useReadAlbumMbidQuery__
+ *
+ * To run a query within a React component, call `useReadAlbumMbidQuery` and pass it any options that fit your needs.
+ * When your component renders, `useReadAlbumMbidQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useReadAlbumMbidQuery({
+ *   variables: {
+ *      album: // value for 'album'
+ *      limit: // value for 'limit'
+ *   },
+ * });
+ */
+export function useReadAlbumMbidQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<ReadAlbumMbidQuery, ReadAlbumMbidQueryVariables>) {
+        return ApolloReactHooks.useQuery<ReadAlbumMbidQuery, ReadAlbumMbidQueryVariables>(ReadAlbumMbidDocument, baseOptions);
+      }
+export function useReadAlbumMbidLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ReadAlbumMbidQuery, ReadAlbumMbidQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<ReadAlbumMbidQuery, ReadAlbumMbidQueryVariables>(ReadAlbumMbidDocument, baseOptions);
+        }
+export type ReadAlbumMbidQueryHookResult = ReturnType<typeof useReadAlbumMbidQuery>;
+export type ReadAlbumMbidLazyQueryHookResult = ReturnType<typeof useReadAlbumMbidLazyQuery>;
+export type ReadAlbumMbidQueryResult = ApolloReactCommon.QueryResult<ReadAlbumMbidQuery, ReadAlbumMbidQueryVariables>;
 export const ReadAlbumsDocument = gql`
     query ReadAlbums($after: String, $first: Int, $name: String) {
   albumSet(after: $after, first: $first, name: $name) {
@@ -1295,6 +1363,40 @@ export function useDeletePerformerMutation(baseOptions?: ApolloReactHooks.Mutati
 export type DeletePerformerMutationHookResult = ReturnType<typeof useDeletePerformerMutation>;
 export type DeletePerformerMutationResult = ApolloReactCommon.MutationResult<DeletePerformerMutation>;
 export type DeletePerformerMutationOptions = ApolloReactCommon.BaseMutationOptions<DeletePerformerMutation, DeletePerformerMutationVariables>;
+export const ReadPerformerMbidDocument = gql`
+    query ReadPerformerMbid($name: String!) {
+  performerCorrection(performer: $name) {
+    name
+    mbid
+  }
+}
+    `;
+
+/**
+ * __useReadPerformerMbidQuery__
+ *
+ * To run a query within a React component, call `useReadPerformerMbidQuery` and pass it any options that fit your needs.
+ * When your component renders, `useReadPerformerMbidQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useReadPerformerMbidQuery({
+ *   variables: {
+ *      name: // value for 'name'
+ *   },
+ * });
+ */
+export function useReadPerformerMbidQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<ReadPerformerMbidQuery, ReadPerformerMbidQueryVariables>) {
+        return ApolloReactHooks.useQuery<ReadPerformerMbidQuery, ReadPerformerMbidQueryVariables>(ReadPerformerMbidDocument, baseOptions);
+      }
+export function useReadPerformerMbidLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ReadPerformerMbidQuery, ReadPerformerMbidQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<ReadPerformerMbidQuery, ReadPerformerMbidQueryVariables>(ReadPerformerMbidDocument, baseOptions);
+        }
+export type ReadPerformerMbidQueryHookResult = ReturnType<typeof useReadPerformerMbidQuery>;
+export type ReadPerformerMbidLazyQueryHookResult = ReturnType<typeof useReadPerformerMbidLazyQuery>;
+export type ReadPerformerMbidQueryResult = ApolloReactCommon.QueryResult<ReadPerformerMbidQuery, ReadPerformerMbidQueryVariables>;
 export const ReadPerformersDocument = gql`
     query ReadPerformers($after: String, $first: Int, $name: String) {
   performerSet(after: $after, first: $first, name: $name) {

@@ -5,7 +5,8 @@ import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogTitle from '@material-ui/core/DialogTitle'
-import { TextField } from '@material-ui/core'
+import { TextField, Badge } from '@material-ui/core'
+import { useReadPerformerMbidLazyQuery } from '../../../types/backend'
 
 interface PerformerShortDialogResult {
   name: string
@@ -22,10 +23,14 @@ interface PerformerShortDialogProps {
 
 export default function PerformerShortDialog(props: PerformerShortDialogProps) {
   const [name, setName] = React.useState(props.name ?? '')
+  const [readPerformerMbid, { data }] = useReadPerformerMbidLazyQuery()
 
   const handleClose = () => {
     props.setOpen(false)
   }
+
+  const mbid = data?.performerCorrection.mbid
+  const isMbidLoaded = mbid !== undefined
 
   return (
     <Dialog
@@ -33,9 +38,7 @@ export default function PerformerShortDialog(props: PerformerShortDialogProps) {
       onClose={handleClose}
       aria-labelledby="form-dialog-update-performer"
     >
-      <DialogTitle id="form-dialog-update-performer">
-        Edit Performer
-      </DialogTitle>
+      <DialogTitle id="form-dialog-update-performer">Edit</DialogTitle>
       <DialogContent>
         <DialogContentText>{props.name}</DialogContentText>
         <TextField
@@ -55,9 +58,20 @@ export default function PerformerShortDialog(props: PerformerShortDialogProps) {
         <Button color="inherit" onClick={handleClose}>
           Cancel
         </Button>
+        <Badge color="error" variant="dot" invisible={isMbidLoaded}>
+          <Button
+            color="inherit"
+            onClick={() => readPerformerMbid({ variables: { name } })}
+          >
+            MBID
+          </Button>
+        </Badge>
         <Button
+          disabled={!isMbidLoaded}
           color="inherit"
-          onClick={() => props.onSubmit({ name, mbid: '' })}
+          onClick={() => {
+            if (mbid) props.onSubmit({ name, mbid })
+          }}
         >
           Save
         </Button>

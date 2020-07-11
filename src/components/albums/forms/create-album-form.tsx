@@ -47,7 +47,6 @@ export default function CreateAlbumForm(props: CreateAlbumFormProps) {
           <FormProgress
             successMessage="Album Added"
             isLoading={loading}
-            error={error ?? null}
             isSnackBarVisible={snackbarOpen}
             setIsScankBarVisible={setSnackbarOpen}
           />

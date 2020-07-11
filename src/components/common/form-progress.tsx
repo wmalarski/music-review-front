@@ -1,15 +1,13 @@
 import React from 'react'
 import { Snackbar } from '@material-ui/core'
 import Alert from '@material-ui/lab/Alert'
-import { ApolloError } from '@apollo/client'
 import LoadingBackdrop from './loading-backdrop'
 
 interface FormProgressProps {
-  successMessage: string
+  successMessage?: string | null
   isSnackBarVisible: boolean
   isLoading: boolean
-  error: ApolloError | null
-  setIsScankBarVisible: React.Dispatch<React.SetStateAction<boolean>>
+  setIsScankBarVisible?: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export default function FormProgress(props: FormProgressProps) {
@@ -19,13 +17,17 @@ export default function FormProgress(props: FormProgressProps) {
       <Snackbar
         open={props.isSnackBarVisible}
         autoHideDuration={6000}
-        onClose={() => props.setIsScankBarVisible(false)}
+        onClose={() => {
+          if (props.setIsScankBarVisible) props.setIsScankBarVisible(false)
+        }}
       >
         <Alert
-          onClose={() => props.setIsScankBarVisible(false)}
+          onClose={() => {
+            if (props.setIsScankBarVisible) props.setIsScankBarVisible(false)
+          }}
           severity="success"
         >
-          {props.successMessage}
+          {props.successMessage ?? ''}
         </Alert>
       </Snackbar>
     </div>

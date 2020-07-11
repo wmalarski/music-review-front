@@ -6,13 +6,7 @@ export function getToken(): string | null {
   if (!isBrowser()) {
     return null
   }
-  return window.localStorage.getItem('token')
-}
-
-export function setToken(token: string) {
-  window.localStorage.setItem('token', token)
-}
-
-export function removeToken() {
-  window.localStorage.removeItem('token')
+  const value = window.localStorage.getItem('token')
+  if (!value) return null
+  return JSON.parse(value)?.token
 }

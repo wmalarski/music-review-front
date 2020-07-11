@@ -2,6 +2,7 @@ import React from 'react'
 import { useReadReviewsQuery } from '../../types/backend'
 import { notEmpty } from '../../libs/utils'
 import InfiniteScrollWrapper from '../infinite-scroll/infinite-scroll-wrapper'
+import FormProgress from '../common/form-progress'
 
 export interface ReviewTileData {
   id: string
@@ -45,7 +46,7 @@ export default function ReviewsFeed(props: ReviewsFeedProps) {
   })
 
   if (!data?.reviewSet) {
-    return null
+    return <FormProgress isLoading={loading} isSnackBarVisible={false} />
   }
 
   const items = data.reviewSet.edges.map(edge => edge?.node).filter(notEmpty)

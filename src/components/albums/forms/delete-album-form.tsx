@@ -12,7 +12,7 @@ interface DeleteAlbumFormProps {
 
 export default function DeleteAlbumForm(props: DeleteAlbumFormProps) {
   const [snackbarOpen, setSnackbarOpen] = useState(false)
-  const [deleteAlbumMutation, { loading, error }] = useDeleteAlbumMutation()
+  const [deleteAlbumMutation, { loading }] = useDeleteAlbumMutation()
 
   return (
     <>
@@ -35,7 +35,6 @@ export default function DeleteAlbumForm(props: DeleteAlbumFormProps) {
       <FormProgress
         successMessage="Album succesfuly deleted"
         isLoading={loading}
-        error={error ?? null}
         isSnackBarVisible={snackbarOpen}
         setIsScankBarVisible={setSnackbarOpen}
       />

@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/camelcase */
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Typescript blog Starter`,
-    description: `A simple blog starter using Typescript in front & back side with eslint & prettier.`,
+    title: `Album Reviews`,
+    description: `Album reviews.`,
     author: {
-      name: 'Julien CARON',
-      content: 'I like build some things using Javascript',
+      name: 'Wojciech Malarski',
+      content: 'I like build some things using Python & GraphQL',
     },
     social: {
-      github: 'https://github.com/Junscuzzy',
+      github: 'https://github.com/wmalarski',
     },
   },
   plugins: [

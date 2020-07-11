@@ -46,7 +46,6 @@ export default function UpdatePerformerForm(props: UpdatePerformerFormProps) {
           <FormProgress
             successMessage="Performer succesfuly added"
             isLoading={loading}
-            error={error ?? null}
             isSnackBarVisible={snackbarOpen}
             setIsScankBarVisible={setSnackbarOpen}
           />

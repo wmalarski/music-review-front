@@ -49,7 +49,6 @@ export default function CreateReviewForm(props: CreateReviewFormProps) {
           <FormProgress
             successMessage="Review Added"
             isLoading={loading}
-            error={error ?? null}
             isSnackBarVisible={snackbarOpen}
             setIsScankBarVisible={setSnackbarOpen}
           />

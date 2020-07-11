@@ -1,8 +1,9 @@
-import { Link as GatsbyLink } from 'gatsby'
+import { Link as GatsbyLink, navigate } from 'gatsby'
 import React, { FC } from 'react'
 import { AppBar, Toolbar, Typography, Link, Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import CreatePerformerForm from '../components/performers/forms/create-performer-form'
+import useLocalStorage from '../hooks/use-local-storage'
 
 const useStyles = makeStyles({
   toolbar: {},
@@ -20,9 +21,9 @@ export interface HeaderProps {
   onToggleTheme: () => void
 }
 
-const Header: FC<HeaderProps> = ({ siteTitle = '', onToggleTheme }) => {
+const Header: FC<HeaderProps> = ({ siteTitle = '' }) => {
   const classes = useStyles()
-
+  const [token, setToken] = useLocalStorage('token', {})
   return (
     <AppBar component="header" position="static">
       <Toolbar className={classes.toolbar}>
@@ -45,13 +46,24 @@ const Header: FC<HeaderProps> = ({ siteTitle = '', onToggleTheme }) => {
         <Button component={GatsbyLink} to="/reviews/" color="inherit">
           Reviews
         </Button>
-        <CreatePerformerForm />
-        <Button color="inherit" onClick={onToggleTheme}>
-          Toggle Theme
-        </Button>
-        <Button color="inherit" component={GatsbyLink} to="/sign-in-page/">
-          Login
-        </Button>
+        {!token?.token ? (
+          <Button color="inherit" component={GatsbyLink} to="/sign-in-page/">
+            Login
+          </Button>
+        ) : (
+          <>
+            <CreatePerformerForm />
+            <Button
+              color="inherit"
+              onClick={() => {
+                setToken({})
+                navigate('/')
+              }}
+            >
+              Logout
+            </Button>
+          </>
+        )}
       </Toolbar>
     </AppBar>
   )

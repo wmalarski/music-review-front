@@ -3,6 +3,7 @@ import { useReadPerformersQuery } from '../../types/backend'
 import { notEmpty } from '../../libs/utils'
 import InfiniteScrollWrapper from '../infinite-scroll/infinite-scroll-wrapper'
 import { AlbumTileData } from '../albums/albums-feed'
+import FormProgress from '../common/form-progress'
 
 export interface Performer {
   id: string
@@ -35,7 +36,7 @@ export default function PerformersFeed(props: PerformersFeedProps) {
   })
 
   if (!data?.performerSet) {
-    return null
+    return <FormProgress isLoading={loading} isSnackBarVisible={false} />
   }
 
   const items = data.performerSet.edges.map(edge => edge?.node).filter(notEmpty)

@@ -5,7 +5,7 @@ import SEO from '../components/common/seo'
 import { makeStyles, Backdrop, CircularProgress } from '@material-ui/core'
 import SignIn from '../components/account/sign-in'
 import { useTokenAuthMutation } from '../types/backend'
-import { setToken } from '../libs/auth'
+import useLocalStorage from '../hooks/use-local-storage'
 
 const useStyles = makeStyles(theme => ({
   backdrop: {
@@ -17,6 +17,7 @@ const useStyles = makeStyles(theme => ({
 const SignInPage: FC = () => {
   const classes = useStyles()
   const [tokenAuthMutation, { loading, error }] = useTokenAuthMutation()
+  const [, setToken] = useLocalStorage('token', {})
 
   return (
     <Layout container>
@@ -34,7 +35,7 @@ const SignInPage: FC = () => {
           }).then(result => {
             const token = result.data?.tokenAuth?.token
             if (token) {
-              setToken(token)
+              if (credencials.remember) setToken({ token })
               navigate('/')
             }
           })

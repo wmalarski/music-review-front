@@ -7,6 +7,7 @@ import AlbumGridItem from './album-grid-item'
 import CreateAlbumForm from './forms/create-album-form'
 import DeletePerformerForm from '../performers/forms/delete-performer-form'
 import UpdatePerformerForm from '../performers/forms/update-performer-form'
+import useIsLoggedIn from '../../hooks/use-is-logged-in'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -24,6 +25,7 @@ interface PerformerAlbumsGridProps {
 
 export default function PerformerAlbumsGrid(props: PerformerAlbumsGridProps) {
   const classes = useStyles()
+  const isLoggedIn = useIsLoggedIn()
   return (
     <ScrollGridContainer
       items={props.item.albumSet.edges.map(edge => edge?.node).filter(notEmpty)}
@@ -35,11 +37,13 @@ export default function PerformerAlbumsGrid(props: PerformerAlbumsGridProps) {
       header={
         <div className={classes.header}>
           <Typography variant="h6">{props.item.name}</Typography>
-          <div>
-            <CreateAlbumForm performer={props.item} />
-            <UpdatePerformerForm performer={props.item} />
-            <DeletePerformerForm performer={props.item} />
-          </div>
+          {isLoggedIn && (
+            <div>
+              <CreateAlbumForm performer={props.item} />
+              <UpdatePerformerForm performer={props.item} />
+              <DeletePerformerForm performer={props.item} />
+            </div>
+          )}
         </div>
       }
     />

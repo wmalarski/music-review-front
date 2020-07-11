@@ -14,6 +14,7 @@ import CreateReviewForm from '../reviews/forms/create-review-form'
 import DeleteAlbumForm from './forms/delete-album-form'
 import UpdateAlbumForm from './forms/update-album-form'
 import YtAlbumForm from './forms/yt-album-form'
+import useIsLoggedId from '../../hooks/use-is-logged-in'
 
 interface AlbumDetailsProps {
   album: AlbumTileData
@@ -26,6 +27,7 @@ export default function AlbumDetails(props: AlbumDetailsProps) {
       album: props.album.id,
     },
   })
+  const isLoggedIn = useIsLoggedId()
 
   return (
     <>
@@ -49,12 +51,16 @@ export default function AlbumDetails(props: AlbumDetailsProps) {
         </DialogContent>
         <DialogActions>
           <YtAlbumForm album={props.album} />
-          <CreateReviewForm album={props.album} />
-          <UpdateAlbumForm album={props.album} />
-          <DeleteAlbumForm
-            album={props.album}
-            onDelete={() => setOpen(false)}
-          />
+          {isLoggedIn && (
+            <>
+              <CreateReviewForm album={props.album} />
+              <UpdateAlbumForm album={props.album} />
+              <DeleteAlbumForm
+                album={props.album}
+                onDelete={() => setOpen(false)}
+              />
+            </>
+          )}
           <Button color="inherit" onClick={() => setOpen(false)}>
             Cancel
           </Button>

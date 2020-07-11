@@ -3,6 +3,7 @@ import { useReadRandomAlbumsQuery } from '../../types/backend'
 import { notEmpty } from '../../libs/utils'
 import { AlbumTileData } from './albums-feed'
 import Button from '@material-ui/core/Button'
+import FormProgress from '../common/form-progress'
 
 interface RandomAlbumsFeedProps {
   children: (props: {
@@ -21,7 +22,7 @@ export default function RandomAlbumsFeed(props: RandomAlbumsFeedProps) {
   })
 
   if (!data?.randomAlbumSet) {
-    return null
+    return <FormProgress isLoading={loading} isSnackBarVisible={false} />
   }
 
   const items = data.randomAlbumSet.edges

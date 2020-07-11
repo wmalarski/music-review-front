@@ -39,7 +39,6 @@ export default function CreatePerformerForm() {
           <FormProgress
             successMessage="Performer succesfuly added"
             isLoading={loading}
-            error={error ?? null}
             isSnackBarVisible={snackbarOpen}
             setIsScankBarVisible={setSnackbarOpen}
           />

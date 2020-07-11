@@ -50,7 +50,6 @@ export default function UpdateAlbumForm(props: UpdateAlbumFormProps) {
           <FormProgress
             successMessage="Album Updated"
             isLoading={loading}
-            error={error ?? null}
             isSnackBarVisible={snackbarOpen}
             setIsScankBarVisible={setSnackbarOpen}
           />

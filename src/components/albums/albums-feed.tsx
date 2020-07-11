@@ -2,6 +2,7 @@ import React from 'react'
 import { useReadAlbumsQuery } from '../../types/backend'
 import { notEmpty } from '../../libs/utils'
 import InfiniteScrollWrapper from '../infinite-scroll/infinite-scroll-wrapper'
+import FormProgress from '../common/form-progress'
 
 export interface AlbumTileData {
   id: string
@@ -39,10 +40,9 @@ export default function AlbumsFeed(props: AlbumsFeedProps) {
   const { loading, data, fetchMore } = useReadAlbumsQuery({
     variables,
   })
-  console.log(variables, loading, data)
 
   if (!data?.albumSet) {
-    return null
+    return <FormProgress isLoading={loading} isSnackBarVisible={false} />
   }
 
   const items = data.albumSet.edges.map(edge => edge?.node).filter(notEmpty)

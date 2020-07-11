@@ -11,10 +11,7 @@ interface DeletePerformerFormProps {
 
 export default function DeletePerformerForm(props: DeletePerformerFormProps) {
   const [snackbarOpen, setSnackbarOpen] = useState(false)
-  const [
-    deletePerformerMutation,
-    { loading, error },
-  ] = useDeletePerformerMutation()
+  const [deletePerformerMutation, { loading }] = useDeletePerformerMutation()
 
   return (
     <>
@@ -34,7 +31,6 @@ export default function DeletePerformerForm(props: DeletePerformerFormProps) {
       <FormProgress
         successMessage="Performer succesfuly deleted"
         isLoading={loading}
-        error={error ?? null}
         isSnackBarVisible={snackbarOpen}
         setIsScankBarVisible={setSnackbarOpen}
       />

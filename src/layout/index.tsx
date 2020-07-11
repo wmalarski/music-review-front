@@ -5,8 +5,8 @@ import { Container, Theme, CssBaseline } from '@material-ui/core'
 import Header from './header'
 import Footer from './footer'
 import themes from '../theme'
-import useSiteMetadata from '../hooks/useSiteMetadata'
-import useLocalStorage from '../hooks/useLocalStorage'
+import useSiteMetadata from '../hooks/use-site-metadata'
+import useLocalStorage from '../hooks/use-local-storage'
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -28,7 +28,7 @@ const Layout: FC<{ container?: boolean }> = ({
 }) => {
   const classes = useStyles()
   const { title } = useSiteMetadata()
-  const [theme, setTheme] = useLocalStorage('theme', 'light')
+  const [theme, setTheme] = useLocalStorage('theme', 'dark')
 
   const toggleTheme = () => {
     setTheme(theme === 'light' ? 'dark' : 'light')

@@ -9,27 +9,34 @@ import { useMainListStyles } from '../../hooks/use-styles'
 export default function AlbumsGrid() {
   const classes = useMainListStyles()
   const [title, setTitle] = useState('')
+  const [yearGt, setYearGt] = useState<number | null>(null)
+  const [yearLt, setYearLt] = useState<number | null>(null)
   return (
-    <Container className={classes.root} maxWidth="xl">
-      <AlbumsFeed title={title}>
-        {({ albums, loading }) => (
-          <ScrollGridContainer
-            items={albums}
-            loading={loading}
-            renderItem={item => <AlbumGridItem album={item} imageIndex={3} />}
-            cellHeight={300}
-            cols={6}
-            direction="vertical"
-            header={
-              <AlbumSearchBar
-                onClicked={title => {
-                  setTitle(title)
-                }}
-              />
-            }
-          />
-        )}
-      </AlbumsFeed>
-    </Container>
+    <>
+      <Container className={classes.root} maxWidth="xl">
+        <AlbumSearchBar
+          onClicked={(title, fromYear, toYear) => {
+            setTitle(title)
+            setYearGt(fromYear)
+            setYearLt(toYear)
+          }}
+        />
+      </Container>
+      <Container className={classes.root} maxWidth="xl">
+        <AlbumsFeed title={title} yearGt={yearGt} yearLt={yearLt}>
+          {({ albums, loading }) => (
+            <ScrollGridContainer
+              items={albums}
+              loading={loading}
+              renderItem={item => <AlbumGridItem album={item} imageIndex={3} />}
+              cellHeight={300}
+              cols={6}
+              direction="vertical"
+              header={<p></p>}
+            />
+          )}
+        </AlbumsFeed>
+      </Container>
+    </>
   )
 }

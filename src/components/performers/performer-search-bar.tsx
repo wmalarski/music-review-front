@@ -1,22 +1,14 @@
 import React, { useState } from 'react'
-import { TextField, Button, makeStyles, createStyles } from '@material-ui/core'
+import { TextField, Button } from '@material-ui/core'
+import SearchIcon from '@material-ui/icons/Search'
+import { useSearchBarStyles } from '../../hooks/use-styles'
 
 interface PerformerSearchBarProps {
   onClicked: (name: string) => void
 }
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    root: {
-      width: '100%',
-      display: 'flex',
-      flexGrow: 1,
-    },
-  }),
-)
-
 export default function PerformerSearchBar(props: PerformerSearchBarProps) {
-  const classes = useStyles()
+  const classes = useSearchBarStyles()
   const [name, setName] = useState('')
 
   return (
@@ -28,9 +20,10 @@ export default function PerformerSearchBar(props: PerformerSearchBarProps) {
         value={name}
         fullWidth
         onChange={event => setName(event.target.value)}
+        onEnded={() => props.onClicked(name)}
       />
       <Button color="inherit" onClick={() => props.onClicked(name)}>
-        Filter
+        <SearchIcon /> Search
       </Button>
     </div>
   )

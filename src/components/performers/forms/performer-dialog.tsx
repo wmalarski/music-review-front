@@ -9,26 +9,8 @@ import {
   AlbumInputType,
   useReadPerformerMbidLazyQuery,
 } from '../../../types/backend'
-import {
-  makeStyles,
-  Theme,
-  createStyles,
-  TextField,
-  List,
-  Divider,
-  Badge,
-} from '@material-ui/core'
+import { TextField, List, Divider, Badge } from '@material-ui/core'
 import PerformerAlbumDialogItem from './performer-album-dialog-item'
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      width: '100%',
-      maxWidth: 360,
-      backgroundColor: theme.palette.background.paper,
-    },
-  }),
-)
 
 interface PerformerDialogResult {
   name: string
@@ -46,7 +28,6 @@ interface PerformerDialogProps {
 }
 
 export default function PerformerDialog(props: PerformerDialogProps) {
-  const classes = useStyles()
   const [name, setName] = React.useState(props.name ?? '')
   const [albums, setAlbums] = React.useState<AlbumInputType[]>(
     props.albums ?? [],
@@ -83,7 +64,7 @@ export default function PerformerDialog(props: PerformerDialogProps) {
           }}
         />
         <Divider />
-        <List className={classes.root}>
+        <List>
           {albums.map((album, index) => (
             <PerformerAlbumDialogItem
               key={index}

@@ -2,21 +2,23 @@ import React, { useState } from 'react'
 import {
   TextField,
   Button,
-  makeStyles,
-  createStyles,
   Slider,
+  createStyles,
+  makeStyles,
+  Theme,
 } from '@material-ui/core'
+import SearchIcon from '@material-ui/icons/Search'
+import { useSearchBarStyles } from '../../hooks/use-styles'
 
 interface AlbumSearchBarProps {
   onClicked: (title: string, fromYear: number, toYear: number) => void
 }
 
-const useStyles = makeStyles(() =>
+export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
-      width: '100%',
-      display: 'flex',
-      flexGrow: 1,
+    slider: {
+      marginTop: theme.spacing(6),
+      padding: theme.spacing(1),
     },
   }),
 )
@@ -26,11 +28,12 @@ const MAX_YEAR = new Date().getFullYear()
 
 export default function AlbumSearchBar(props: AlbumSearchBarProps) {
   const classes = useStyles()
+  const searchBarClasses = useSearchBarStyles()
   const [title, setTitle] = useState('')
-  const [range, setRange] = useState([MIN_YEAR, MAX_YEAR])
+  const [range, setRange] = useState<number[]>([MIN_YEAR, MAX_YEAR])
 
   return (
-    <div className={classes.root}>
+    <div className={searchBarClasses.root}>
       <TextField
         id="standard-search"
         label="Search field"
@@ -40,16 +43,22 @@ export default function AlbumSearchBar(props: AlbumSearchBarProps) {
         onChange={event => setTitle(event.target.value)}
       />
       <Slider
+        className={classes.slider}
         value={range}
-        onChange={(event: any) => setRange(event.target.value)}
-        valueLabelDisplay="auto"
+        onChange={(_event, newValue) => {
+          if (typeof newValue !== 'number') setRange(newValue)
+        }}
+        valueLabelDisplay="on"
         aria-labelledby="range-slider"
+        color={'secondary'}
+        min={MIN_YEAR}
+        max={MAX_YEAR}
       />
       <Button
         color="inherit"
-        onClick={() => props.onClicked(title, MIN_YEAR, MAX_YEAR)}
+        onClick={() => props.onClicked(title, range[0], range[1])}
       >
-        Filter
+        <SearchIcon /> Search
       </Button>
     </div>
   )

@@ -1,24 +1,7 @@
 import React from 'react'
 import Button from '@material-ui/core/Button'
 import { useReadAlbumMbidLazyQuery } from '../../../types/backend'
-import {
-  makeStyles,
-  Theme,
-  createStyles,
-  TextField,
-  ListItem,
-  Badge,
-} from '@material-ui/core'
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      width: '100%',
-      maxWidth: 360,
-      backgroundColor: theme.palette.background.paper,
-    },
-  }),
-)
+import { TextField, ListItem, Badge } from '@material-ui/core'
 
 interface PerformerAlbumDialogItemResult {
   name: string
@@ -38,8 +21,6 @@ interface PerformerAlbumDialogItemProps {
 export default function PerformerAlbumDialogItem(
   props: PerformerAlbumDialogItemProps,
 ) {
-  const classes = useStyles()
-
   const [title, setTitle] = React.useState(props.title ?? '')
   const [year, setYear] = React.useState(props.year ?? 1980)
   const [readAlbumMbid, { data }] = useReadAlbumMbidLazyQuery({
@@ -60,7 +41,7 @@ export default function PerformerAlbumDialogItem(
   const mbid = data?.searchAlbums.page[0].mbid
 
   return (
-    <ListItem className={classes.root}>
+    <ListItem>
       <TextField
         fullWidth
         label="Title"

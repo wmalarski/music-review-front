@@ -10,17 +10,22 @@ export default function PerformersList() {
   const classes = useMainListStyles()
   const [name, setName] = useState('')
   return (
-    <Container className={classes.root} maxWidth="xl">
-      <PerformersFeed name={name}>
-        {({ performers, loading }) => (
-          <ScrollListContainer
-            items={performers}
-            loading={loading}
-            renderItem={item => <PerformerListItem item={item} />}
-            header={<PerformerSearchBar onClicked={setName} />}
-          />
-        )}
-      </PerformersFeed>
-    </Container>
+    <>
+      <Container className={classes.root} maxWidth="xl">
+        <PerformerSearchBar onClicked={setName} />
+      </Container>
+      <Container className={classes.root} maxWidth="xl">
+        <PerformersFeed name={name}>
+          {({ performers, loading }) => (
+            <ScrollListContainer
+              items={performers}
+              loading={loading}
+              renderItem={item => <PerformerListItem item={item} />}
+              header={<p></p>}
+            />
+          )}
+        </PerformersFeed>
+      </Container>
+    </>
   )
 }

@@ -14,3 +14,17 @@ export const useMainListStyles = makeStyles((theme: Theme) =>
     },
   }),
 )
+
+export const useSearchBarStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      width: '100%',
+      display: 'flex',
+      flexGrow: 1,
+      flexDirection: 'column',
+      margin: theme.spacing(2),
+      padding: theme.spacing(1),
+      justifyContent: 'space-between',
+    },
+  }),
+)

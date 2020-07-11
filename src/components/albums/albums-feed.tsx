@@ -25,6 +25,8 @@ interface AlbumsFeedProps {
     loading: boolean
   }) => JSX.Element
   title: string
+  yearGt: number | null
+  yearLt: number | null
 }
 
 export default function AlbumsFeed(props: AlbumsFeedProps) {
@@ -37,6 +39,7 @@ export default function AlbumsFeed(props: AlbumsFeedProps) {
   const { loading, data, fetchMore } = useReadAlbumsQuery({
     variables,
   })
+  console.log(variables, loading, data)
 
   if (!data?.albumSet) {
     return null

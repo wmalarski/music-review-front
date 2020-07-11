@@ -1,5 +1,5 @@
 import React from 'react'
-import { RootRef } from '@material-ui/core'
+import { RootRef, Button } from '@material-ui/core'
 import { useInfiniteScroll } from 'react-infinite-scroll-hook'
 
 interface InfiniteScrollWrapperProps {
@@ -18,5 +18,17 @@ export default function InfiniteScrollWrapper(
     onLoadMore: props.onLoadMore,
   })
 
-  return <RootRef rootRef={infiniteContainerRef}>{props.children}</RootRef>
+  return (
+    <div>
+      <RootRef rootRef={infiniteContainerRef}>{props.children}</RootRef>
+      <Button
+        disabled={!props.hasNextPage}
+        color="inherit"
+        onClick={() => props.onLoadMore()}
+        fullWidth
+      >
+        Load More
+      </Button>
+    </div>
+  )
 }

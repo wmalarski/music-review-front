@@ -2,6 +2,7 @@ import React from 'react'
 import { useReadRandomAlbumsQuery } from '../../types/backend'
 import { notEmpty } from '../../libs/utils'
 import { AlbumTileData } from './albums-feed'
+import Button from '@material-ui/core/Button'
 
 interface RandomAlbumsFeedProps {
   children: (props: {
@@ -12,7 +13,7 @@ interface RandomAlbumsFeedProps {
 }
 
 export default function RandomAlbumsFeed(props: RandomAlbumsFeedProps) {
-  const { loading, data } = useReadRandomAlbumsQuery({
+  const { loading, data, refetch } = useReadRandomAlbumsQuery({
     variables: {
       after: null,
       first: props.first,
@@ -27,5 +28,12 @@ export default function RandomAlbumsFeed(props: RandomAlbumsFeedProps) {
     .map(edge => edge?.node)
     .filter(notEmpty)
 
-  return <>{props.children({ albums: items, loading })}</>
+  return (
+    <>
+      {props.children({ albums: items, loading })}
+      <Button color="inherit" onClick={() => refetch()} fullWidth>
+        Reload
+      </Button>
+    </>
+  )
 }

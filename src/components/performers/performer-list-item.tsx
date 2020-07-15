@@ -11,14 +11,9 @@ import {
 import { Performer } from './performers-feed'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import PerformerAlbumsGrid from '../albums/performer-albums-grid'
-import {
-  useReadPerformerLazyQuery,
-  ReadPerformerQuery,
-} from '../../types/backend'
-import { notEmpty } from '../../libs/utils'
-import { ReviewTileData } from '../reviews/reviews-feed'
-import ScrollListContainer from '../infinite-scroll/scroll-list-container'
-import ReviewListItem from '../reviews/review-list-item'
+import { useReadPerformerLazyQuery } from '../../types/backend'
+import PerformerReviewList from '../reviews/performer-review-list'
+import { RenderHTML } from '../common/render-html'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -34,12 +29,6 @@ const useStyles = makeStyles(() =>
 
 interface PerformerListItemProps {
   item: Performer
-}
-
-function getReviews(data: ReadPerformerQuery | undefined): ReviewTileData[] {
-  const albums = data?.performer?.albumSet.edges ?? []
-  const reviews = albums.flatMap(edge => edge?.node?.reviewSet.edges ?? [])
-  return reviews.map(edge => edge?.node).filter(notEmpty)
 }
 
 export default function PerformerListItem(props: PerformerListItemProps) {
@@ -72,14 +61,9 @@ export default function PerformerListItem(props: PerformerListItemProps) {
           </ExpansionPanelSummary>
           <ExpansionPanelDetails className={classes.details}>
             <Typography variant="body2" color="textSecondary" component="p">
-              {data?.performer?.bio?.summary ?? ''}
+              <RenderHTML html={data?.performer?.bio?.summary ?? ''} />
             </Typography>
-            <ScrollListContainer
-              items={getReviews(data)}
-              loading={loading}
-              renderItem={item => <ReviewListItem item={item} imageSize={2} />}
-              header={<Typography variant="h6">Reviews</Typography>}
-            />
+            <PerformerReviewList data={data} loading={loading} />
           </ExpansionPanelDetails>
         </ExpansionPanel>
       ) : (

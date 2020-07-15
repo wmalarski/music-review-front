@@ -1,10 +1,6 @@
 query ReadPerformer($id: ID!) {
   performer(id: $id) {
     id
-    image {
-      url
-      size
-    }
     bio {
       summary
     }

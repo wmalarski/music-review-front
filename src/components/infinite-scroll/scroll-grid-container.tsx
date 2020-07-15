@@ -16,7 +16,7 @@ interface ScrollGridProps<T> {
   cellHeight: number | 'auto' | undefined
   cols: number
   direction: 'horizontal' | 'vertical'
-  header: JSX.Element
+  header: JSX.Element | string
 }
 
 export default function ScrollGridContainer<T>(props: ScrollGridProps<T>) {

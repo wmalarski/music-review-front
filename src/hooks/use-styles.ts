@@ -5,6 +5,7 @@ export const useMainListStyles = makeStyles((theme: Theme) =>
     root: {
       marginTop: theme.spacing(4),
       marginBottom: theme.spacing(4),
+      paddingTop: theme.spacing(4),
       paddingBottom: theme.spacing(2),
       display: 'flex',
       flexWrap: 'wrap',

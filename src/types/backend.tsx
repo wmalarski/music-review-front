@@ -755,6 +755,39 @@ export type DeletePerformerMutation = (
   )> }
 );
 
+export type ReadPerformerAlbumsQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type ReadPerformerAlbumsQuery = (
+  { __typename?: 'Query' }
+  & { performer?: Maybe<(
+    { __typename?: 'PerformerType' }
+    & Pick<PerformerType, 'id' | 'name'>
+    & { bio?: Maybe<(
+      { __typename?: 'WikiInfoType' }
+      & Pick<WikiInfoType, 'summary' | 'content'>
+    )>, albumSet: (
+      { __typename?: 'AlbumTypeConnection' }
+      & { edges: Array<Maybe<(
+        { __typename?: 'AlbumTypeEdge' }
+        & { node?: Maybe<(
+          { __typename?: 'AlbumType' }
+          & Pick<AlbumType, 'id' | 'name' | 'year' | 'mbid'>
+          & { image: Array<(
+            { __typename?: 'ImageType' }
+            & Pick<ImageType, 'url'>
+          )>, performer: (
+            { __typename?: 'PerformerType' }
+            & Pick<PerformerType, 'id' | 'name'>
+          ) }
+        )> }
+      )>> }
+    ) }
+  )> }
+);
+
 export type ReadPerformerMbidQueryVariables = Exact<{
   name: Scalars['String'];
 }>;
@@ -822,10 +855,7 @@ export type ReadPerformerQuery = (
   & { performer?: Maybe<(
     { __typename?: 'PerformerType' }
     & Pick<PerformerType, 'id'>
-    & { image?: Maybe<Array<(
-      { __typename?: 'ImageType' }
-      & Pick<ImageType, 'url' | 'size'>
-    )>>, bio?: Maybe<(
+    & { bio?: Maybe<(
       { __typename?: 'WikiInfoType' }
       & Pick<WikiInfoType, 'summary'>
     )>, albumSet: (
@@ -1363,6 +1393,61 @@ export function useDeletePerformerMutation(baseOptions?: ApolloReactHooks.Mutati
 export type DeletePerformerMutationHookResult = ReturnType<typeof useDeletePerformerMutation>;
 export type DeletePerformerMutationResult = ApolloReactCommon.MutationResult<DeletePerformerMutation>;
 export type DeletePerformerMutationOptions = ApolloReactCommon.BaseMutationOptions<DeletePerformerMutation, DeletePerformerMutationVariables>;
+export const ReadPerformerAlbumsDocument = gql`
+    query ReadPerformerAlbums($id: ID!) {
+  performer(id: $id) {
+    id
+    name
+    bio {
+      summary
+      content
+    }
+    albumSet {
+      edges {
+        node {
+          id
+          name
+          year
+          mbid
+          image {
+            url
+          }
+          performer {
+            id
+            name
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useReadPerformerAlbumsQuery__
+ *
+ * To run a query within a React component, call `useReadPerformerAlbumsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useReadPerformerAlbumsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useReadPerformerAlbumsQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useReadPerformerAlbumsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<ReadPerformerAlbumsQuery, ReadPerformerAlbumsQueryVariables>) {
+        return ApolloReactHooks.useQuery<ReadPerformerAlbumsQuery, ReadPerformerAlbumsQueryVariables>(ReadPerformerAlbumsDocument, baseOptions);
+      }
+export function useReadPerformerAlbumsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ReadPerformerAlbumsQuery, ReadPerformerAlbumsQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<ReadPerformerAlbumsQuery, ReadPerformerAlbumsQueryVariables>(ReadPerformerAlbumsDocument, baseOptions);
+        }
+export type ReadPerformerAlbumsQueryHookResult = ReturnType<typeof useReadPerformerAlbumsQuery>;
+export type ReadPerformerAlbumsLazyQueryHookResult = ReturnType<typeof useReadPerformerAlbumsLazyQuery>;
+export type ReadPerformerAlbumsQueryResult = ApolloReactCommon.QueryResult<ReadPerformerAlbumsQuery, ReadPerformerAlbumsQueryVariables>;
 export const ReadPerformerMbidDocument = gql`
     query ReadPerformerMbid($name: String!) {
   performerCorrection(performer: $name) {
@@ -1467,10 +1552,6 @@ export const ReadPerformerDocument = gql`
     query ReadPerformer($id: ID!) {
   performer(id: $id) {
     id
-    image {
-      url
-      size
-    }
     bio {
       summary
     }

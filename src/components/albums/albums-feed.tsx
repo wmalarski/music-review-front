@@ -16,6 +16,7 @@ export interface AlbumTileData {
     summary: string
   }
   performer: {
+    id: string
     name: string
   }
 }

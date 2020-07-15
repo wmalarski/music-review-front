@@ -5,14 +5,14 @@ interface ScrollListProps<T> {
   items: T[]
   renderItem: (item: T) => JSX.Element
   loading: boolean
-  header: JSX.Element
+  header: JSX.Element | string
 }
 
 export default function ScrollListContainer<T>(props: ScrollListProps<T>) {
   return (
     <div style={{ width: '100%' }}>
       {!props.loading && !props.items.length ? (
-        <Typography variant="h6">{props.header}</Typography>
+        <Typography>{props.header}</Typography>
       ) : (
         <List>
           <ListItem key="Subheader" style={{ height: 'auto' }}>

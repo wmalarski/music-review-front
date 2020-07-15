@@ -1,0 +1,27 @@
+query ReadPerformerAlbums($id: ID!) {
+  performer(id: $id) {
+    id
+    name
+    bio {
+      summary
+      content
+    }
+    albumSet {
+      edges {
+        node {
+          id
+          name
+          year
+          mbid
+          image {
+            url
+          }
+          performer {
+            id
+            name
+          }
+        }
+      }
+    }
+  }
+}

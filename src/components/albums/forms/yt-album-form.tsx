@@ -16,7 +16,10 @@ export default function YtAlbumForm(props: YtAlbumFormProps) {
   return (
     <IconButton
       color="inherit"
-      onClick={() => window.open(buildLink(props.album), '_blank')}
+      onClick={() => {
+        if (typeof window === 'undefined') return
+        window.open(buildLink(props.album), '_blank')
+      }}
       title="YouTube Search"
     >
       <YouTubeIcon />

@@ -10,6 +10,7 @@ interface PerformerProps {
 }
 
 export default function Performer(): ReactChild {
+  if (typeof window === 'undefined') return <p>Error</p>
   const props: PerformerProps = window.history.state
   return (
     <Layout>

@@ -27,6 +27,7 @@ interface ScrollGridProps<T> {
 function useWindowSize(ref: MutableRefObject<HTMLDivElement | null>): number {
   const [size, setSize] = useState(0)
   useLayoutEffect(() => {
+    if (typeof window === 'undefined') return
     const updateSize = () => {
       if (!ref.current) return
       setSize(ref.current.clientWidth)
@@ -42,7 +43,6 @@ export default function ScrollGridContainer<T>(props: ScrollGridProps<T>) {
   const classes = useStyles()
   const isHorizontal = props.direction === 'horizontal'
   const ref = useRef<HTMLDivElement | null>(null)
-  // const width = ref.current?.clientWidth ?? window.innerWidth
   const width = useWindowSize(ref)
   const cols = Math.floor(width / props.cellWidth)
   return (

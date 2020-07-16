@@ -4,7 +4,7 @@ import { Container, Theme, CssBaseline } from '@material-ui/core'
 
 import Header from './header'
 import Footer from './footer'
-import themes from '../theme'
+import themes from '../libs/theme'
 import useSiteMetadata from '../hooks/use-site-metadata'
 import useLocalStorage from '../hooks/use-local-storage'
 

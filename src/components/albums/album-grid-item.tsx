@@ -1,7 +1,16 @@
 import React from 'react'
-import { GridListTileBar } from '@material-ui/core'
+import { GridListTileBar, makeStyles, createStyles } from '@material-ui/core'
 import AlbumDetails from './album-details'
 import { AlbumTileData } from './albums-feed'
+
+export const useStyles = makeStyles(() =>
+  createStyles({
+    root: {
+      display: 'flex',
+      justifyContent: 'center',
+    },
+  }),
+)
 
 interface AlbumGridItemProps {
   album: AlbumTileData
@@ -9,8 +18,9 @@ interface AlbumGridItemProps {
 }
 
 export default function AlbumGridItem(props: AlbumGridItemProps) {
+  const classes = useStyles()
   return (
-    <>
+    <div className={classes.root}>
       <img
         src={props.album.image[props.imageIndex].url ?? ''}
         alt={props.album.name}
@@ -24,6 +34,6 @@ export default function AlbumGridItem(props: AlbumGridItemProps) {
         }
         actionIcon={<AlbumDetails album={props.album} />}
       />
-    </>
+    </div>
   )
 }

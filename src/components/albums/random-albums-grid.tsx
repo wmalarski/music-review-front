@@ -27,8 +27,8 @@ export default function RandomAlbumsGrid() {
             items={albums}
             loading={loading}
             renderItem={item => <AlbumGridItem album={item} imageIndex={3} />}
-            cellHeight={300}
-            cols={6}
+            cellHeight="auto"
+            cellWidth={300}
             direction="vertical"
             header={<p></p>}
           />

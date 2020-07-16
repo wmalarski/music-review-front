@@ -1,4 +1,9 @@
-import React from 'react'
+import React, {
+  useLayoutEffect,
+  useState,
+  useRef,
+  MutableRefObject,
+} from 'react'
 import { GridList, GridListTile, ListSubheader } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 
@@ -14,16 +19,34 @@ interface ScrollGridProps<T> {
   renderItem: (item: T) => JSX.Element
   loading: boolean
   cellHeight: number | 'auto' | undefined
-  cols: number
+  cellWidth: number
   direction: 'horizontal' | 'vertical'
   header: JSX.Element | string
+}
+
+function useWindowSize(ref: MutableRefObject<HTMLDivElement | null>): number {
+  const [size, setSize] = useState(0)
+  useLayoutEffect(() => {
+    const updateSize = () => {
+      if (!ref.current) return
+      setSize(ref.current.clientWidth)
+    }
+    window.addEventListener('resize', updateSize)
+    updateSize()
+    return () => window.removeEventListener('resize', updateSize)
+  }, [])
+  return size
 }
 
 export default function ScrollGridContainer<T>(props: ScrollGridProps<T>) {
   const classes = useStyles()
   const isHorizontal = props.direction === 'horizontal'
+  const ref = useRef<HTMLDivElement | null>(null)
+  // const width = ref.current?.clientWidth ?? window.innerWidth
+  const width = useWindowSize(ref)
+  const cols = Math.floor(width / props.cellWidth)
   return (
-    <div style={{ width: '100%' }}>
+    <div ref={ref} style={{ width: '100%' }}>
       {!props.loading && !props.items.length ? (
         <GridList cols={1} spacing={2}>
           <GridListTile key="Subheader" cols={1} style={{ height: 'auto' }}>
@@ -34,14 +57,10 @@ export default function ScrollGridContainer<T>(props: ScrollGridProps<T>) {
         <GridList
           className={isHorizontal ? classes.horizontal : undefined}
           cellHeight={props.cellHeight}
-          cols={props.cols}
+          cols={cols}
           spacing={2}
         >
-          <GridListTile
-            key="Subheader"
-            cols={props.cols}
-            style={{ height: 'auto' }}
-          >
+          <GridListTile key="Subheader" cols={cols} style={{ height: 'auto' }}>
             <ListSubheader component="div">{props.header}</ListSubheader>
           </GridListTile>
           {props.items.map((item, index) => (

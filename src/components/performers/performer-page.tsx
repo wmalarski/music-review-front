@@ -48,7 +48,7 @@ export default function PerformerPage(props: PerformerPageProps) {
         <RenderHTML html={reviews?.performer?.bio?.summary ?? ''} />
       </Typography>
       <Typography
-        variant="body2"
+        variant="body1"
         color="textSecondary"
         className={contentClasses.text}
       >

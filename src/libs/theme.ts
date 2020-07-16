@@ -11,10 +11,14 @@ const makeTheme = (variant: ThemeOptions): Theme => {
   const common = {
     palette: {
       primary: {
-        main: '#542c85',
+        main: '#111111',
       },
       secondary: {
         main: '#19857b',
+      },
+      background: {
+        paper: '#222222',
+        default: '#111111',
       },
       error: {
         main: red.A400,

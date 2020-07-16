@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react'
 import { ThemeProvider } from '@material-ui/styles'
 import { Theme, CssBaseline } from '@material-ui/core'
-import themes from '../theme'
+import themes from './theme'
 import { ApolloProvider } from '@apollo/client'
 import { client } from './apollo'
 

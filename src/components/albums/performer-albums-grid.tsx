@@ -31,8 +31,8 @@ export default function PerformerAlbumsGrid(props: PerformerAlbumsGridProps) {
       items={props.item.albumSet.edges.map(edge => edge?.node).filter(notEmpty)}
       loading={false}
       renderItem={item => <AlbumGridItem album={item} imageIndex={3} />}
-      cellHeight={300}
-      cols={6}
+      cellHeight="auto"
+      cellWidth={300}
       direction="vertical"
       header={
         <div className={classes.header}>

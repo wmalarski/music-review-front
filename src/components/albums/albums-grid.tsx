@@ -28,11 +28,11 @@ export default function AlbumsGrid() {
             <ScrollGridContainer
               items={albums}
               loading={loading}
+              cellWidth={300}
               renderItem={item => <AlbumGridItem album={item} imageIndex={3} />}
-              cellHeight={300}
-              cols={6}
+              cellHeight="auto"
               direction="vertical"
-              header={<p></p>}
+              header={''}
             />
           )}
         </AlbumsFeed>

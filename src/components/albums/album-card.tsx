@@ -74,7 +74,7 @@ export default function AlbumCard(props: AlbumCardProps) {
         </Typography>
         {props.details?.album ? (
           <div className={classes.controls}>
-            <Typography variant="body2" color="textSecondary" component="p">
+            <Typography variant="body1" color="textSecondary" component="p">
               <RenderHTML html={props.details?.album?.wiki?.summary ?? ''} />
             </Typography>
             <ScrollListContainer

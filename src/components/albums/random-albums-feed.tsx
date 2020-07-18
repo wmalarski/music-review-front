@@ -11,10 +11,12 @@ interface RandomAlbumsFeedProps {
     loading: boolean
   }) => JSX.Element
   first: number
+  yearGt: number
+  yearLt: number
 }
 
 export default function RandomAlbumsFeed(props: RandomAlbumsFeedProps) {
-  const { loading, data, refetch } = useReadRandomAlbumsQuery({
+  const { loading, data, fetchMore } = useReadRandomAlbumsQuery({
     variables: {
       after: null,
       first: props.first,
@@ -32,7 +34,20 @@ export default function RandomAlbumsFeed(props: RandomAlbumsFeedProps) {
   return (
     <>
       {props.children({ albums: items, loading })}
-      <Button color="inherit" onClick={() => refetch()} fullWidth>
+      <Button
+        color="inherit"
+        onClick={() =>
+          fetchMore({
+            variables: {
+              after: null,
+              first: props.first,
+              yearGt: props.yearGt,
+              yearLt: props.yearLt,
+            },
+          })
+        }
+        fullWidth
+      >
         Reload
       </Button>
     </>

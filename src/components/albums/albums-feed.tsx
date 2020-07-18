@@ -1,5 +1,8 @@
 import React from 'react'
-import { useReadAlbumsQuery } from '../../types/backend'
+import {
+  useReadAlbumsQuery,
+  ReadAlbumsQueryVariables,
+} from '../../types/backend'
 import { notEmpty } from '../../libs/utils'
 import InfiniteScrollWrapper from '../infinite-scroll/infinite-scroll-wrapper'
 import FormProgress from '../common/form-progress'
@@ -32,10 +35,12 @@ interface AlbumsFeedProps {
 }
 
 export default function AlbumsFeed(props: AlbumsFeedProps) {
-  const variables = {
+  const variables: ReadAlbumsQueryVariables = {
     after: null,
     first: 10,
-    title: props.title,
+    name: props.title,
+    yearGt: props.yearGt,
+    yearLt: props.yearLt,
   }
 
   const { loading, data, fetchMore } = useReadAlbumsQuery({

@@ -1,5 +1,15 @@
-query ReadRandomAlbums($after: String, $first: Int) {
-  randomAlbumSet(after: $after, first: $first) {
+query ReadRandomAlbums(
+  $after: String
+  $first: Int
+  $yearGt: Float
+  $yearLt: Float
+) {
+  randomAlbumSet(
+    after: $after
+    first: $first
+    year_Gt: $yearGt
+    year_Lt: $yearLt
+  ) {
     pageInfo {
       hasNextPage
       endCursor

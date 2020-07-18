@@ -357,6 +357,8 @@ export type QueryAlbumSetArgs = {
   year?: Maybe<Scalars['Int']>;
   performer_Name?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
+  year_Gt?: Maybe<Scalars['Float']>;
+  year_Lt?: Maybe<Scalars['Float']>;
   orderBy?: Maybe<Scalars['String']>;
 };
 
@@ -367,6 +369,8 @@ export type QueryRandomAlbumSetArgs = {
   first?: Maybe<Scalars['Int']>;
   last?: Maybe<Scalars['Int']>;
   year?: Maybe<Scalars['Int']>;
+  year_Gt?: Maybe<Scalars['Float']>;
+  year_Lt?: Maybe<Scalars['Float']>;
 };
 
 
@@ -648,6 +652,8 @@ export type ReadAlbumsQueryVariables = Exact<{
   after?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
+  yearGt?: Maybe<Scalars['Float']>;
+  yearLt?: Maybe<Scalars['Float']>;
 }>;
 
 
@@ -678,6 +684,8 @@ export type ReadAlbumsQuery = (
 export type ReadRandomAlbumsQueryVariables = Exact<{
   after?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
+  yearGt?: Maybe<Scalars['Float']>;
+  yearLt?: Maybe<Scalars['Float']>;
 }>;
 
 
@@ -835,7 +843,7 @@ export type ReadPerformersQuery = (
                 & Pick<ImageType, 'url'>
               )>, performer: (
                 { __typename?: 'PerformerType' }
-                & Pick<PerformerType, 'name'>
+                & Pick<PerformerType, 'id' | 'name'>
               ) }
             )> }
           )>> }
@@ -1175,8 +1183,8 @@ export type ReadAlbumMbidQueryHookResult = ReturnType<typeof useReadAlbumMbidQue
 export type ReadAlbumMbidLazyQueryHookResult = ReturnType<typeof useReadAlbumMbidLazyQuery>;
 export type ReadAlbumMbidQueryResult = ApolloReactCommon.QueryResult<ReadAlbumMbidQuery, ReadAlbumMbidQueryVariables>;
 export const ReadAlbumsDocument = gql`
-    query ReadAlbums($after: String, $first: Int, $name: String) {
-  albumSet(after: $after, first: $first, name: $name) {
+    query ReadAlbums($after: String, $first: Int, $name: String, $yearGt: Float, $yearLt: Float) {
+  albumSet(after: $after, first: $first, name: $name, year_Gt: $yearGt, year_Lt: $yearLt) {
     pageInfo {
       hasNextPage
       endCursor
@@ -1216,6 +1224,8 @@ export const ReadAlbumsDocument = gql`
  *      after: // value for 'after'
  *      first: // value for 'first'
  *      name: // value for 'name'
+ *      yearGt: // value for 'yearGt'
+ *      yearLt: // value for 'yearLt'
  *   },
  * });
  */
@@ -1229,8 +1239,8 @@ export type ReadAlbumsQueryHookResult = ReturnType<typeof useReadAlbumsQuery>;
 export type ReadAlbumsLazyQueryHookResult = ReturnType<typeof useReadAlbumsLazyQuery>;
 export type ReadAlbumsQueryResult = ApolloReactCommon.QueryResult<ReadAlbumsQuery, ReadAlbumsQueryVariables>;
 export const ReadRandomAlbumsDocument = gql`
-    query ReadRandomAlbums($after: String, $first: Int) {
-  randomAlbumSet(after: $after, first: $first) {
+    query ReadRandomAlbums($after: String, $first: Int, $yearGt: Float, $yearLt: Float) {
+  randomAlbumSet(after: $after, first: $first, year_Gt: $yearGt, year_Lt: $yearLt) {
     pageInfo {
       hasNextPage
       endCursor
@@ -1269,6 +1279,8 @@ export const ReadRandomAlbumsDocument = gql`
  *   variables: {
  *      after: // value for 'after'
  *      first: // value for 'first'
+ *      yearGt: // value for 'yearGt'
+ *      yearLt: // value for 'yearLt'
  *   },
  * });
  */
@@ -1510,6 +1522,7 @@ export const ReadPerformersDocument = gql`
               }
               created
               performer {
+                id
                 name
               }
             }

@@ -1,5 +1,17 @@
-query ReadAlbums($after: String, $first: Int, $name: String) {
-  albumSet(after: $after, first: $first, name: $name) {
+query ReadAlbums(
+  $after: String
+  $first: Int
+  $name: String
+  $yearGt: Float
+  $yearLt: Float
+) {
+  albumSet(
+    after: $after
+    first: $first
+    name: $name
+    year_Gt: $yearGt
+    year_Lt: $yearLt
+  ) {
     pageInfo {
       hasNextPage
       endCursor

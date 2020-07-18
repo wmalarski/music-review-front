@@ -25,6 +25,7 @@ query ReadPerformers($after: String, $first: Int, $name: String) {
               }
               created
               performer {
+                id
                 name
               }
             }

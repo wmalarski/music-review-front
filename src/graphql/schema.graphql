@@ -223,6 +223,8 @@ type Query {
     year: Int
     performer_Name: String
     name: String
+    year_Gt: Float
+    year_Lt: Float
     orderBy: String
   ): AlbumTypeConnection
   randomAlbumSet(
@@ -231,6 +233,8 @@ type Query {
     first: Int
     last: Int
     year: Int
+    year_Gt: Float
+    year_Lt: Float
   ): AlbumTypeConnection
   album(id: ID!): AlbumType
   _empty: String!

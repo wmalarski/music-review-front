@@ -1,6 +1,6 @@
 import React from 'react'
 import { RootRef, Button } from '@material-ui/core'
-import { useInfiniteScroll } from 'react-infinite-scroll-hook'
+import useInfiniteScroll from 'react-infinite-scroll-hook'
 
 interface InfiniteScrollWrapperProps {
   hasNextPage: boolean

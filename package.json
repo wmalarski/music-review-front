@@ -51,7 +51,7 @@
     "yup": "^0.27.0"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "1.17.8",
+    "@graphql-codegen/cli": "1.17.9",
     "@graphql-codegen/introspection": "^1.17.8",
     "@graphql-codegen/typescript": "^1.17.9",
     "@graphql-codegen/typescript-graphql-files-modules": "1.17.8",

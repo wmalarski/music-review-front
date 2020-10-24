@@ -1,6 +1,7 @@
 query ReadPerformer($id: ID!) {
   performer(id: $id) {
     id
+    name
     bio {
       summary
     }

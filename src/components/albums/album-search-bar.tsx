@@ -30,21 +30,25 @@ export default function AlbumSearchBar(props: AlbumSearchBarProps) {
 
   return (
     <div className={searchBarClasses.root}>
-      <TextField
-        id="standard-search"
-        label="Search field"
-        type="search"
-        value={title}
-        fullWidth
-        onChange={event => setTitle(event.target.value)}
-      />
-      <AlbumSlider setRange={setRange} range={range} />
-      <Button
-        color="inherit"
-        onClick={() => props.onClicked(title, range[0], range[1])}
+      <form
+        onSubmit={event => {
+          event.preventDefault()
+          props.onClicked(title, range[0], range[1])
+        }}
       >
-        <SearchIcon /> Search
-      </Button>
+        <TextField
+          id="standard-search"
+          label="Search field"
+          type="search"
+          value={title}
+          fullWidth
+          onChange={event => setTitle(event.target.value)}
+        />
+        <AlbumSlider setRange={setRange} range={range} />
+        <Button type="submit" color="inherit">
+          <SearchIcon /> Search
+        </Button>
+      </form>
     </div>
   )
 }

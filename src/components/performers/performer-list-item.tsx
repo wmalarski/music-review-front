@@ -1,19 +1,20 @@
-import React, { useState } from 'react'
 import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  createStyles,
   ListItemText,
   makeStyles,
-  createStyles,
-  ExpansionPanel,
-  ExpansionPanelSummary,
-  ExpansionPanelDetails,
   Typography,
 } from '@material-ui/core'
-import { Performer } from './performers-feed'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import PerformerAlbumsGrid from '../albums/performer-albums-grid'
+import React, { useEffect, useState } from 'react'
+
 import { useReadPerformerLazyQuery } from '../../types/backend'
-import PerformerReviewList from '../reviews/performer-review-list'
+import PerformerAlbumsGrid from '../albums/performer-albums-grid'
 import { RenderHTML } from '../common/render-html'
+import PerformerReviewList from '../reviews/performer-review-list'
+import { Performer } from './performers-feed'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -40,32 +41,28 @@ export default function PerformerListItem(props: PerformerListItemProps) {
     },
   })
 
+  useEffect(() => {
+    if (expanded) loadPerformer()
+  }, [expanded, loadPerformer])
+
   return (
     <>
       {props.item ? (
-        <ExpansionPanel
+        <Accordion
           expanded={expanded}
           className={classes.root}
-          onChange={(_, expanded) => {
-            if (expanded) {
-              loadPerformer()
-            }
-          }}
+          onChange={(_, expanded) => setExpanded(expanded)}
         >
-          <ExpansionPanelSummary
-            expandIcon={
-              <ExpandMoreIcon onClick={() => setExpanded(!expanded)} />
-            }
-          >
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
             <PerformerAlbumsGrid item={props.item} />
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails className={classes.details}>
-            <Typography variant="body2" color="textSecondary" component="p">
+          </AccordionSummary>
+          <AccordionDetails className={classes.details}>
+            <Typography variant="body2" color="textSecondary" component="div">
               <RenderHTML html={data?.performer?.bio?.summary ?? ''} />
             </Typography>
             <PerformerReviewList data={data} loading={loading} />
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
+          </AccordionDetails>
+        </Accordion>
       ) : (
         <ListItemText primary="Loading" />
       )}

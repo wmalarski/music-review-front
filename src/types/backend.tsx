@@ -1,8 +1,7 @@
-import gql from 'graphql-tag';
-import * as ApolloReactCommon from '@apollo/client';
-import * as ApolloReactHooks from '@apollo/client';
+import { gql } from '@apollo/client';
+import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
-export type Exact<T extends { [key: string]: any }> = { [K in keyof T]: T[K] };
+export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -862,7 +861,7 @@ export type ReadPerformerQuery = (
   { __typename?: 'Query' }
   & { performer?: Maybe<(
     { __typename?: 'PerformerType' }
-    & Pick<PerformerType, 'id'>
+    & Pick<PerformerType, 'id' | 'name'>
     & { bio?: Maybe<(
       { __typename?: 'WikiInfoType' }
       & Pick<WikiInfoType, 'summary'>
@@ -986,7 +985,7 @@ export const TokenAuthDocument = gql`
   }
 }
     `;
-export type TokenAuthMutationFn = ApolloReactCommon.MutationFunction<TokenAuthMutation, TokenAuthMutationVariables>;
+export type TokenAuthMutationFn = Apollo.MutationFunction<TokenAuthMutation, TokenAuthMutationVariables>;
 
 /**
  * __useTokenAuthMutation__
@@ -1006,12 +1005,12 @@ export type TokenAuthMutationFn = ApolloReactCommon.MutationFunction<TokenAuthMu
  *   },
  * });
  */
-export function useTokenAuthMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<TokenAuthMutation, TokenAuthMutationVariables>) {
-        return ApolloReactHooks.useMutation<TokenAuthMutation, TokenAuthMutationVariables>(TokenAuthDocument, baseOptions);
+export function useTokenAuthMutation(baseOptions?: Apollo.MutationHookOptions<TokenAuthMutation, TokenAuthMutationVariables>) {
+        return Apollo.useMutation<TokenAuthMutation, TokenAuthMutationVariables>(TokenAuthDocument, baseOptions);
       }
 export type TokenAuthMutationHookResult = ReturnType<typeof useTokenAuthMutation>;
-export type TokenAuthMutationResult = ApolloReactCommon.MutationResult<TokenAuthMutation>;
-export type TokenAuthMutationOptions = ApolloReactCommon.BaseMutationOptions<TokenAuthMutation, TokenAuthMutationVariables>;
+export type TokenAuthMutationResult = Apollo.MutationResult<TokenAuthMutation>;
+export type TokenAuthMutationOptions = Apollo.BaseMutationOptions<TokenAuthMutation, TokenAuthMutationVariables>;
 export const CreateAlbumDocument = gql`
     mutation CreateAlbum($performer: ID!, $name: String!, $year: Int!, $mbid: String!) {
   createAlbum(input: {performer: $performer, name: $name, year: $year, mbid: $mbid}) {
@@ -1021,7 +1020,7 @@ export const CreateAlbumDocument = gql`
   }
 }
     `;
-export type CreateAlbumMutationFn = ApolloReactCommon.MutationFunction<CreateAlbumMutation, CreateAlbumMutationVariables>;
+export type CreateAlbumMutationFn = Apollo.MutationFunction<CreateAlbumMutation, CreateAlbumMutationVariables>;
 
 /**
  * __useCreateAlbumMutation__
@@ -1043,12 +1042,12 @@ export type CreateAlbumMutationFn = ApolloReactCommon.MutationFunction<CreateAlb
  *   },
  * });
  */
-export function useCreateAlbumMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<CreateAlbumMutation, CreateAlbumMutationVariables>) {
-        return ApolloReactHooks.useMutation<CreateAlbumMutation, CreateAlbumMutationVariables>(CreateAlbumDocument, baseOptions);
+export function useCreateAlbumMutation(baseOptions?: Apollo.MutationHookOptions<CreateAlbumMutation, CreateAlbumMutationVariables>) {
+        return Apollo.useMutation<CreateAlbumMutation, CreateAlbumMutationVariables>(CreateAlbumDocument, baseOptions);
       }
 export type CreateAlbumMutationHookResult = ReturnType<typeof useCreateAlbumMutation>;
-export type CreateAlbumMutationResult = ApolloReactCommon.MutationResult<CreateAlbumMutation>;
-export type CreateAlbumMutationOptions = ApolloReactCommon.BaseMutationOptions<CreateAlbumMutation, CreateAlbumMutationVariables>;
+export type CreateAlbumMutationResult = Apollo.MutationResult<CreateAlbumMutation>;
+export type CreateAlbumMutationOptions = Apollo.BaseMutationOptions<CreateAlbumMutation, CreateAlbumMutationVariables>;
 export const DeleteAlbumDocument = gql`
     mutation DeleteAlbum($id: ID!) {
   deleteAlbum(input: {album: $id}) {
@@ -1056,7 +1055,7 @@ export const DeleteAlbumDocument = gql`
   }
 }
     `;
-export type DeleteAlbumMutationFn = ApolloReactCommon.MutationFunction<DeleteAlbumMutation, DeleteAlbumMutationVariables>;
+export type DeleteAlbumMutationFn = Apollo.MutationFunction<DeleteAlbumMutation, DeleteAlbumMutationVariables>;
 
 /**
  * __useDeleteAlbumMutation__
@@ -1075,12 +1074,12 @@ export type DeleteAlbumMutationFn = ApolloReactCommon.MutationFunction<DeleteAlb
  *   },
  * });
  */
-export function useDeleteAlbumMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<DeleteAlbumMutation, DeleteAlbumMutationVariables>) {
-        return ApolloReactHooks.useMutation<DeleteAlbumMutation, DeleteAlbumMutationVariables>(DeleteAlbumDocument, baseOptions);
+export function useDeleteAlbumMutation(baseOptions?: Apollo.MutationHookOptions<DeleteAlbumMutation, DeleteAlbumMutationVariables>) {
+        return Apollo.useMutation<DeleteAlbumMutation, DeleteAlbumMutationVariables>(DeleteAlbumDocument, baseOptions);
       }
 export type DeleteAlbumMutationHookResult = ReturnType<typeof useDeleteAlbumMutation>;
-export type DeleteAlbumMutationResult = ApolloReactCommon.MutationResult<DeleteAlbumMutation>;
-export type DeleteAlbumMutationOptions = ApolloReactCommon.BaseMutationOptions<DeleteAlbumMutation, DeleteAlbumMutationVariables>;
+export type DeleteAlbumMutationResult = Apollo.MutationResult<DeleteAlbumMutation>;
+export type DeleteAlbumMutationOptions = Apollo.BaseMutationOptions<DeleteAlbumMutation, DeleteAlbumMutationVariables>;
 export const AlbumDetailsDocument = gql`
     query AlbumDetails($album: ID!) {
   album(id: $album) {
@@ -1135,15 +1134,15 @@ export const AlbumDetailsDocument = gql`
  *   },
  * });
  */
-export function useAlbumDetailsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<AlbumDetailsQuery, AlbumDetailsQueryVariables>) {
-        return ApolloReactHooks.useQuery<AlbumDetailsQuery, AlbumDetailsQueryVariables>(AlbumDetailsDocument, baseOptions);
+export function useAlbumDetailsQuery(baseOptions?: Apollo.QueryHookOptions<AlbumDetailsQuery, AlbumDetailsQueryVariables>) {
+        return Apollo.useQuery<AlbumDetailsQuery, AlbumDetailsQueryVariables>(AlbumDetailsDocument, baseOptions);
       }
-export function useAlbumDetailsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<AlbumDetailsQuery, AlbumDetailsQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<AlbumDetailsQuery, AlbumDetailsQueryVariables>(AlbumDetailsDocument, baseOptions);
+export function useAlbumDetailsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AlbumDetailsQuery, AlbumDetailsQueryVariables>) {
+          return Apollo.useLazyQuery<AlbumDetailsQuery, AlbumDetailsQueryVariables>(AlbumDetailsDocument, baseOptions);
         }
 export type AlbumDetailsQueryHookResult = ReturnType<typeof useAlbumDetailsQuery>;
 export type AlbumDetailsLazyQueryHookResult = ReturnType<typeof useAlbumDetailsLazyQuery>;
-export type AlbumDetailsQueryResult = ApolloReactCommon.QueryResult<AlbumDetailsQuery, AlbumDetailsQueryVariables>;
+export type AlbumDetailsQueryResult = Apollo.QueryResult<AlbumDetailsQuery, AlbumDetailsQueryVariables>;
 export const ReadAlbumMbidDocument = gql`
     query ReadAlbumMbid($album: String!, $limit: Int) {
   searchAlbums(album: $album, limit: $limit) {
@@ -1173,15 +1172,15 @@ export const ReadAlbumMbidDocument = gql`
  *   },
  * });
  */
-export function useReadAlbumMbidQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<ReadAlbumMbidQuery, ReadAlbumMbidQueryVariables>) {
-        return ApolloReactHooks.useQuery<ReadAlbumMbidQuery, ReadAlbumMbidQueryVariables>(ReadAlbumMbidDocument, baseOptions);
+export function useReadAlbumMbidQuery(baseOptions?: Apollo.QueryHookOptions<ReadAlbumMbidQuery, ReadAlbumMbidQueryVariables>) {
+        return Apollo.useQuery<ReadAlbumMbidQuery, ReadAlbumMbidQueryVariables>(ReadAlbumMbidDocument, baseOptions);
       }
-export function useReadAlbumMbidLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ReadAlbumMbidQuery, ReadAlbumMbidQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<ReadAlbumMbidQuery, ReadAlbumMbidQueryVariables>(ReadAlbumMbidDocument, baseOptions);
+export function useReadAlbumMbidLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ReadAlbumMbidQuery, ReadAlbumMbidQueryVariables>) {
+          return Apollo.useLazyQuery<ReadAlbumMbidQuery, ReadAlbumMbidQueryVariables>(ReadAlbumMbidDocument, baseOptions);
         }
 export type ReadAlbumMbidQueryHookResult = ReturnType<typeof useReadAlbumMbidQuery>;
 export type ReadAlbumMbidLazyQueryHookResult = ReturnType<typeof useReadAlbumMbidLazyQuery>;
-export type ReadAlbumMbidQueryResult = ApolloReactCommon.QueryResult<ReadAlbumMbidQuery, ReadAlbumMbidQueryVariables>;
+export type ReadAlbumMbidQueryResult = Apollo.QueryResult<ReadAlbumMbidQuery, ReadAlbumMbidQueryVariables>;
 export const ReadAlbumsDocument = gql`
     query ReadAlbums($after: String, $first: Int, $name: String, $yearGt: Float, $yearLt: Float) {
   albumSet(after: $after, first: $first, name: $name, year_Gt: $yearGt, year_Lt: $yearLt) {
@@ -1229,15 +1228,15 @@ export const ReadAlbumsDocument = gql`
  *   },
  * });
  */
-export function useReadAlbumsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<ReadAlbumsQuery, ReadAlbumsQueryVariables>) {
-        return ApolloReactHooks.useQuery<ReadAlbumsQuery, ReadAlbumsQueryVariables>(ReadAlbumsDocument, baseOptions);
+export function useReadAlbumsQuery(baseOptions?: Apollo.QueryHookOptions<ReadAlbumsQuery, ReadAlbumsQueryVariables>) {
+        return Apollo.useQuery<ReadAlbumsQuery, ReadAlbumsQueryVariables>(ReadAlbumsDocument, baseOptions);
       }
-export function useReadAlbumsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ReadAlbumsQuery, ReadAlbumsQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<ReadAlbumsQuery, ReadAlbumsQueryVariables>(ReadAlbumsDocument, baseOptions);
+export function useReadAlbumsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ReadAlbumsQuery, ReadAlbumsQueryVariables>) {
+          return Apollo.useLazyQuery<ReadAlbumsQuery, ReadAlbumsQueryVariables>(ReadAlbumsDocument, baseOptions);
         }
 export type ReadAlbumsQueryHookResult = ReturnType<typeof useReadAlbumsQuery>;
 export type ReadAlbumsLazyQueryHookResult = ReturnType<typeof useReadAlbumsLazyQuery>;
-export type ReadAlbumsQueryResult = ApolloReactCommon.QueryResult<ReadAlbumsQuery, ReadAlbumsQueryVariables>;
+export type ReadAlbumsQueryResult = Apollo.QueryResult<ReadAlbumsQuery, ReadAlbumsQueryVariables>;
 export const ReadRandomAlbumsDocument = gql`
     query ReadRandomAlbums($after: String, $first: Int, $yearGt: Float, $yearLt: Float) {
   randomAlbumSet(after: $after, first: $first, year_Gt: $yearGt, year_Lt: $yearLt) {
@@ -1284,15 +1283,15 @@ export const ReadRandomAlbumsDocument = gql`
  *   },
  * });
  */
-export function useReadRandomAlbumsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<ReadRandomAlbumsQuery, ReadRandomAlbumsQueryVariables>) {
-        return ApolloReactHooks.useQuery<ReadRandomAlbumsQuery, ReadRandomAlbumsQueryVariables>(ReadRandomAlbumsDocument, baseOptions);
+export function useReadRandomAlbumsQuery(baseOptions?: Apollo.QueryHookOptions<ReadRandomAlbumsQuery, ReadRandomAlbumsQueryVariables>) {
+        return Apollo.useQuery<ReadRandomAlbumsQuery, ReadRandomAlbumsQueryVariables>(ReadRandomAlbumsDocument, baseOptions);
       }
-export function useReadRandomAlbumsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ReadRandomAlbumsQuery, ReadRandomAlbumsQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<ReadRandomAlbumsQuery, ReadRandomAlbumsQueryVariables>(ReadRandomAlbumsDocument, baseOptions);
+export function useReadRandomAlbumsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ReadRandomAlbumsQuery, ReadRandomAlbumsQueryVariables>) {
+          return Apollo.useLazyQuery<ReadRandomAlbumsQuery, ReadRandomAlbumsQueryVariables>(ReadRandomAlbumsDocument, baseOptions);
         }
 export type ReadRandomAlbumsQueryHookResult = ReturnType<typeof useReadRandomAlbumsQuery>;
 export type ReadRandomAlbumsLazyQueryHookResult = ReturnType<typeof useReadRandomAlbumsLazyQuery>;
-export type ReadRandomAlbumsQueryResult = ApolloReactCommon.QueryResult<ReadRandomAlbumsQuery, ReadRandomAlbumsQueryVariables>;
+export type ReadRandomAlbumsQueryResult = Apollo.QueryResult<ReadRandomAlbumsQuery, ReadRandomAlbumsQueryVariables>;
 export const UpdateAlbumDocument = gql`
     mutation UpdateAlbum($id: ID!, $name: String, $year: Int, $mbid: String) {
   updateAlbum(input: {album: $id, name: $name, year: $year, mbid: $mbid}) {
@@ -1306,7 +1305,7 @@ export const UpdateAlbumDocument = gql`
   }
 }
     `;
-export type UpdateAlbumMutationFn = ApolloReactCommon.MutationFunction<UpdateAlbumMutation, UpdateAlbumMutationVariables>;
+export type UpdateAlbumMutationFn = Apollo.MutationFunction<UpdateAlbumMutation, UpdateAlbumMutationVariables>;
 
 /**
  * __useUpdateAlbumMutation__
@@ -1328,12 +1327,12 @@ export type UpdateAlbumMutationFn = ApolloReactCommon.MutationFunction<UpdateAlb
  *   },
  * });
  */
-export function useUpdateAlbumMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateAlbumMutation, UpdateAlbumMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdateAlbumMutation, UpdateAlbumMutationVariables>(UpdateAlbumDocument, baseOptions);
+export function useUpdateAlbumMutation(baseOptions?: Apollo.MutationHookOptions<UpdateAlbumMutation, UpdateAlbumMutationVariables>) {
+        return Apollo.useMutation<UpdateAlbumMutation, UpdateAlbumMutationVariables>(UpdateAlbumDocument, baseOptions);
       }
 export type UpdateAlbumMutationHookResult = ReturnType<typeof useUpdateAlbumMutation>;
-export type UpdateAlbumMutationResult = ApolloReactCommon.MutationResult<UpdateAlbumMutation>;
-export type UpdateAlbumMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateAlbumMutation, UpdateAlbumMutationVariables>;
+export type UpdateAlbumMutationResult = Apollo.MutationResult<UpdateAlbumMutation>;
+export type UpdateAlbumMutationOptions = Apollo.BaseMutationOptions<UpdateAlbumMutation, UpdateAlbumMutationVariables>;
 export const CreatePerformerDocument = gql`
     mutation CreatePerformer($name: String!, $albums: [AlbumInputType!], $mbid: String!) {
   createPerformer(input: {name: $name, mbid: $mbid, albums: $albums}) {
@@ -1346,7 +1345,7 @@ export const CreatePerformerDocument = gql`
   }
 }
     `;
-export type CreatePerformerMutationFn = ApolloReactCommon.MutationFunction<CreatePerformerMutation, CreatePerformerMutationVariables>;
+export type CreatePerformerMutationFn = Apollo.MutationFunction<CreatePerformerMutation, CreatePerformerMutationVariables>;
 
 /**
  * __useCreatePerformerMutation__
@@ -1367,12 +1366,12 @@ export type CreatePerformerMutationFn = ApolloReactCommon.MutationFunction<Creat
  *   },
  * });
  */
-export function useCreatePerformerMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<CreatePerformerMutation, CreatePerformerMutationVariables>) {
-        return ApolloReactHooks.useMutation<CreatePerformerMutation, CreatePerformerMutationVariables>(CreatePerformerDocument, baseOptions);
+export function useCreatePerformerMutation(baseOptions?: Apollo.MutationHookOptions<CreatePerformerMutation, CreatePerformerMutationVariables>) {
+        return Apollo.useMutation<CreatePerformerMutation, CreatePerformerMutationVariables>(CreatePerformerDocument, baseOptions);
       }
 export type CreatePerformerMutationHookResult = ReturnType<typeof useCreatePerformerMutation>;
-export type CreatePerformerMutationResult = ApolloReactCommon.MutationResult<CreatePerformerMutation>;
-export type CreatePerformerMutationOptions = ApolloReactCommon.BaseMutationOptions<CreatePerformerMutation, CreatePerformerMutationVariables>;
+export type CreatePerformerMutationResult = Apollo.MutationResult<CreatePerformerMutation>;
+export type CreatePerformerMutationOptions = Apollo.BaseMutationOptions<CreatePerformerMutation, CreatePerformerMutationVariables>;
 export const DeletePerformerDocument = gql`
     mutation DeletePerformer($performer: ID!) {
   deletePerformer(input: {performer: $performer}) {
@@ -1380,7 +1379,7 @@ export const DeletePerformerDocument = gql`
   }
 }
     `;
-export type DeletePerformerMutationFn = ApolloReactCommon.MutationFunction<DeletePerformerMutation, DeletePerformerMutationVariables>;
+export type DeletePerformerMutationFn = Apollo.MutationFunction<DeletePerformerMutation, DeletePerformerMutationVariables>;
 
 /**
  * __useDeletePerformerMutation__
@@ -1399,12 +1398,12 @@ export type DeletePerformerMutationFn = ApolloReactCommon.MutationFunction<Delet
  *   },
  * });
  */
-export function useDeletePerformerMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<DeletePerformerMutation, DeletePerformerMutationVariables>) {
-        return ApolloReactHooks.useMutation<DeletePerformerMutation, DeletePerformerMutationVariables>(DeletePerformerDocument, baseOptions);
+export function useDeletePerformerMutation(baseOptions?: Apollo.MutationHookOptions<DeletePerformerMutation, DeletePerformerMutationVariables>) {
+        return Apollo.useMutation<DeletePerformerMutation, DeletePerformerMutationVariables>(DeletePerformerDocument, baseOptions);
       }
 export type DeletePerformerMutationHookResult = ReturnType<typeof useDeletePerformerMutation>;
-export type DeletePerformerMutationResult = ApolloReactCommon.MutationResult<DeletePerformerMutation>;
-export type DeletePerformerMutationOptions = ApolloReactCommon.BaseMutationOptions<DeletePerformerMutation, DeletePerformerMutationVariables>;
+export type DeletePerformerMutationResult = Apollo.MutationResult<DeletePerformerMutation>;
+export type DeletePerformerMutationOptions = Apollo.BaseMutationOptions<DeletePerformerMutation, DeletePerformerMutationVariables>;
 export const ReadPerformerAlbumsDocument = gql`
     query ReadPerformerAlbums($id: ID!) {
   performer(id: $id) {
@@ -1451,15 +1450,15 @@ export const ReadPerformerAlbumsDocument = gql`
  *   },
  * });
  */
-export function useReadPerformerAlbumsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<ReadPerformerAlbumsQuery, ReadPerformerAlbumsQueryVariables>) {
-        return ApolloReactHooks.useQuery<ReadPerformerAlbumsQuery, ReadPerformerAlbumsQueryVariables>(ReadPerformerAlbumsDocument, baseOptions);
+export function useReadPerformerAlbumsQuery(baseOptions?: Apollo.QueryHookOptions<ReadPerformerAlbumsQuery, ReadPerformerAlbumsQueryVariables>) {
+        return Apollo.useQuery<ReadPerformerAlbumsQuery, ReadPerformerAlbumsQueryVariables>(ReadPerformerAlbumsDocument, baseOptions);
       }
-export function useReadPerformerAlbumsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ReadPerformerAlbumsQuery, ReadPerformerAlbumsQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<ReadPerformerAlbumsQuery, ReadPerformerAlbumsQueryVariables>(ReadPerformerAlbumsDocument, baseOptions);
+export function useReadPerformerAlbumsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ReadPerformerAlbumsQuery, ReadPerformerAlbumsQueryVariables>) {
+          return Apollo.useLazyQuery<ReadPerformerAlbumsQuery, ReadPerformerAlbumsQueryVariables>(ReadPerformerAlbumsDocument, baseOptions);
         }
 export type ReadPerformerAlbumsQueryHookResult = ReturnType<typeof useReadPerformerAlbumsQuery>;
 export type ReadPerformerAlbumsLazyQueryHookResult = ReturnType<typeof useReadPerformerAlbumsLazyQuery>;
-export type ReadPerformerAlbumsQueryResult = ApolloReactCommon.QueryResult<ReadPerformerAlbumsQuery, ReadPerformerAlbumsQueryVariables>;
+export type ReadPerformerAlbumsQueryResult = Apollo.QueryResult<ReadPerformerAlbumsQuery, ReadPerformerAlbumsQueryVariables>;
 export const ReadPerformerMbidDocument = gql`
     query ReadPerformerMbid($name: String!) {
   performerCorrection(performer: $name) {
@@ -1485,15 +1484,15 @@ export const ReadPerformerMbidDocument = gql`
  *   },
  * });
  */
-export function useReadPerformerMbidQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<ReadPerformerMbidQuery, ReadPerformerMbidQueryVariables>) {
-        return ApolloReactHooks.useQuery<ReadPerformerMbidQuery, ReadPerformerMbidQueryVariables>(ReadPerformerMbidDocument, baseOptions);
+export function useReadPerformerMbidQuery(baseOptions?: Apollo.QueryHookOptions<ReadPerformerMbidQuery, ReadPerformerMbidQueryVariables>) {
+        return Apollo.useQuery<ReadPerformerMbidQuery, ReadPerformerMbidQueryVariables>(ReadPerformerMbidDocument, baseOptions);
       }
-export function useReadPerformerMbidLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ReadPerformerMbidQuery, ReadPerformerMbidQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<ReadPerformerMbidQuery, ReadPerformerMbidQueryVariables>(ReadPerformerMbidDocument, baseOptions);
+export function useReadPerformerMbidLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ReadPerformerMbidQuery, ReadPerformerMbidQueryVariables>) {
+          return Apollo.useLazyQuery<ReadPerformerMbidQuery, ReadPerformerMbidQueryVariables>(ReadPerformerMbidDocument, baseOptions);
         }
 export type ReadPerformerMbidQueryHookResult = ReturnType<typeof useReadPerformerMbidQuery>;
 export type ReadPerformerMbidLazyQueryHookResult = ReturnType<typeof useReadPerformerMbidLazyQuery>;
-export type ReadPerformerMbidQueryResult = ApolloReactCommon.QueryResult<ReadPerformerMbidQuery, ReadPerformerMbidQueryVariables>;
+export type ReadPerformerMbidQueryResult = Apollo.QueryResult<ReadPerformerMbidQuery, ReadPerformerMbidQueryVariables>;
 export const ReadPerformersDocument = gql`
     query ReadPerformers($after: String, $first: Int, $name: String) {
   performerSet(after: $after, first: $first, name: $name) {
@@ -1552,19 +1551,20 @@ export const ReadPerformersDocument = gql`
  *   },
  * });
  */
-export function useReadPerformersQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<ReadPerformersQuery, ReadPerformersQueryVariables>) {
-        return ApolloReactHooks.useQuery<ReadPerformersQuery, ReadPerformersQueryVariables>(ReadPerformersDocument, baseOptions);
+export function useReadPerformersQuery(baseOptions?: Apollo.QueryHookOptions<ReadPerformersQuery, ReadPerformersQueryVariables>) {
+        return Apollo.useQuery<ReadPerformersQuery, ReadPerformersQueryVariables>(ReadPerformersDocument, baseOptions);
       }
-export function useReadPerformersLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ReadPerformersQuery, ReadPerformersQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<ReadPerformersQuery, ReadPerformersQueryVariables>(ReadPerformersDocument, baseOptions);
+export function useReadPerformersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ReadPerformersQuery, ReadPerformersQueryVariables>) {
+          return Apollo.useLazyQuery<ReadPerformersQuery, ReadPerformersQueryVariables>(ReadPerformersDocument, baseOptions);
         }
 export type ReadPerformersQueryHookResult = ReturnType<typeof useReadPerformersQuery>;
 export type ReadPerformersLazyQueryHookResult = ReturnType<typeof useReadPerformersLazyQuery>;
-export type ReadPerformersQueryResult = ApolloReactCommon.QueryResult<ReadPerformersQuery, ReadPerformersQueryVariables>;
+export type ReadPerformersQueryResult = Apollo.QueryResult<ReadPerformersQuery, ReadPerformersQueryVariables>;
 export const ReadPerformerDocument = gql`
     query ReadPerformer($id: ID!) {
   performer(id: $id) {
     id
+    name
     bio {
       summary
     }
@@ -1622,15 +1622,15 @@ export const ReadPerformerDocument = gql`
  *   },
  * });
  */
-export function useReadPerformerQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<ReadPerformerQuery, ReadPerformerQueryVariables>) {
-        return ApolloReactHooks.useQuery<ReadPerformerQuery, ReadPerformerQueryVariables>(ReadPerformerDocument, baseOptions);
+export function useReadPerformerQuery(baseOptions?: Apollo.QueryHookOptions<ReadPerformerQuery, ReadPerformerQueryVariables>) {
+        return Apollo.useQuery<ReadPerformerQuery, ReadPerformerQueryVariables>(ReadPerformerDocument, baseOptions);
       }
-export function useReadPerformerLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ReadPerformerQuery, ReadPerformerQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<ReadPerformerQuery, ReadPerformerQueryVariables>(ReadPerformerDocument, baseOptions);
+export function useReadPerformerLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ReadPerformerQuery, ReadPerformerQueryVariables>) {
+          return Apollo.useLazyQuery<ReadPerformerQuery, ReadPerformerQueryVariables>(ReadPerformerDocument, baseOptions);
         }
 export type ReadPerformerQueryHookResult = ReturnType<typeof useReadPerformerQuery>;
 export type ReadPerformerLazyQueryHookResult = ReturnType<typeof useReadPerformerLazyQuery>;
-export type ReadPerformerQueryResult = ApolloReactCommon.QueryResult<ReadPerformerQuery, ReadPerformerQueryVariables>;
+export type ReadPerformerQueryResult = Apollo.QueryResult<ReadPerformerQuery, ReadPerformerQueryVariables>;
 export const UpdatePerformerDocument = gql`
     mutation UpdatePerformer($performer: ID!, $name: String, $mbid: String) {
   updatePerformer(input: {performer: $performer, name: $name, mbid: $mbid}) {
@@ -1643,7 +1643,7 @@ export const UpdatePerformerDocument = gql`
   }
 }
     `;
-export type UpdatePerformerMutationFn = ApolloReactCommon.MutationFunction<UpdatePerformerMutation, UpdatePerformerMutationVariables>;
+export type UpdatePerformerMutationFn = Apollo.MutationFunction<UpdatePerformerMutation, UpdatePerformerMutationVariables>;
 
 /**
  * __useUpdatePerformerMutation__
@@ -1664,12 +1664,12 @@ export type UpdatePerformerMutationFn = ApolloReactCommon.MutationFunction<Updat
  *   },
  * });
  */
-export function useUpdatePerformerMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdatePerformerMutation, UpdatePerformerMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdatePerformerMutation, UpdatePerformerMutationVariables>(UpdatePerformerDocument, baseOptions);
+export function useUpdatePerformerMutation(baseOptions?: Apollo.MutationHookOptions<UpdatePerformerMutation, UpdatePerformerMutationVariables>) {
+        return Apollo.useMutation<UpdatePerformerMutation, UpdatePerformerMutationVariables>(UpdatePerformerDocument, baseOptions);
       }
 export type UpdatePerformerMutationHookResult = ReturnType<typeof useUpdatePerformerMutation>;
-export type UpdatePerformerMutationResult = ApolloReactCommon.MutationResult<UpdatePerformerMutation>;
-export type UpdatePerformerMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdatePerformerMutation, UpdatePerformerMutationVariables>;
+export type UpdatePerformerMutationResult = Apollo.MutationResult<UpdatePerformerMutation>;
+export type UpdatePerformerMutationOptions = Apollo.BaseMutationOptions<UpdatePerformerMutation, UpdatePerformerMutationVariables>;
 export const ReviewAlbumDocument = gql`
     mutation ReviewAlbum($album: ID!, $review: String!, $rating: Float!) {
   createReview(input: {album: $album, review: $review, rating: $rating}) {
@@ -1679,7 +1679,7 @@ export const ReviewAlbumDocument = gql`
   }
 }
     `;
-export type ReviewAlbumMutationFn = ApolloReactCommon.MutationFunction<ReviewAlbumMutation, ReviewAlbumMutationVariables>;
+export type ReviewAlbumMutationFn = Apollo.MutationFunction<ReviewAlbumMutation, ReviewAlbumMutationVariables>;
 
 /**
  * __useReviewAlbumMutation__
@@ -1700,12 +1700,12 @@ export type ReviewAlbumMutationFn = ApolloReactCommon.MutationFunction<ReviewAlb
  *   },
  * });
  */
-export function useReviewAlbumMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<ReviewAlbumMutation, ReviewAlbumMutationVariables>) {
-        return ApolloReactHooks.useMutation<ReviewAlbumMutation, ReviewAlbumMutationVariables>(ReviewAlbumDocument, baseOptions);
+export function useReviewAlbumMutation(baseOptions?: Apollo.MutationHookOptions<ReviewAlbumMutation, ReviewAlbumMutationVariables>) {
+        return Apollo.useMutation<ReviewAlbumMutation, ReviewAlbumMutationVariables>(ReviewAlbumDocument, baseOptions);
       }
 export type ReviewAlbumMutationHookResult = ReturnType<typeof useReviewAlbumMutation>;
-export type ReviewAlbumMutationResult = ApolloReactCommon.MutationResult<ReviewAlbumMutation>;
-export type ReviewAlbumMutationOptions = ApolloReactCommon.BaseMutationOptions<ReviewAlbumMutation, ReviewAlbumMutationVariables>;
+export type ReviewAlbumMutationResult = Apollo.MutationResult<ReviewAlbumMutation>;
+export type ReviewAlbumMutationOptions = Apollo.BaseMutationOptions<ReviewAlbumMutation, ReviewAlbumMutationVariables>;
 export const ReadReviewsDocument = gql`
     query ReadReviews($after: String, $first: Int, $orderBy: String) {
   reviewSet(after: $after, first: $first, orderBy: $orderBy) {
@@ -1761,12 +1761,12 @@ export const ReadReviewsDocument = gql`
  *   },
  * });
  */
-export function useReadReviewsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<ReadReviewsQuery, ReadReviewsQueryVariables>) {
-        return ApolloReactHooks.useQuery<ReadReviewsQuery, ReadReviewsQueryVariables>(ReadReviewsDocument, baseOptions);
+export function useReadReviewsQuery(baseOptions?: Apollo.QueryHookOptions<ReadReviewsQuery, ReadReviewsQueryVariables>) {
+        return Apollo.useQuery<ReadReviewsQuery, ReadReviewsQueryVariables>(ReadReviewsDocument, baseOptions);
       }
-export function useReadReviewsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ReadReviewsQuery, ReadReviewsQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<ReadReviewsQuery, ReadReviewsQueryVariables>(ReadReviewsDocument, baseOptions);
+export function useReadReviewsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ReadReviewsQuery, ReadReviewsQueryVariables>) {
+          return Apollo.useLazyQuery<ReadReviewsQuery, ReadReviewsQueryVariables>(ReadReviewsDocument, baseOptions);
         }
 export type ReadReviewsQueryHookResult = ReturnType<typeof useReadReviewsQuery>;
 export type ReadReviewsLazyQueryHookResult = ReturnType<typeof useReadReviewsLazyQuery>;
-export type ReadReviewsQueryResult = ApolloReactCommon.QueryResult<ReadReviewsQuery, ReadReviewsQueryVariables>;
+export type ReadReviewsQueryResult = Apollo.QueryResult<ReadReviewsQuery, ReadReviewsQueryVariables>;

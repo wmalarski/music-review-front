@@ -13,18 +13,24 @@ export default function PerformerSearchBar(props: PerformerSearchBarProps) {
 
   return (
     <div className={classes.root}>
-      <TextField
-        id="standard-search"
-        label="Search field"
-        type="search"
-        value={name}
-        fullWidth
-        onChange={event => setName(event.target.value)}
-        onEnded={() => props.onClicked(name)}
-      />
-      <Button color="inherit" onClick={() => props.onClicked(name)}>
-        <SearchIcon /> Search
-      </Button>
+      <form
+        onSubmit={event => {
+          event.preventDefault()
+          props.onClicked(name)
+        }}
+      >
+        <TextField
+          id="standard-search"
+          label="Search field"
+          type="search"
+          value={name}
+          fullWidth
+          onChange={event => setName(event.target.value)}
+        />
+        <Button type="submit" color="inherit">
+          <SearchIcon /> Search
+        </Button>
+      </form>
     </div>
   )
 }

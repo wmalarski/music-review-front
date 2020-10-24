@@ -64,7 +64,7 @@ export default function AlbumCard(props: AlbumCardProps) {
         <Typography variant="subtitle1" color="textSecondary">
           <Link
             component={GatsbyLink}
-            to="/performer"
+            to={`/performer/?id=${album.performer.id}`}
             state={{ id: album.performer.id, name: album.performer.name }}
             color="inherit"
           >
@@ -74,7 +74,7 @@ export default function AlbumCard(props: AlbumCardProps) {
         </Typography>
         {props.details?.album ? (
           <div className={classes.controls}>
-            <Typography variant="body1" color="textSecondary" component="p">
+            <Typography variant="body1" color="textSecondary" component="div">
               <RenderHTML html={props.details?.album?.wiki?.summary ?? ''} />
             </Typography>
             <ScrollListContainer

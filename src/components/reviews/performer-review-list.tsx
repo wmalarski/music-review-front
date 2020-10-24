@@ -23,7 +23,7 @@ export default function PerformerReviewList(props: PerformerReviewListProps) {
       items={getReviews(props.data)}
       loading={props.loading}
       renderItem={item => <ReviewListItem item={item} imageSize={2} />}
-      header={<Typography>Reviews</Typography>}
+      header={<>Reviews</>}
     />
   )
 }

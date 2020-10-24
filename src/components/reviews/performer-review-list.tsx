@@ -1,10 +1,10 @@
 import React from 'react'
-import { Typography } from '@material-ui/core'
-import { ReadPerformerQuery } from '../../types/backend'
+
 import { notEmpty } from '../../libs/utils'
-import { ReviewTileData } from '../reviews/reviews-feed'
+import { ReadPerformerQuery } from '../../types/backend'
 import ScrollListContainer from '../infinite-scroll/scroll-list-container'
 import ReviewListItem from '../reviews/review-list-item'
+import { ReviewTileData } from '../reviews/reviews-feed'
 
 interface PerformerReviewListProps {
   data: ReadPerformerQuery | undefined
